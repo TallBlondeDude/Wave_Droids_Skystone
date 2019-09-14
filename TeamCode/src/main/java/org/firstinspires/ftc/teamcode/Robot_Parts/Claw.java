@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.Robot_Parts;
 
 public class Claw {
-    public void SetClawPosition(clawPostion) {
+    public void SetPosition(double clawPostion) {
 
 
     }

@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 
 public class Color_Sensor extends OpMode {
-    ColorSensor color_sensor;
+    ColorSensor color_sensor = null;
 
     @Override
     public void init() {
@@ -18,14 +18,14 @@ public class Color_Sensor extends OpMode {
 
     }
 
-    int redGreen = color_sensor.red() * color_sensor.green();
-    int blueGreen = color_sensor.blue() * color_sensor.green();
 
-    String Color() {
+
+    public String Color() {
+
         String color = "None";
-        if (color_sensor.blueGreen < color_sensor.red()) {
+        if (color_sensor.blue() * color_sensor.green() < color_sensor.red()) {
             color = "Red";
-        } else if (color_sensor.redGreen < color_sensor.blue()) {
+        } else if (color_sensor.red() * color_sensor.green() < color_sensor.blue()) {
             color = "Blue";
         }
         return color;

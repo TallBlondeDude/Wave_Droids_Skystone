@@ -9,6 +9,7 @@ public class Moters extends LinearOpMode {
     public DcMotor frontRightDrive = hardwareMap.get(DcMotor.class, "frontRightDrive");
     public DcMotor backLeftDrive = hardwareMap.get(DcMotor.class, "backLeftDrive");
     public DcMotor backRightDrive = hardwareMap.get(DcMotor.class, "backRightDrive");
+    public DcMotor ArmScrew = hardwareMap.get(DcMotor.class, "ArmScrew");
 
     @Override
     public void runOpMode() throws InterruptedException {

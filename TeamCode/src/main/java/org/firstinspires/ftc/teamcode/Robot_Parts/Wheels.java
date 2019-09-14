@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import org.firstinspires.ftc.teamcode.Robot_Parts.Moters;
 
 public class Wheels {
-    Moters Moters = new Moters();
+    private Moters Moters = new Moters();
     public void Drive(double directionInRadians, double turnInRadians, double powerInPercentage) {
 
         // plotted out points and this fit them, xcord gives turning factor
@@ -27,6 +27,14 @@ public class Wheels {
         Moters.backRightDrive.setPower(-1 * wheelsSetA);
         Moters.backLeftDrive.setPower(wheelsSetB);
         Moters.frontLeftDrive.setPower(wheelsSetA);
+
+
+    }
+    public void Stop(){
+        Moters.backLeftDrive.setPower(0);
+        Moters.frontLeftDrive.setPower(0);
+        Moters.frontRightDrive.setPower(0);
+        Moters.backRightDrive.setPower(0);
 
 
     }
