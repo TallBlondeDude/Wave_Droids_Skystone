@@ -12,7 +12,7 @@ public class Robot_Techniques extends OpMode {
     int closedArmPosition = 0;
     double openClawPosition = 1;
     double closedClawPosition = 0;
-    double waitTime =  4;
+    double armExtendOrRetractTime =  4;
     Robot_Techniques Technique;
 
     @Override
@@ -27,20 +27,27 @@ public class Robot_Techniques extends OpMode {
 
     public void DropGrabedBlock(){
         Arm.SetPosition(Technique.halfArmPosition);
+        Technique.Pause(armExtendOrRetractTime/2);
         Claw.SetPosition(Technique.openClawPosition);
         Arm.SetPosition(Technique.closedArmPosition);
+        Technique.Pause(armExtendOrRetractTime/2);
 
     }
     public void GrabBlock(){
-        ElapsedTime Timer = new ElapsedTime();
         Claw.SetPosition(Technique.openClawPosition);
         Arm.SetPosition(Technique.extendedArmPosition);
-        Timer.reset();
-        while (Timer.time() < Technique.waitTime);{
-        ///wait function placeholder as I don't get them
-        }
+        Technique.Pause(armExtendOrRetractTime);
         Claw.SetPosition(Technique.closedClawPosition);
         Arm.SetPosition(Technique.closedArmPosition);
+        Technique.Pause(armExtendOrRetractTime);
+
+    }
+    public void Pause(double Time){
+        ElapsedTime Timer = new ElapsedTime();
+        while (Timer.time() < Time);
+        {
+            ///wait function placeholder as I don't get them
+        }
 
     }
 }
