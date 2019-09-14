@@ -1,10 +1,10 @@
 package org.firstinspires.ftc.teamcode;
-
-package org.firstinspires.ftc.TeamCode.java.org.firstinspires.ftc.teamcode.Manual_Mech;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.teamcode.Robot_Parts.Wheels;
 
 @TeleOp(name = "Mechanum Two Joysick", group = "Iterative Opmode")
 public class BasicOpMode_Mech extends OpMode {
@@ -14,6 +14,7 @@ public class BasicOpMode_Mech extends OpMode {
     private DcMotor frontRightDrive = null;
     private DcMotor backLeftDrive = null;
     private DcMotor backRightDrive = null;
+    private Wheels Wheels = null;
 
     @Override
     public void init() {
@@ -43,19 +44,7 @@ public class BasicOpMode_Mech extends OpMode {
         double magnitude = Math.sqrt(squareY + squareX);
         //find theta using inverse tangent
         double theta = Math.atan2(xcord, ycord);
-        // plotted out points and this fit them, xcord gives turning factor
-        telemetry.addData("Direction in Radians", "Angle: " + theta);
-        telemetry.addData("Turning", "Percentage to turn: " + gamepad1.right_stick_x);
-
-        double wheelsSetA = Math.sin(theta - .7957) * magnitude + turningXcord;
-        double wheelsSetB = Math.sin(theta + .7957) * magnitude + turningXcord;
-        //checks if one of the wheel sets is > 100% power, if so reduce it to one, and reduce the other by the same factor
-        if (wheelsSetA > 1) {
-            wheelsSetB = wheelsSetB / wheelsSetA;
-            wheelsSetA = 1;
-        } else if (wheelsSetB > 1) {
-            wheelsSetA = wheelsSetA / wheelsSetB;
-            wheelsSetB = 1;
+        Wheels.Drive(theta, turningXcord, 1);
         }
 
 
