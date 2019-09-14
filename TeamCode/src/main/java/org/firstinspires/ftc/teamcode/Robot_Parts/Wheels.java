@@ -29,13 +29,19 @@ public class Wheels {
     }
 
     public void Turn(double turnInRadians, double turnPower) {
-        percentTurn = turnInRadians / 6.283;
-        
-        wheelsSetA =
-                frontRightDrive.setPower(-1 * wheelsSetB);
-        backRightDrive.setPower(-1 * wheelsSetA);
-        backLeftDrive.setPower(wheelsSetB);
-        frontLeftDrive.setPower(wheelsSetA);
+        double percentTurn = turnInRadians / 6.283;
+        double direction = turnInRadians / turnInRadians;
+        // percentTurn / xxx =
+        backLeftDrive.setPower(direction);
+        frontLeftDrive.setPower(direction);
+        frontRightDrive.setPower(direction);
+        backRightDrive.setPower(direction);
+        // wait(waitTime);
+
+        backLeftDrive.setPower(0);
+        frontLeftDrive.setPower(0);
+        frontRightDrive.setPower(0);
+        backRightDrive.setPower(0);
 
     }
 
