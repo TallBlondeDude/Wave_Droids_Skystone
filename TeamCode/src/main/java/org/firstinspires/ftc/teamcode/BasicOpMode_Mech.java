@@ -1,3 +1,5 @@
+package org.firstinspires.ftc.teamcode;
+
 package org.firstinspires.ftc.TeamCode.java.org.firstinspires.ftc.teamcode.Manual_Mech;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
