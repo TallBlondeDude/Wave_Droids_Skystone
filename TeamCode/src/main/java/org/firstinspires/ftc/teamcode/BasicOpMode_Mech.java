@@ -10,23 +10,11 @@ import org.firstinspires.ftc.teamcode.Robot_Parts.*;
 public class BasicOpMode_Mech extends OpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor frontLeftDrive = null;
-    private DcMotor frontRightDrive = null;
-    private DcMotor backLeftDrive = null;
-    private DcMotor backRightDrive = null;
     private Controllers Gamepad = null;
     private Wheels Wheels = null;
 
     @Override
     public void init() {
-        telemetry.addData("Status", "Initialized");
-        backLeftDrive = hardwareMap.get(DcMotor.class, "backLeftDrive");
-        backRightDrive = hardwareMap.get(DcMotor.class, "backRightDrive");
-        frontRightDrive = hardwareMap.get(DcMotor.class, "frontRightDrive");
-        frontLeftDrive = hardwareMap.get(DcMotor.class, "frontLeftDrive");
-
-        // Tell the driver that initialization is complete.
-        telemetry.addData("Status", "Initialized");
     }
 
     @Override
