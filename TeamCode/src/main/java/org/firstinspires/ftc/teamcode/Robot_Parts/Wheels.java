@@ -6,6 +6,7 @@ import org.firstinspires.ftc.teamcode.Robot_Parts.Moters;
 
 public class Wheels {
     private Moters Moters = new Moters();
+
     public void Drive(double directionInRadians, double turnInRadians, double powerInPercentage) {
 
         // plotted out points and this fit them, xcord gives turning factor
@@ -30,7 +31,8 @@ public class Wheels {
 
 
     }
-    public void Stop(){
+
+    public void Stop() {
         Moters.backLeftDrive.setPower(0);
         Moters.frontLeftDrive.setPower(0);
         Moters.frontRightDrive.setPower(0);

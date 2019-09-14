@@ -19,7 +19,6 @@ public class Color_Sensor extends OpMode {
     }
 
 
-
     public String Color() {
 
         String color = "None";
