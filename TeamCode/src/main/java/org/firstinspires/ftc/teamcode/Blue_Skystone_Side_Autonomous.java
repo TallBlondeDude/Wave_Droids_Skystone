@@ -1,23 +1,23 @@
 package org.firstinspires.ftc.teamcode;
 
-import android.graphics.Color;
-
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.Robot_Parts.*;
 
 
 public class Blue_Skystone_Side_Autonomous extends OpMode {
     @Override
+    private Moters AllMoters = null;
+    public ElapsedTime TimePassed = new ElapsedTime();
     public void init() {
+        TimePassed.reset();
         Wheels Wheels = null;
         Webcam Camera = null;
         Claw Claw = null;
         Color_Sensor Color_Sensor = null;
 
         Webcam.FindSkystones();
-        angle = "x degrees + ay"
+        ///angle = "x degrees + ay"
         Wheels.Drive(angle, 0, 1);
         wait(time based on distance to stone);
         Wheels.Stop();
@@ -66,6 +66,9 @@ public class Blue_Skystone_Side_Autonomous extends OpMode {
 
     @Override
     public void loop() {
+        if (TimePassed.time() > 28){
+            AllMoters.Halt();
+        }
 
     }
 
