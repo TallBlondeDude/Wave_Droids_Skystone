@@ -2,11 +2,11 @@ package org.firstinspires.ftc.teamcode.Robot_Parts;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 
 public class Color_Sensor extends OpMode {
-    ColorSensor color_sensor = null;
+    ColorSensor color_sensor;
 
+    // pointless stuff that is needed
     @Override
     public void init() {
         color_sensor = hardwareMap.colorSensor.get("color");
@@ -18,13 +18,14 @@ public class Color_Sensor extends OpMode {
 
     }
 
-
     public String Color() {
-
         String color = "None";
-        if (color_sensor.blue() * color_sensor.green() - 100 < color_sensor.red()) {
+        // If blue * green is greater then the red GRB Value, return red
+        if (color_sensor.blue() * color_sensor.green() < color_sensor.red()) {
             color = "Red";
-        } else if (color_sensor.red() * color_sensor.green() - 100 < color_sensor.blue()) {
+        }
+        // same, but its red * green <
+        else if (color_sensor.red() * color_sensor.green() < color_sensor.blue()) {
             color = "Blue";
         }
         return color;

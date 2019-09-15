@@ -30,9 +30,9 @@ public class Controllers extends LinearOpMode {
     }
     public void BackBumpers(){
         if (gamepad2.dpad_down) {
-            claw.SetPosition(100);
+            claw.SetClawPosition(100);
         } else if (gamepad1.dpad_up) {
-            claw.SetPosition(0);
+            claw.SetClawPosition(0);
         }
 
     }
