@@ -19,7 +19,8 @@ public class Blue_Skystone_Side_Autonomous extends OpMode {
         Robot_Techniques Techniques = null;
         Camera.LocateSkystones();
         // find the angle to go to the skystone
-        Wheels.DriveDistance(Techniques.FindAngle(Camera.Skystone1, Camera.Skystone2), 0, 1);
+        Wheels.DriveDistance(1.5707, 1, 100);
+        Wheels.DriveDistance(Techniques.FindDirection(), .8, Techniques.FindDistance());
         ///ENCODER FUN :)
         Wheels.Stop();
         // reach out and grab brick, then pull it back

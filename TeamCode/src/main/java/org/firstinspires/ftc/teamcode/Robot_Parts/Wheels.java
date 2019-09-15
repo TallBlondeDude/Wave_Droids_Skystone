@@ -42,10 +42,14 @@ public class Wheels {
 
 
     }
-    public void DriveDistance(double directionInRadians, double turnInRadians, double powerInPercentage, double distanceInEncoderTicks){
+
+
+    public void DriveDistance(double directionInRadians, double powerInPercentage, double distanceInEncoderTicks){
         ///funky stuff to be done by someone who knows how encoders work
-        Moters.backLeftDrive.getCurrentPosition()
     }
+
+
+    
     public void Turn(double turnInRadians, double turnPower) {
         double percentTurn = turnInRadians / 6.283;
         double direction = turnInRadians / turnInRadians;

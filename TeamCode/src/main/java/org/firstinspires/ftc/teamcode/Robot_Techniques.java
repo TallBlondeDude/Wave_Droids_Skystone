@@ -6,6 +6,7 @@ import org.firstinspires.ftc.teamcode.Robot_Parts.*;
 
 public class Robot_Techniques extends OpMode {
     private Claw Claw = null;
+    private Webcam Camera;
     private Arm Arm = null;
     private int extendedArmPosition = 100;
     private int halfArmPosition = 50;
@@ -13,9 +14,7 @@ public class Robot_Techniques extends OpMode {
     private double openClawPosition = 1;
     private double closedClawPosition = 0;
     private double armExtendOrRetractTime = 4;
-    private int distanceToBlocksXCordinateInInches = 6;
     private double encoderTickPerInch = 4;
-    private double blocksToMove;
     Robot_Techniques Technique;
 
 
@@ -56,8 +55,28 @@ public class Robot_Techniques extends OpMode {
         }
 
     }
+    public double FindDistance(){
+        if (Camera.Skystone2 < Camera.Skystone1) {
+            Camera.Skystone1 = Camera.Skystone2;
+        }
+        return encoderTickPerInch * (3.5 - Camera.Skystone1);
 
-    public double FindAngle(int firstSkystone, int secondSkystone) {
+    }
+
+    public double FindDirection(){
+        if (Camera.Skystone2 < Camera.Skystone1) {
+            Camera.Skystone1 = Camera.Skystone2;
+        }
+        if (Camera.Skystone1 > 3.5){
+            return 3.1415;
+        }
+        else{
+            return 0.0;
+        }
+
+    }
+
+    /* public double FindAngle(int firstSkystone, int secondSkystone) {
         if (secondSkystone > firstSkystone) {
             firstSkystone = secondSkystone;
         }
@@ -71,8 +90,12 @@ public class Robot_Techniques extends OpMode {
         return Math.atan2(8.0 * Technique.blocksToMove, distanceToBlocksXCordinateInInches);
     }
 
-    public double FindMagnitdudeOfEncoders() {
+     */
+
+    /*public double FindMagnitdudeOfEncoders() {
         double blocksSquared = Technique.blocksToMove * Technique.blocksToMove;
         return Technique.encoderTickPerInch *  Math.sqrt(blocksSquared + distanceToBlocksXCordinateInInches);
     }
+
+     */
 }
