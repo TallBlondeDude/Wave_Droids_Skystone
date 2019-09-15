@@ -22,6 +22,7 @@ public class Blue_Skystone_Side_Autonomous extends OpMode {
         Wheels.DriveDistance(1.5707, 1, 100);
         Wheels.DriveDistance(Techniques.FindDirection(), .8, Techniques.FindDistance());
         ///ENCODER FUN :)
+        //
         Wheels.Stop();
         // reach out and grab brick, then pull it back
         Robot.GrabBlock();
@@ -29,6 +30,7 @@ public class Blue_Skystone_Side_Autonomous extends OpMode {
         /// drive to the building side based on where you came from
         Wheels.Drive(0, 0, 1);
         ///ENCODER FUN :)
+        //
         Wheels.Stop();
         /// drop brick
         Robot.DropGrabedBlock();

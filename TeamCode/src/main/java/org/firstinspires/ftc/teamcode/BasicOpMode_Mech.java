@@ -18,8 +18,7 @@ public class BasicOpMode_Mech extends OpMode {
 
     @Override
     public void loop() {
-        Gamepad.BackTriggers();
-        Gamepad.BackBumpers();
+        Gamepad.UpdateMovement();
         double polarAngle = Gamepad.polarAngle();
         double polarMagnitude = Gamepad.polarMagnitude();
         telemetry.addData("Direction in Radians", "Angle: " + polarAngle);

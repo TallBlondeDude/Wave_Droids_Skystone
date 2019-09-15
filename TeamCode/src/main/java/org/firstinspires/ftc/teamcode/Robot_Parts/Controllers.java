@@ -14,6 +14,11 @@ public class Controllers extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
     }
 
+    public void UpdateMovement() {
+        BackBumpers();
+        BackTriggers();
+    }
+
     //Finds distance between 0, 0 and the joysticks location
     public double polarMagnitude() {
         //grab coordinates of joystick
