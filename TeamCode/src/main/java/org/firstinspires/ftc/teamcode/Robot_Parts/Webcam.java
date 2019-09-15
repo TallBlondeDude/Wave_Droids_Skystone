@@ -21,6 +21,8 @@ public class Webcam extends OpMode {
     public Webcam vuroiraStorge = null;
     private TFObjectDetector tfod;
     private double minimumConfidence = .8;
+    public int Skystone1;
+    public int Skystone2;
     @Override
     public void init() {
     }

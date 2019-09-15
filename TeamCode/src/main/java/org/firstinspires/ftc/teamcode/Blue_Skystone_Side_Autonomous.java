@@ -10,15 +10,16 @@ public class Blue_Skystone_Side_Autonomous extends OpMode {
     @Override
 
     public void init() {
+        // initialize variables
         Wheels Wheels = null;
         Webcam Camera = null;
         Claw Claw = null;
         Color_Sensor Color_Sensor = null;
         Robot_Techniques Robot = null;
-
+        Robot_Techniques Techniques = null;
         Camera.LocateSkystones();
-        ///angle = "x degrees + ay"
-        ///Wheels.Drive(angle, 0, 1);
+        // find the angle to go to the skystone
+        Wheels.DriveDistance(Techniques.FindAngle(Camera.Skystone1, Camera.Skystone2), 0, 1);
         ///ENCODER FUN :)
         Wheels.Stop();
         // reach out and grab brick, then pull it back

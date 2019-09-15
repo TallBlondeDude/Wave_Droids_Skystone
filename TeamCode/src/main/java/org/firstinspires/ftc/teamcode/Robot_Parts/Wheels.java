@@ -17,7 +17,9 @@ public class Wheels {
         if (wheelsSetA > 1) {
             wheelsSetB = wheelsSetB / wheelsSetA;
             wheelsSetA = 1;
-        } else if (wheelsSetB > 1) {
+        }
+
+        if (wheelsSetB > 1) {
             wheelsSetA = wheelsSetA / wheelsSetB;
             wheelsSetB = 1;
         }
@@ -40,7 +42,10 @@ public class Wheels {
 
 
     }
-
+    public void DriveDistance(double directionInRadians, double turnInRadians, double powerInPercentage, double distanceInEncoderTicks){
+        ///funky stuff to be done by someone who knows how encoders work
+        Moters.backLeftDrive.getCurrentPosition()
+    }
     public void Turn(double turnInRadians, double turnPower) {
         double percentTurn = turnInRadians / 6.283;
         double direction = turnInRadians / turnInRadians;

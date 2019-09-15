@@ -4,19 +4,18 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.Robot_Parts.*;
 
-import java.lang.reflect.Array;
-
 public class Robot_Techniques extends OpMode {
-    Claw Claw = null;
-    Arm Arm = null;
-    int extendedArmPosition = 100;
-    int halfArmPosition = 50;
-    int closedArmPosition = 0;
-    double openClawPosition = 1;
-    double closedClawPosition = 0;
-    double armExtendOrRetractTime =  4;
-    double angle1;
-    double angle2;
+    private Claw Claw = null;
+    private Arm Arm = null;
+    private int extendedArmPosition = 100;
+    private int halfArmPosition = 50;
+    private int closedArmPosition = 0;
+    private double openClawPosition = 1;
+    private double closedClawPosition = 0;
+    private double armExtendOrRetractTime = 4;
+    private int distanceToBlocksXCordinateInInches = 6;
+    private double encoderTickPerInch = 4;
+    private double blocksToMove;
     Robot_Techniques Technique;
 
 
@@ -30,15 +29,16 @@ public class Robot_Techniques extends OpMode {
 
     }
 
-    public void DropGrabedBlock(){
+    public void DropGrabedBlock() {
         Arm.SetPosition(Technique.halfArmPosition);
-        Technique.Pause(armExtendOrRetractTime/2);
+        Technique.Pause(armExtendOrRetractTime / 2);
         Claw.SetPosition(Technique.openClawPosition);
         Arm.SetPosition(Technique.closedArmPosition);
-        Technique.Pause(armExtendOrRetractTime/2);
+        Technique.Pause(armExtendOrRetractTime / 2);
 
     }
-    public void GrabBlock(){
+
+    public void GrabBlock() {
         Claw.SetPosition(Technique.openClawPosition);
         Arm.SetPosition(Technique.extendedArmPosition);
         Technique.Pause(armExtendOrRetractTime);
@@ -47,24 +47,32 @@ public class Robot_Techniques extends OpMode {
         Technique.Pause(armExtendOrRetractTime);
 
     }
-    public void Pause(double Time){
+
+    public void Pause(double Time) {
         ElapsedTime Timer = new ElapsedTime();
-        while (Timer.time() < Time);
+        while (Timer.time() < Time) ;
         {
             ///wait function placeholder as I don't get them
         }
 
     }
 
-    public void findAngle(int firstSkystone, int secondSkystone){
-        if (secondSkystone > firstSkystone){
-            int placeholder = firstSkystone;
+    public double FindAngle(int firstSkystone, int secondSkystone) {
+        if (secondSkystone > firstSkystone) {
             firstSkystone = secondSkystone;
-            secondSkystone = placeholder;
         }
 
-        
-       // Technique.angle1
+        //VERY IMPORTANT, ROBOT MUST BE PUT IN THE EXACT MIDDLE OR THIS WONT WORK, MAKE A TAPE MARKER TO LINE UP WITH TILE!!!!!
+        ///Robot starts in 3.5 position (3.5 blocks over from wall)
 
+        Technique.blocksToMove = 3.5 - firstSkystone;
+
+        // 8 is skystone size in inches
+        return Math.atan2(8.0 * Technique.blocksToMove, distanceToBlocksXCordinateInInches);
+    }
+
+    public double FindMagnitdudeOfEncoders() {
+        double blocksSquared = Technique.blocksToMove * Technique.blocksToMove;
+        return Technique.encoderTickPerInch *  Math.sqrt(blocksSquared + distanceToBlocksXCordinateInInches);
     }
 }
