@@ -37,7 +37,7 @@ public class Webcam extends OpMode {
          */
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
 
-        parameters.vuforiaLicenseKey = vuroiraStorge.Key;
+        parameters.vuforiaLicenseKey = Key;
         parameters.cameraName = hardwareMap.get(WebcamName.class, "Webcam 1");
 
         //  Start the Vuforia engine
