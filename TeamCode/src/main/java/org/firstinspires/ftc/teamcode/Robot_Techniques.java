@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.Robot_Parts.*;
 
+import java.lang.reflect.Array;
+
 public class Robot_Techniques extends OpMode {
     Claw Claw = null;
     Arm Arm = null;
@@ -13,7 +15,10 @@ public class Robot_Techniques extends OpMode {
     double openClawPosition = 1;
     double closedClawPosition = 0;
     double armExtendOrRetractTime =  4;
+    double angle1;
+    double angle2;
     Robot_Techniques Technique;
+
 
     @Override
     public void init() {
@@ -48,6 +53,18 @@ public class Robot_Techniques extends OpMode {
         {
             ///wait function placeholder as I don't get them
         }
+
+    }
+
+    public void findAngle(int firstSkystone, int secondSkystone){
+        if (secondSkystone > firstSkystone){
+            int placeholder = firstSkystone;
+            firstSkystone = secondSkystone;
+            secondSkystone = placeholder;
+        }
+
+        
+       // Technique.angle1
 
     }
 }
