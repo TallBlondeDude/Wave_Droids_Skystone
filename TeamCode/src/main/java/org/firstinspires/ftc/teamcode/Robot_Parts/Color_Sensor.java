@@ -22,9 +22,9 @@ public class Color_Sensor extends OpMode {
     public String Color() {
 
         String color = "None";
-        if (color_sensor.blue() * color_sensor.green() < color_sensor.red()) {
+        if (color_sensor.blue() * color_sensor.green() - 100 < color_sensor.red()) {
             color = "Red";
-        } else if (color_sensor.red() * color_sensor.green() < color_sensor.blue()) {
+        } else if (color_sensor.red() * color_sensor.green() - 100 < color_sensor.blue()) {
             color = "Blue";
         }
         return color;

@@ -16,7 +16,7 @@ public class Blue_Skystone_Side_Autonomous extends OpMode {
         Color_Sensor Color_Sensor = null;
         Robot_Techniques Robot = null;
 
-        ///Webcam.FindSkystones();
+        Camera.LocateSkystones();
         ///angle = "x degrees + ay"
         ///Wheels.Drive(angle, 0, 1);
         ///ENCODER FUN :)
@@ -50,8 +50,8 @@ public class Blue_Skystone_Side_Autonomous extends OpMode {
 
     }
 
-    Moters AllMoters = null;
-    ElapsedTime TimePassed = new ElapsedTime();
+    private Moters AllMoters = null;
+    private ElapsedTime TimePassed = new ElapsedTime();
 
     @Override
     public void loop() {
