@@ -23,9 +23,11 @@ public class Wheels {
             wheelsSetA = wheelsSetA / wheelsSetB;
             wheelsSetB = 1;
         }
-
+        // convert power into encoder distance
+        Moters.frontLeftDrive.getCurrentPosition()
 
         // Send calculated power to wheels, inversion is due to battery power flow & wheel location
+
         Moters.frontRightDrive.setPower(-1 * wheelsSetB);
         Moters.backRightDrive.setPower(-1 * wheelsSetA);
         Moters.backLeftDrive.setPower(wheelsSetB);
