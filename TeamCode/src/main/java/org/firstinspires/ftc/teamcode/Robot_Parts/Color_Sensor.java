@@ -9,8 +9,6 @@ public class Color_Sensor extends OpMode {
     // pointless stuff that is needed
     @Override
     public void init() {
-        color_sensor = hardwareMap.colorSensor.get("color");
-
     }
 
     @Override
@@ -19,7 +17,10 @@ public class Color_Sensor extends OpMode {
     }
 
     public String Color() {
+        // reset the variable name
         String color = "None";
+        //
+        color_sensor = hardwareMap.colorSensor.get("color");
         // If blue * green is greater then the red GRB Value, return red
         if (color_sensor.blue() * color_sensor.green() < color_sensor.red()) {
             color = "Red";
