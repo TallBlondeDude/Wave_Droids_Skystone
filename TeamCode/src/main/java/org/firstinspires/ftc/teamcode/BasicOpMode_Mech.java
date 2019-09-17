@@ -11,7 +11,7 @@ public class BasicOpMode_Mech extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private Controllers Gamepad = null;
     private Wheels Wheels = null;
-    private Claw  Claw = null;
+    private Claw Claw = null;
     @Override
     public void init() {
     }

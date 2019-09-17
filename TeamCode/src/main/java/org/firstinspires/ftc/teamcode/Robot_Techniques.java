@@ -80,7 +80,7 @@ public class Robot_Techniques extends OpMode {
         if (secondSkystone > firstSkystone) {
             firstSkystone = secondSkystone;
         }
-
+        // RIGHT NOW THIS ISNT WORKING, BUT IT WOULD BE FASTER AND SOLVED IF WE FIGRURED OUT A WAY TO GET ENCODERS TO WORK REEE
         //VERY IMPORTANT, ROBOT MUST BE PUT IN THE EXACT MIDDLE OR THIS WONT WORK, MAKE A TAPE MARKER TO LINE UP WITH TILE!!!!!
         ///Robot starts in 3.5 position (3.5 blocks over from wall)
 
