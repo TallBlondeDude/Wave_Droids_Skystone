@@ -21,8 +21,7 @@ public class Webcam extends OpMode {
     public Webcam vuroiraStorge = null;
     private TFObjectDetector tfod;
     private double minimumConfidence = .8;
-    public int skyStone1 = 0;
-    public int skyStone2 = 0;
+
     @Override
     public void init() {
     }
@@ -80,11 +79,11 @@ public class Webcam extends OpMode {
         telemetry.update();
 
         if (tfod != null) {
-            Webcam tensorFlow = new Webcam();
             // getUpdatedRecognitions() will return null if no new information is available since
             // the last time that call was made.
             List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
             if (updatedRecognitions != null) {
+                double[] skystones = new double[0];
                 telemetry.addData("# Object Detected", updatedRecognitions.size());
                 // step through the list of recognitions and display boundary info.
                 int i = 0;
@@ -99,10 +98,16 @@ public class Webcam extends OpMode {
                         float Constant = 100;
                         // figure out how thic is thic
                         int Position = (int) (Math.floor((recognition.getLeft() + Constant) / Constant));
-                        if (tensorFlow.skyStone1 != 0) {
-                            skyStone1 = Position;
+                        if (skystones[0] != 0) {
+                            skystones[0] = Position;
+                            skystones[1] = recognition.getConfidence();
                         } else {
-                            skyStone2 = Position;
+                            int o = 0;
+                            for (x:
+                                 skystones) {
+                                c = c + 1
+                            }
+                            skystones.append = Position;
                         }
                     }
                 }

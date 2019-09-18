@@ -56,7 +56,7 @@ public class Robot_Techniques extends OpMode {
 
     }
     public double FindDistance(){
-        if (Camera.Skystone2 < Camera.Skystone1) {
+        if (Camera.tensorFlow.Skystone2 < Camera.Skystone1) {
             Camera.Skystone1 = Camera.Skystone2;
         }
         return encoderTickPerInch * (3.5 - Camera.Skystone1);
