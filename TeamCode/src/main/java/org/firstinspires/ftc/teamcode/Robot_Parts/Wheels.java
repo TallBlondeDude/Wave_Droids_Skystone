@@ -2,12 +2,24 @@ package org.firstinspires.ftc.teamcode.Robot_Parts;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import org.firstinspires.ftc.teamcode.Robot_Parts.Moters;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 public class Wheels {
     private Moters Moters = new Moters();
 
     public void Drive(double directionInRadians, double turnInRadians, double powerInPercentage) {
+
+       // reset encoder count
+        Moters.frontLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        Moters.frontRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        Moters.backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        Moters.backRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        // set left motor to run to target encoder position and stop with brakes on.
+        Moters.frontLeftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        Moters.frontRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        Moters.backLeftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        Moters.backRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         // plotted out points and this fit them, xcord gives turning factor
 
@@ -51,6 +63,18 @@ public class Wheels {
     public void DriveDistance(double directionInRadians, double powerInPercentage, double distanceInEncoderTicks){
         // plotted out points and this fit them, xcord gives turning factor
 
+        // reset encoder count
+        Moters.frontLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        Moters.frontRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        Moters.backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        Moters.backRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        // set left motor to run to target encoder position and stop with brakes on.
+        Moters.frontLeftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        Moters.frontRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        Moters.backLeftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        Moters.backRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
         double wheelsSetA = Math.sin(directionInRadians - .7957) * powerInPercentage;
         double wheelsSetB = Math.sin(directionInRadians + .7957) * powerInPercentage;
         //checks if one of the wheel sets is > 100% power, if so reduce it to one, and reduce the other by the same factor
@@ -85,6 +109,19 @@ public class Wheels {
     public void Turn(double turnInRadians, double turnPower) {
         double percentTurn = turnInRadians / 6.283;
         double direction = turnInRadians / turnInRadians;
+
+        // reset encoder count
+        Moters.frontLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        Moters.frontRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        Moters.backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        Moters.backRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        // set left motor to run to target encoder position and stop with brakes on.
+        Moters.frontLeftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        Moters.frontRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        Moters.backLeftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        Moters.backRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
         // percentTurn / xxx =
         Moters.backLeftDrive.setPower(direction);
         Moters.frontLeftDrive.setPower(direction);

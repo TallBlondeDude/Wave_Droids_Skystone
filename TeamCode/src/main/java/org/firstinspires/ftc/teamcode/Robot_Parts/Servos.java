@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Servos extends OpMode {
     @Override
     public void init() {
+
     }
 
     @Override
