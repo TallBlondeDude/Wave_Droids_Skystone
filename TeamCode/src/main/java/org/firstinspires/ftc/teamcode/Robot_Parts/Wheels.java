@@ -38,18 +38,20 @@ public class Wheels {
 
 
         // convert power into encoder distance
-        Moters.frontLeftDrive.getCurrentPosition();
 
         // Send calculated power to wheels, inversion is due to battery power flow & wheel location
 
-        Moters.frontRightDrive.setPower(-1 * wheelsSetB);
-        Moters.backRightDrive.setPower(-1 * wheelsSetA);
-        Moters.backLeftDrive.setPower(wheelsSetB);
-        Moters.frontLeftDrive.setPower(wheelsSetA);
-
-
+         Drive(wheelsSetA, wheelsSetB);
     }
-
+    private void Drive(wheelsSetA, wheelsSetB){
+        double constant = 5;
+        double encoderValueA = wheelsSetA * constant;
+        double encoderValueB = wheelsSetB * constant;
+        Moters.frontLeftDrive.setCurrentPosition(Moters.frontLeftDrive.getCurrentPosition(0) + (constant * wheesSetA * -1);
+        Moters.frontRightDrive.setCurrentPosition(Moters.frontLeftDrive.getCurrentPosition(0) + (constant * wheesSetA);
+        Moters.backLeftDrive.setCurrentPosition(Moters.frontLeftDrive.getCurrentPosition(0) + (constant * wheesSetA * -1);
+        Moters.backRightDrive.setCurrentPosition(Moters.frontLeftDrive.getCurrentPosition(0) + (constant * wheesSetA);
+    }
     public void Stop() {
         Moters.backLeftDrive.setPower(0);
         Moters.frontLeftDrive.setPower(0);
