@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
@@ -20,8 +21,7 @@ public class Webcam extends OpMode {
     public Webcam vuroiraStorge = null;
     private TFObjectDetector tfod;
     private double minimumConfidence = .8;
-    public int Skystone1;
-    public int Skystone2;
+
     @Override
     public void init() {
     }
@@ -54,13 +54,16 @@ public class Webcam extends OpMode {
     }
 
 
-
-    public void LocateSkystones(){
+    public double[] LocateSkystones() {
 
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
+        double[] skystones = new double[0];
+        skystones[1] = 0;
+        skystones[2] = 0;
+        skystones[3] = 0;
+        skystones[4] = 0;
         initVuforia();
-
         if (ClassFactory.getInstance().canCreateTFObjectDetector()) {
             initTfod();
         } else {
@@ -93,14 +96,31 @@ public class Webcam extends OpMode {
                             recognition.getLeft(), recognition.getTop());
                     telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
                             recognition.getRight(), recognition.getBottom());
+                    if (recognition.getLabel() == "Skystone") {
+                        // how thic each block is
+                        float Constant = 100;
+                        // figure out how thic is thic
+                        int Position = (int) (Math.floor((recognition.getLeft() + Constant) / Constant));
+                        if (recognition.getConfidence() > skystones[3] || recognition.getConfidence() > skystones[1]) {
+                            if (skystones[1] > skystones[3]) {
+                                skystones[3] = recognition.getConfidence();
+                                skystones[2] = recognition.getLeft();
+                            } else {
+                                skystones[1] = recognition.getConfidence();
+                                skystones[0] = recognition.getLeft();
+                            }
+                        }
+                    }
                 }
-                telemetry.update();
             }
+
+            telemetry.update();
         }
 
         if (tfod != null) {
             tfod.shutdown();
         }
+        return skystones;
 
     }
 }
