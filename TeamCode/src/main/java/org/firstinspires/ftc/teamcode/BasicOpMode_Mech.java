@@ -1,8 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Robot_Parts.*;
@@ -13,13 +11,14 @@ public class BasicOpMode_Mech extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private Controllers Gamepad = null;
     private Wheels Wheels = null;
-
+    private Claw Claw = null;
     @Override
     public void init() {
     }
 
     @Override
     public void loop() {
+        Gamepad.UpdateMovement();
         double polarAngle = Gamepad.polarAngle();
         double polarMagnitude = Gamepad.polarMagnitude();
         telemetry.addData("Direction in Radians", "Angle: " + polarAngle);
