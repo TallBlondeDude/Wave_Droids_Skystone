@@ -26,8 +26,6 @@ public class BasicOpMode_Mech extends OpMode {
         Wheels.Drive(polarAngle, gamepad1.right_stick_x, polarMagnitude);
         }
 
-
-
     /*
      * Code to run ONCE after the driver hits STOP
      */

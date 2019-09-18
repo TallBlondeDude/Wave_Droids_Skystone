@@ -31,17 +31,17 @@ public class Robot_Techniques extends OpMode {
     public void DropGrabedBlock() {
         Arm.SetPosition(Technique.halfArmPosition);
         Technique.Pause(armExtendOrRetractTime / 2);
-        Claw.SetPosition(Technique.openClawPosition);
+        //Claw.SetPosition(Technique.openClawPosition);
         Arm.SetPosition(Technique.closedArmPosition);
         Technique.Pause(armExtendOrRetractTime / 2);
 
     }
 
     public void GrabBlock() {
-        Claw.SetPosition(Technique.openClawPosition);
+        //Claw.SetPosition(Technique.openClawPosition);
         Arm.SetPosition(Technique.extendedArmPosition);
         Technique.Pause(armExtendOrRetractTime);
-        Claw.SetPosition(Technique.closedClawPosition);
+        //Claw.SetPosition(Technique.closedClawPosition);
         Arm.SetPosition(Technique.closedArmPosition);
         Technique.Pause(armExtendOrRetractTime);
 

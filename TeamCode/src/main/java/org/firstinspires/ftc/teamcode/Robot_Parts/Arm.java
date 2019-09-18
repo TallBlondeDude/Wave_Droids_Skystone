@@ -8,7 +8,7 @@ public class Arm {
     Moters Moters = null;
     // sets the arm position
     public void SetPosition(int armPosition) {
-        Moters.ArmScrew.setTargetPosition(SetPosition(););
+        Moters.ArmScrew.setTargetPosition(armPosition);
     }
 
 }

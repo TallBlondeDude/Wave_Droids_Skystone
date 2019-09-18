@@ -27,7 +27,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.robotcontroller.external.samples;
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -50,7 +50,7 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
  * is explained below.
  */
 @TeleOp(name = "Concept: TensorFlow Object Detection", group = "Concept")
-@Disabled
+
 public class ConceptTensorFlowObjectDetection extends LinearOpMode {
     private static final String TFOD_MODEL_ASSET = "Skystone.tflite";
     private static final String LABEL_FIRST_ELEMENT = "Stone";
@@ -69,7 +69,7 @@ public class ConceptTensorFlowObjectDetection extends LinearOpMode {
      * and paste it in to your code on the next line, between the double quotes.
      */
     private static final String VUFORIA_KEY =
-            " -- YOUR NEW VUFORIA KEY GOES HERE  --- ";
+            "AWHL4D//////AAABmWCQl0lTakgVn37yjk+YMboLmnp2uU+3Vd4Nbp1L6KpGZSNaUfDDkVoPJA6aDcpi8WfIUtOoTwuXphoZpMBE8me7qLd25s8zkINgXmsZw1kNtgd4CW8DwJhvLDnUGeUMvJ0I2kvRclXNhiPHTV8qcu3Uxs/X/kKC9RIajdwHFFzFfSNp+f02pKqSkfYNbSlrS+FF0ttmsoqBLkBJc6GUpQWT4jAgNFXzg3Zep7rQxd022iJ4FJoOqgXi/szG49iX5lvanwqGYiuBOwrJWMlTGfW9hLbgrgxNZj198glUryJPIoEE6E4zC8C80FoeszA8TUUjqD77wwTOiHm0QR2NREuLyzC5tiEPMz8V9Vly9k1A";
 
     /**
      * {@link #vuforia} is the variable we will use to store our instance of the Vuforia

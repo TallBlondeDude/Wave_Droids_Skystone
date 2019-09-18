@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
@@ -20,8 +21,8 @@ public class Webcam extends OpMode {
     public Webcam vuroiraStorge = null;
     private TFObjectDetector tfod;
     private double minimumConfidence = .8;
-    public int Skystone1;
-    public int Skystone2;
+    public int skyStone1 = 0;
+    public int skyStone2 = 0;
     @Override
     public void init() {
     }
@@ -60,7 +61,6 @@ public class Webcam extends OpMode {
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
         initVuforia();
-
         if (ClassFactory.getInstance().canCreateTFObjectDetector()) {
             initTfod();
         } else {
@@ -80,6 +80,7 @@ public class Webcam extends OpMode {
         telemetry.update();
 
         if (tfod != null) {
+            Webcam tensorFlow = new Webcam();
             // getUpdatedRecognitions() will return null if no new information is available since
             // the last time that call was made.
             List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
@@ -93,7 +94,19 @@ public class Webcam extends OpMode {
                             recognition.getLeft(), recognition.getTop());
                     telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
                             recognition.getRight(), recognition.getBottom());
+                    if (recognition.getLabel() == "Skystone") {
+                        // how thic each block is
+                        float Constant = 100;
+                        // figure out how thic is thic
+                        int Position = (int) (Math.floor((recognition.getLeft() + Constant) / Constant));
+                        if (tensorFlow.skyStone1 != 0) {
+                            skyStone1 = Position;
+                        } else {
+                            skyStone2 = Position;
+                        }
+                    }
                 }
+
                 telemetry.update();
             }
         }
