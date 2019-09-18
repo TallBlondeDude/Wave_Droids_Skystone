@@ -23,6 +23,8 @@ public class Wheels {
             wheelsSetA = wheelsSetA / wheelsSetB;
             wheelsSetB = 1;
         }
+
+
         // convert power into encoder distance
         Moters.frontLeftDrive.getCurrentPosition();
 
@@ -47,10 +49,38 @@ public class Wheels {
 
 
     public void DriveDistance(double directionInRadians, double powerInPercentage, double distanceInEncoderTicks){
-        ///funky stuff to be done by someone who knows how encoders work
+        // plotted out points and this fit them, xcord gives turning factor
+
+        double wheelsSetA = Math.sin(directionInRadians - .7957) * powerInPercentage;
+        double wheelsSetB = Math.sin(directionInRadians + .7957) * powerInPercentage;
+        //checks if one of the wheel sets is > 100% power, if so reduce it to one, and reduce the other by the same factor
+        if (wheelsSetA > 1) {
+            wheelsSetB = wheelsSetB / wheelsSetA;
+            wheelsSetA = 1;
+        }
+
+        if (wheelsSetB > 1) {
+            wheelsSetA = wheelsSetA / wheelsSetB;
+            wheelsSetB = 1;
+        }
+        double efficiancy = wheelsSetA + wheelsSetB;
+        efficiancy = Math.abs(efficiancy);
+
+        // convert power into encoder distance
+        Moters.frontLeftDrive.getCurrentPosition();
+
+        // Send calculated power to wheels, inversion is due to battery power flow & wheel location
+
+        Moters.frontRightDrive.setPower(-1 * wheelsSetB);
+        Moters.backRightDrive.setPower(-1 * wheelsSetA);
+        Moters.backLeftDrive.setPower(wheelsSetB);
+        Moters.frontLeftDrive.setPower(wheelsSetA);
+
     }
 
+    public void findEfficiency() {
 
+    }
     
     public void Turn(double turnInRadians, double turnPower) {
         double percentTurn = turnInRadians / 6.283;
