@@ -17,10 +17,9 @@ public class Blue_Skystone_Side_Autonomous extends OpMode {
         Color_Sensor Color_Sensor = null;
         Robot_Techniques Robot = null;
         Robot_Techniques Techniques = null;
-        Camera.LocateSkystones();
+        double skystones[] = Camera.LocateSkystones();
         // find the angle to go to the skystone
-        Wheels.DriveDistance(1.5707, 1, 100);
-        Wheels.DriveDistance(Techniques.FindDirection(), .8, Techniques.FindDistance());
+        Wheels.DriveDistance(Techniques.FindDirection(skystones[0]), .8, Techniques.FindDistance(skystones[0]));
         ///ENCODER FUN :)
         //
         Wheels.Stop();

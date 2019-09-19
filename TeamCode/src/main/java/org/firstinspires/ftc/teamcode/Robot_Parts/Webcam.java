@@ -120,6 +120,14 @@ public class Webcam extends OpMode {
         if (tfod != null) {
             tfod.shutdown();
         }
+        if(skystones[0] < skystones[3]){
+            double placeholder1 = skystones[0];
+            double placeholder2 = skystones[1];
+            skystones[0] = skystones[2];
+            skystones[1] = skystones[3];
+            skystones[2] = placeholder1;
+            skystones[3] = placeholder2;
+        }
         return skystones;
 
     }

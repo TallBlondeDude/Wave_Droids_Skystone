@@ -6,7 +6,6 @@ import org.firstinspires.ftc.teamcode.Robot_Parts.*;
 
 public class Robot_Techniques extends OpMode {
     private Claw Claw = null;
-    private Webcam Camera;
     private Arm Arm = null;
     private int extendedArmPosition = 100;
     private int halfArmPosition = 50;
@@ -55,19 +54,15 @@ public class Robot_Techniques extends OpMode {
         }
 
     }
-    public double FindDistance(){
-        if (Camera.tensorFlow.Skystone2 < Camera.Skystone1) {
-            Camera.Skystone1 = Camera.Skystone2;
-        }
-        return encoderTickPerInch * (3.5 - Camera.Skystone1);
+    public double FindDistance(double Skystone1){
+
+        return encoderTickPerInch * (3.5 - Skystone1);
 
     }
 
-    public double FindDirection(){
-        if (Camera.Skystone2 < Camera.Skystone1) {
-            Camera.Skystone1 = Camera.Skystone2;
-        }
-        if (Camera.Skystone1 > 3.5){
+    public double FindDirection(double Skystone1){
+
+        if (Skystone1 > 3.5){
             return 3.1415;
         }
         else{
