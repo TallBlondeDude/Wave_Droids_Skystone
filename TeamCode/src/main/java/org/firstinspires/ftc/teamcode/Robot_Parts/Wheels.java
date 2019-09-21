@@ -7,21 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 public class Wheels {
     private Moters Moters = new Moters();
 
-    public void Drive(double directionInRadians, double turnInRadians, double powerInPercentage) {
-
-       // reset encoder count
-        Moters.frontLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        Moters.frontRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        Moters.backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        Moters.backRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        // set left motor to run to target encoder position and stop with brakes on.
-        Moters.frontLeftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        Moters.frontRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        Moters.backLeftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        Moters.backRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        // plotted out points and this fit them, xcord gives turning factor
+    public void Drive(double directionInRadians, double turnInRadians, float powerInPercentage) {
 
         double wheelsSetA = Math.sin(directionInRadians - .7957) * powerInPercentage + turnInRadians;
         double wheelsSetB = Math.sin(directionInRadians + .7957) * powerInPercentage + turnInRadians;
@@ -35,22 +21,21 @@ public class Wheels {
             wheelsSetA = wheelsSetA / wheelsSetB;
             wheelsSetB = 1;
         }
-
-
         // convert power into encoder distance
-
+        double encoderPerSecond = powerInPercentage * 4;
         // Send calculated power to wheels, inversion is due to battery power flow & wheel location
 
-         Drive(wheelsSetA, wheelsSetB);
+        Drive(wheelsSetA, wheelsSetB, encoderPerSecond);
     }
-    private void Drive(wheelsSetA, wheelsSetB){
-        double constant = 5;
-        double encoderValueA = wheelsSetA * constant;
-        double encoderValueB = wheelsSetB * constant;
-        Moters.frontLeftDrive.setCurrentPosition(Moters.frontLeftDrive.getCurrentPosition(0) + (constant * wheesSetA * -1);
-        Moters.frontRightDrive.setCurrentPosition(Moters.frontLeftDrive.getCurrentPosition(0) + (constant * wheesSetA);
-        Moters.backLeftDrive.setCurrentPosition(Moters.frontLeftDrive.getCurrentPosition(0) + (constant * wheesSetA * -1);
-        Moters.backRightDrive.setCurrentPosition(Moters.frontLeftDrive.getCurrentPosition(0) + (constant * wheesSetA);
+
+    private void Drive(double wheelsSetA, double wheelsSetB, double Power) {
+        double encoderValueA = wheelsSetA * Power;
+        double encoderValueB = wheelsSetB * Power;
+        Moters.frontLeftDrive.setTargetPosition(Moters.frontLeftDrive.getCurrentPosition() + (constant * wheelsSetA * -1));
+        Moters.frontLeftDrive.setTargetPosition(Moters.frontLeftDrive.getCurrentPosition() + (constant * wheelsSetA * -1));
+        Moters.frontLeftDrive.setTargetPosition(Moters.frontLeftDrive.getCurrentPosition() + (constant * wheelsSetB * -1));
+        Moters.frontLeftDrive.setTargetPosition(Moters.frontLeftDrive.getCurrentPosition() + (constant * wheelsSetB * -1));
+
     }
     public void Stop() {
         Moters.backLeftDrive.setPower(0);

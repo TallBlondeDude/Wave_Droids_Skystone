@@ -11,6 +11,7 @@ public class Blue_Build_Pad_Side extends OpMode{
     @Override
     public void start() {
         super.start();
+
     }
 
     @Override
