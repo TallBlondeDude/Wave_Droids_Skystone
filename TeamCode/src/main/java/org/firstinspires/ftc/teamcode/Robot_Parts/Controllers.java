@@ -17,6 +17,7 @@ public class Controllers extends LinearOpMode {
     public void UpdateMovement() {
         BackBumpers();
         BackTriggers();
+        AButton();
     }
 
     //Finds distance between 0, 0 and the joysticks location
