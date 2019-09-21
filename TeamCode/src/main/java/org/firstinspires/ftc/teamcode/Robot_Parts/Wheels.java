@@ -29,12 +29,13 @@ public class Wheels {
     }
 
     private void Drive(double wheelsSetA, double wheelsSetB, double Power) {
-        double encoderValueA = wheelsSetA * Power;
-        double encoderValueB = wheelsSetB * Power;
-        Moters.frontLeftDrive.setTargetPosition(Moters.frontLeftDrive.getCurrentPosition() + (constant * wheelsSetA * -1));
-        Moters.frontLeftDrive.setTargetPosition(Moters.frontLeftDrive.getCurrentPosition() + (constant * wheelsSetA * -1));
-        Moters.frontLeftDrive.setTargetPosition(Moters.frontLeftDrive.getCurrentPosition() + (constant * wheelsSetB * -1));
-        Moters.frontLeftDrive.setTargetPosition(Moters.frontLeftDrive.getCurrentPosition() + (constant * wheelsSetB * -1));
+        int constant = (int) Math.round(Power * 10);
+        int newWheelSetA = (int) (constant * wheelsSetA);
+        int newWheelSetB = (int) (constant * wheelsSetA);
+        Moters.frontLeftDrive.setTargetPosition(Moters.frontLeftDrive.getCurrentPosition() + (-1 * newWheelSetA));
+        Moters.frontLeftDrive.setTargetPosition(Moters.backRightDrive.getCurrentPosition() + (newWheelSetA));
+        Moters.frontLeftDrive.setTargetPosition(Moters.frontRightDrive.getCurrentPosition() + (newWheelSetB));
+        Moters.frontLeftDrive.setTargetPosition(Moters.backLeftDrive.getCurrentPosition() + (-1 * newWheelSetB));
 
     }
     public void Stop() {

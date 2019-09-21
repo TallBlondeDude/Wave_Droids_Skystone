@@ -23,7 +23,7 @@ public class BasicOpMode_Mech extends OpMode {
         double polarMagnitude = Gamepad.polarMagnitude();
         telemetry.addData("Direction in Radians", "Angle: " + polarAngle);
         telemetry.addData("Speed in Percentage", polarMagnitude);
-        Wheels.Drive(polarAngle, gamepad1.right_stick_x, polarMagnitude);
+        Wheels.Drive(polarAngle, gamepad1.right_stick_x, (float) polarMagnitude);
         }
 
     /*
