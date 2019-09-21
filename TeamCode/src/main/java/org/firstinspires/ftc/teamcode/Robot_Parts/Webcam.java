@@ -18,7 +18,7 @@ public class Webcam extends OpMode {
     private static final String LABEL_FIRST_ELEMENT = "Stone";
     private static final String LABEL_SECOND_ELEMENT = "Skystone";
     private VuforiaLocalizer vuforia;
-    public Webcam vuroiraStorge = null;
+    public Webcam vuforiaStorage = null;
     private TFObjectDetector tfod;
     private double minimumConfidence = .8;
 
@@ -48,7 +48,7 @@ public class Webcam extends OpMode {
         int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
                 "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
-        tfodParameters.minimumConfidence = vuroiraStorge.minimumConfidence;
+        tfodParameters.minimumConfidence = vuforiaStorage.minimumConfidence;
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_FIRST_ELEMENT, LABEL_SECOND_ELEMENT);
     }
