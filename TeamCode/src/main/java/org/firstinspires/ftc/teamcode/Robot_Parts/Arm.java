@@ -4,7 +4,7 @@ import org.firstinspires.ftc.teamcode.Robot_Parts.Moters;
 
 public class Arm {
     // Stores the location of the arm for reference
-    public int armPositionStorge;
+    public int armPositionStorage;
     Moters Moters = null;
     // sets the arm position
     public void SetPosition(int armPosition) {

@@ -56,7 +56,7 @@ public class Robot_Techniques extends OpMode {
     }
     public double FindDistance(double Skystone1){
 
-        return encoderTickPerInch * (3.5 - Skystone1);
+        return (encoderTickPerInch * (3.5 - Skystone1));
 
     }
 

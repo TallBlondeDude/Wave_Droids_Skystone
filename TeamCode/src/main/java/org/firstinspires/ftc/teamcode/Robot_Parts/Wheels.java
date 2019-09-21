@@ -22,10 +22,11 @@ public class Wheels {
             wheelsSetB = 1;
         }
         // convert power into encoder distance
-        double encoderPerSecond = powerInPercentage * 4;
+        double encoderAmount = powerInPercentage * 3;
         // Send calculated power to wheels, inversion is due to battery power flow & wheel location
 
-        Drive(wheelsSetA, wheelsSetB, encoderPerSecond);
+        Drive(wheelsSetA, wheelsSetB, encoderAmount);
+
     }
 
     private void Drive(double wheelsSetA, double wheelsSetB, double Power) {
@@ -93,7 +94,7 @@ public class Wheels {
     public void findEfficiency() {
 
     }
-    
+
     public void Turn(double turnInRadians, double turnPower) {
         double percentTurn = turnInRadians / 6.283;
         double direction = turnInRadians / turnInRadians;

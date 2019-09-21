@@ -8,7 +8,6 @@ import org.firstinspires.ftc.teamcode.Robot_Parts.*;
 
 public class Blue_Skystone_Side_Autonomous extends OpMode {
     @Override
-
     public void init() {
         // initialize variables
         Wheels Wheels = null;
@@ -17,6 +16,7 @@ public class Blue_Skystone_Side_Autonomous extends OpMode {
         Color_Sensor Color_Sensor = null;
         Robot_Techniques Techniques = null;
         double[] skystones = Camera.LocateSkystones();
+
         // find the angle to go to the skystone
         Wheels.DriveDistance(Techniques.FindDirection(skystones[0]), .8, Techniques.FindDistance(skystones[0]));
         ///ENCODER FUN :)

@@ -1,5 +1,4 @@
 package org.firstinspires.ftc.teamcode.Robot_Parts;
-import org.firstinspires.ftc.teamcode.Robot_Parts.Arm;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 public class Controllers extends LinearOpMode {
@@ -8,6 +7,7 @@ public class Controllers extends LinearOpMode {
     int armRaiseSpeed = 5;
     Arm arm;
     Claw claw;
+    Wheel_Intake Wheel_Intake;
 
     //useless
     @Override
@@ -40,19 +40,35 @@ public class Controllers extends LinearOpMode {
         double theta = Math.atan2(xcord, ycord);
         return theta;
     }
-    public void BackBumpers(){
-        if (gamepad2.dpad_down) {
+
+    public void BackBumpers() {
+        if (gamepad1.dpad_down) {
             claw.SetClawPosition(100);
         } else if (gamepad1.dpad_up) {
             claw.SetClawPosition(0);
         }
+    }
+
+    public void AButton() {
+        if (gamepad1.a) {
+            if (Wheel_Intake.currentState == "On" || gamepad1.timestamp > (Wheel_Intake.lastChange)) {
+                Wheel_Intake.currentState = "False";
+                Wheel_Intake.wheelSetPower(0);
+                Wheel_Intake.lastChange = gamepad1.timestamp;
+            } else {
+                Wheel_Intake.currentState = "On";
+                Wheel_Intake.wheelSetPower(1);
+                Wheel_Intake.lastChange = gamepad1.timestamp;
+            }
+        }
 
     }
+
     public void BackTriggers() {
         if (gamepad2.left_bumper) {
-            arm.SetPosition(arm.armPositionStorge + controller.armRaiseSpeed);
+            arm.SetPosition(arm.armPositionStorage + controller.armRaiseSpeed);
         } else if (gamepad2.right_bumper) {
-            arm.SetPosition(controller.armRaiseSpeed * -1 + arm.armPositionStorge);
+            arm.SetPosition(controller.armRaiseSpeed * -1 + arm.armPositionStorage);
         }
     }
 }

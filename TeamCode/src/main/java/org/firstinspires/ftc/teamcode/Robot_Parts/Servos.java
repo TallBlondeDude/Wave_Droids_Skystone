@@ -16,5 +16,7 @@ public class Servos extends OpMode {
     // import servos
     public Servo frontClawServo = hardwareMap.servo.get("Front Claw Servo");
     public Servo backClawServo = hardwareMap.servo.get("Back Claw Servo");
+    public Servo leftLatchServo = hardwareMap.servo.get("leftLatchServo");
+    public Servo rightLatchServo = hardwareMap.servo.get("rightLatchServo");
 
 }
