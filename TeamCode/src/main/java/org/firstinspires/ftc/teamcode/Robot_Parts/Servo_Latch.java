@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.Robot_Parts;
 public class Servo_Latch {
     Servos servos = null;
 
-    public void unlatchBackSevos() {
+    public void unlatchBackServos() {
         servos.rightLatchServo.setPosition(1);
         servos.leftLatchServo.setPosition(1);
 
