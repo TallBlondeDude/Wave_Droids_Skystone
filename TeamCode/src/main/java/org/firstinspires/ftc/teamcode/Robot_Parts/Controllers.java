@@ -9,6 +9,9 @@ public class Controllers extends LinearOpMode {
     Claw claw;
     Wheel_Intake Wheel_Intake;
 
+    public Controllers() {
+    }
+
     //useless
     @Override
     public void runOpMode() throws InterruptedException {

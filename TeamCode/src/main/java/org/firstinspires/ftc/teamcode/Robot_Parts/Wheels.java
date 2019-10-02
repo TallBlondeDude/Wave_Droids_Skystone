@@ -5,6 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 public class Wheels {
+    public Wheels() {
+    }
     private Moters Moters = new Moters();
 
     public void Drive(double directionInRadians, double turnInRadians, float powerInPercentage) {
