@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.Robot_Parts;
 
 public class Wheel_Intake {
-    private Moters Moters = new Moters();
+    /*private Moters Moters = new Moters();
     String currentState = "Off";
     double lastChange;
 
@@ -10,4 +10,6 @@ public class Wheel_Intake {
         Moters.rightWheel.setPower(power);
 
     }
+
+     */
 }
