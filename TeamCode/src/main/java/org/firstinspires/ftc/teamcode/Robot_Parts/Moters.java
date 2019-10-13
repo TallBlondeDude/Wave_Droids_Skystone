@@ -10,9 +10,9 @@ public class Moters extends LinearOpMode {
     public DcMotor frontRightDrive = hardwareMap.get(DcMotor.class, "frontRightDrive");
     public DcMotor backLeftDrive = hardwareMap.get(DcMotor.class, "backLeftDrive");
     public DcMotor backRightDrive = hardwareMap.get(DcMotor.class, "backRightDrive");
-    //public DcMotor ArmScrew = hardwareMap.get(DcMotor.class, "ArmScrew");
-    //public DcMotor leftWheel = hardwareMap.get(DcMotor.class, "leftWheel");
-    //public DcMotor rightWheel = hardwareMap.get(DcMotor.class, "rightWheel");
+    public DcMotor ArmScrew = hardwareMap.get(DcMotor.class, "ArmScrew");
+    public DcMotor leftWheel = hardwareMap.get(DcMotor.class, "leftWheel");
+    public DcMotor rightWheel = hardwareMap.get(DcMotor.class, "rightWheel");
 
 
     public void Halt() {
@@ -20,7 +20,7 @@ public class Moters extends LinearOpMode {
         Moters.frontLeftDrive.setPower(0);
         Moters.frontRightDrive.setPower(0);
         Moters.backRightDrive.setPower(0);
-        //   Moters.ArmScrew.setPower(0);
+        Moters.ArmScrew.setPower(0);
     }
 
     @Override

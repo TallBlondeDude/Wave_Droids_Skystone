@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.Robot_Parts.*;
 
 public class Robot_Techniques extends OpMode {
-    /*private Claw Claw = null;
+    private Claw Claw = null;
     private Arm Arm = null;
     private int extendedArmPosition = 100;
     private int halfArmPosition = 50;
@@ -16,7 +16,7 @@ public class Robot_Techniques extends OpMode {
     private double encoderTickPerInch = 4;
     Robot_Techniques Technique;
 
-*/
+
     @Override
     public void init() {
 
@@ -27,7 +27,7 @@ public class Robot_Techniques extends OpMode {
 
     }
 
-   /* public void DropGrabedBlock() {
+    public void DropGrabedBlock() {
         Arm.SetPosition(Technique.halfArmPosition);
         Technique.Pause(armExtendOrRetractTime / 2);
         //Claw.SetPosition(Technique.openClawPosition);

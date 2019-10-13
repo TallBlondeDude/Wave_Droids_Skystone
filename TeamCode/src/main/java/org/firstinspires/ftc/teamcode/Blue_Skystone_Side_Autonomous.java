@@ -3,15 +3,16 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.Robot_Techniques;
 import org.firstinspires.ftc.teamcode.Robot_Parts.*;
 
 
 public class Blue_Skystone_Side_Autonomous extends OpMode {
     @Override
     public void init() {
-        /*/ initialize variables
+        // initialize variables
         Wheels Wheels = null;
-      //  Webcam Camera = null;
+        Webcam Camera = null;
         Claw Claw = null;
         Color_Sensor Color_Sensor = null;
         Robot_Techniques Techniques = null;
@@ -50,19 +51,17 @@ public class Blue_Skystone_Side_Autonomous extends OpMode {
         Wheels.Stop();
 
 
-         */
-
     }
 
-    //private Moters AllMoters = null;
-    // private ElapsedTime TimePassed = new ElapsedTime();
+    private Moters AllMoters = null;
+    private ElapsedTime TimePassed = new ElapsedTime();
 
     @Override
     public void loop() {
-        //    if (TimePassed.time() > 28) {
-        //         AllMoters.Halt();
-    }
+        if (TimePassed.time() > 28) {
+            AllMoters.Halt();
+        }
 
-    // }
+    }
 
 }

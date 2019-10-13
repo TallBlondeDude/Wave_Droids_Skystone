@@ -15,7 +15,7 @@ public class Color_Sensor extends OpMode {
     public void loop() {
 
     }
-/*
+
     public String Color() {
         // reset the variable name
         String color = "None";
@@ -31,6 +31,4 @@ public class Color_Sensor extends OpMode {
         }
         return color;
     }
-
-     */
 }
