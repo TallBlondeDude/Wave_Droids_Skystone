@@ -11,14 +11,13 @@ public class BasicOpMode_Mech extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private Controllers Gamepad = null;
     private Wheels Wheels = new Wheels();
-    private Claw Claw = null;
+
     @Override
     public void init() {
     }
 
     @Override
     public void loop() {
-        Gamepad.UpdateMovement();
         double polarAngle = Gamepad.polarAngle();
         double polarMagnitude = Gamepad.polarMagnitude();
         telemetry.addData("Direction in Radians", "Angle: " + polarAngle);
