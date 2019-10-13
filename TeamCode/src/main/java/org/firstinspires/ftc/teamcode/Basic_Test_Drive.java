@@ -18,6 +18,7 @@ public class Basic_Test_Drive extends OpMode {
 
     @Override
     public void loop() {
+        Gamepad.UpdateMovement();
         double polarAngle = Gamepad.polarAngle();
         double polarMagnitude = Gamepad.polarMagnitude();
         telemetry.addData("Direction in Radians", "Angle: " + polarAngle);
