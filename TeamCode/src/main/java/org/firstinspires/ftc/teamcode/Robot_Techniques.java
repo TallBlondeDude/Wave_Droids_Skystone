@@ -5,18 +5,25 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.Robot_Parts.*;
 
 public class Robot_Techniques extends OpMode {
-    private Claw Claw = null;
-    private Arm Arm = null;
-    private int extendedArmPosition = 100;
-    private int halfArmPosition = 50;
-    private int closedArmPosition = 0;
-    private double openClawPosition = 1;
-    private double closedClawPosition = 0;
-    private double armExtendOrRetractTime = 4;
-    private double encoderTickPerInch = 4;
-    Robot_Techniques Technique;
 
+    private int extendedArmPosition;
+    private int halfArmPosition;
+    private int closedArmPosition;
+    private double openClawPosition;
+    private double closedClawPosition;
+    private double armExtendOrRetractTime;
+    private double encoderTickPerInch;
 
+    Robot_Techniques() {
+        extendedArmPosition = 100;
+        halfArmPosition = 50;
+        closedArmPosition = 0;
+        openClawPosition = 1;
+        closedClawPosition = 0;
+        armExtendOrRetractTime = 4;
+        encoderTickPerInch = 4;
+
+    }
     @Override
     public void init() {
 
@@ -27,24 +34,7 @@ public class Robot_Techniques extends OpMode {
 
     }
 
-    public void DropGrabedBlock() {
-        Arm.SetPosition(Technique.halfArmPosition);
-        Technique.Pause(armExtendOrRetractTime / 2);
-        //Claw.SetPosition(Technique.openClawPosition);
-        Arm.SetPosition(Technique.closedArmPosition);
-        Technique.Pause(armExtendOrRetractTime / 2);
 
-    }
-
-    public void GrabBlock() {
-        //Claw.SetPosition(Technique.openClawPosition);
-        Arm.SetPosition(Technique.extendedArmPosition);
-        Technique.Pause(armExtendOrRetractTime);
-        //Claw.SetPosition(Technique.closedClawPosition);
-        Arm.SetPosition(Technique.closedArmPosition);
-        Technique.Pause(armExtendOrRetractTime);
-
-    }
 
     public void GrabPad() {
 

@@ -1,18 +1,16 @@
 package org.firstinspires.ftc.teamcode.Robot_Parts;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-public class Controllers extends LinearOpMode {
-    // Initialize variables
+import org.firstinspires.ftc.teamcode.Basic_Test_Drive;
+
+public class Controllers extends Basic_Test_Drive {
     Controllers controller;
-    int armRaiseSpeed = 5;
+    int armRaiseSpeed;
+
 
 
     public Controllers() {
-    }
-
-    //useless
-    @Override
-    public void runOpMode() throws InterruptedException {
+        armRaiseSpeed = 5;
     }
 
     public void UpdateMovement() {

@@ -3,28 +3,19 @@ package org.firstinspires.ftc.teamcode.Robot_Parts;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-public class Moters extends LinearOpMode {
-    Moters Moters;
+import org.firstinspires.ftc.teamcode.Basic_Test_Drive;
 
-    public DcMotor frontLeftDrive = hardwareMap.get(DcMotor.class, "frontLeftDrive");
-    public DcMotor frontRightDrive = hardwareMap.get(DcMotor.class, "frontRightDrive");
-    public DcMotor backLeftDrive = hardwareMap.get(DcMotor.class, "backLeftDrive");
-    public DcMotor backRightDrive = hardwareMap.get(DcMotor.class, "backRightDrive");
-    public DcMotor ArmScrew = hardwareMap.get(DcMotor.class, "ArmScrew");
-    public DcMotor leftWheel = hardwareMap.get(DcMotor.class, "leftWheel");
-    public DcMotor rightWheel = hardwareMap.get(DcMotor.class, "rightWheel");
+public class Moters extends Basic_Test_Drive {
+    public DcMotor frontLeftDrive;
+    public DcMotor frontRightDrive;
+    public DcMotor backLeftDrive;
+    public DcMotor backRightDrive;
 
-
-    public void Halt() {
-        Moters.backLeftDrive.setPower(0);
-        Moters.frontLeftDrive.setPower(0);
-        Moters.frontRightDrive.setPower(0);
-        Moters.backRightDrive.setPower(0);
-        Moters.ArmScrew.setPower(0);
-    }
-
-    @Override
-    public void runOpMode() throws InterruptedException {
+    public Moters(DcMotor frontLeftDrive, DcMotor frontRightDrive, DcMotor backLeftDrive, DcMotor backRightDrive) {
+        this.frontLeftDrive = frontLeftDrive;
+        this.frontRightDrive = frontLeftDrive;
+        this.backLeftDrive = frontLeftDrive;
+        this.backRightDrive = frontRightDrive;
 
     }
 }

@@ -4,10 +4,11 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-public class Wheels {
+import org.firstinspires.ftc.teamcode.Basic_Test_Drive;
+
+public class Wheels extends Basic_Test_Drive {
     public Wheels() {
     }
-    private Moters Moters = new Moters();
 
     public void Drive(double directionInRadians, double turnInRadians, float powerInPercentage) {
 
@@ -51,80 +52,17 @@ public class Wheels {
     }
 
 
-    public void DriveDistance(double directionInRadians, double powerInPercentage, double distanceInEncoderTicks){
-        // plotted out points and this fit them, xcord gives turning factor
+    /*public void Turn(double turnXCord, double turnPower) {
+        if (turnXCord > 0){
 
-        // reset encoder count
-        Moters.frontLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        Moters.frontRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        Moters.backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        Moters.backRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        // set left motor to run to target encoder position and stop with brakes on.
-        Moters.frontLeftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        Moters.frontRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        Moters.backLeftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        Moters.backRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        double wheelsSetA = Math.sin(directionInRadians - .7957) * powerInPercentage;
-        double wheelsSetB = Math.sin(directionInRadians + .7957) * powerInPercentage;
-        //checks if one of the wheel sets is > 100% power, if so reduce it to one, and reduce the other by the same factor
-        if (wheelsSetA > 1) {
-            wheelsSetB = wheelsSetB / wheelsSetA;
-            wheelsSetA = 1;
         }
-
-        if (wheelsSetB > 1) {
-            wheelsSetA = wheelsSetA / wheelsSetB;
-            wheelsSetB = 1;
-        }
-        double efficiancy = wheelsSetA + wheelsSetB;
-        efficiancy = Math.abs(efficiancy);
-
-        // convert power into encoder distance
-        Moters.frontLeftDrive.getCurrentPosition();
-
-        // Send calculated power to wheels, inversion is due to battery power flow & wheel location
-
-        Moters.frontRightDrive.setPower(-1 * wheelsSetB);
-        Moters.backRightDrive.setPower(-1 * wheelsSetA);
-        Moters.backLeftDrive.setPower(wheelsSetB);
-        Moters.frontLeftDrive.setPower(wheelsSetA);
+        Moters.backLeftDrive.setPower(leftPower);
+        Moters.frontLeftDrive.setPower(leftPower);
+        Moters.frontRightDrive.setPower(rightPower);
+        Moters.backRightDrive.setPower(rightPower);
 
     }
 
-    public void findEfficiency() {
-
-    }
-
-    public void Turn(double turnInRadians, double turnPower) {
-        double percentTurn = turnInRadians / 6.283;
-        double direction = turnInRadians / turnInRadians;
-
-        // reset encoder count
-        Moters.frontLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        Moters.frontRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        Moters.backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        Moters.backRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        // set left motor to run to target encoder position and stop with brakes on.
-        Moters.frontLeftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        Moters.frontRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        Moters.backLeftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        Moters.backRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        // percentTurn / xxx =
-        Moters.backLeftDrive.setPower(direction);
-        Moters.frontLeftDrive.setPower(direction);
-        Moters.frontRightDrive.setPower(direction);
-        Moters.backRightDrive.setPower(direction);
-        // wait(waitTime);
-
-        Moters.backLeftDrive.setPower(0);
-        Moters.frontLeftDrive.setPower(0);
-        Moters.frontRightDrive.setPower(0);
-        Moters.backRightDrive.setPower(0);
-
-    }
+     */
 
 }
