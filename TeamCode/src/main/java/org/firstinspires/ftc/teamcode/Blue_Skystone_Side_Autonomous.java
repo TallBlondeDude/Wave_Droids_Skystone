@@ -27,7 +27,7 @@ public class Blue_Skystone_Side_Autonomous extends OpMode {
         Techniques.GrabBlock();
 
         /// drive to the building side based on where you came from
-        Wheels.Drive(0, 0, 1);
+        Wheels.DriveDistance(0, 0, Techniques.FindDistance2());
         ///ENCODER FUN :)
         //
         Wheels.Stop();

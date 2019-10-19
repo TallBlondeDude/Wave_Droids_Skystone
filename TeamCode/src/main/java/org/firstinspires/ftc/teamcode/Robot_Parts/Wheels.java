@@ -6,8 +6,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Basic_Test_Drive;
 
-public class Wheels extends Basic_Test_Drive {
-    public Wheels() {
+public class Wheels{
+    Moters Moters;
+    public Wheels(Moters A) {
+     Moters = A;
     }
 
     public void Drive(double directionInRadians, double turnInRadians, float powerInPercentage) {

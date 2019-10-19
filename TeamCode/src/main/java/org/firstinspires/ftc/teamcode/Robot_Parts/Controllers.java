@@ -3,14 +3,13 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Basic_Test_Drive;
 
-public class Controllers extends Basic_Test_Drive {
+public class Controllers{
     Controllers controller;
     int armRaiseSpeed;
 
-
-
-    public Controllers() {
+    public Controllers(Controllers a) {
         armRaiseSpeed = 5;
+        controller = a;
     }
 
     public void UpdateMovement() {

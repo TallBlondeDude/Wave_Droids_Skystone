@@ -11,16 +11,18 @@ import org.firstinspires.ftc.teamcode.Robot_Parts.*;
 @TeleOp(name = "Mechanum Two Joysick", group = "Iterative Opmode")
 public class Basic_Test_Drive extends OpMode {
     // Declare OpMode members.
-    private Controllers Gamepad;
-
+    public Controllers Gamepad;
+    public Moters Moters;
+    public Wheels Wheels;
     public void init() {
-        Moters Moters = new Moters(hardwareMap.get(DcMotor.class, "frontLeftDrive"),
+        Moters = new Moters(hardwareMap.get(DcMotor.class, "frontLeftDrive"),
                 hardwareMap.get(DcMotor.class, "frontLeftDrive"), hardwareMap.get(DcMotor.class,
                 "frontLeftDrive"), hardwareMap.get(DcMotor.class, "frontLeftDrive"));
+        Gamepad = new controller(gamepad1);
+        Wheels = new Wheels(Moters);
     }
 
     public void init_loop() {
-        Controllers Gamepad = new Controllers();
     }
 
     @Override
