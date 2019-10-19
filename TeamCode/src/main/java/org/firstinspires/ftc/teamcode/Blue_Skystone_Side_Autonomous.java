@@ -1,3 +1,4 @@
+/*
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -65,3 +66,5 @@ public class Blue_Skystone_Side_Autonomous extends OpMode {
     }
 
 }
+
+ */

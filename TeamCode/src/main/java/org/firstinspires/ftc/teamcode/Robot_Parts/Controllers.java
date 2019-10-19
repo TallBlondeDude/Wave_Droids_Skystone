@@ -1,4 +1,6 @@
 package org.firstinspires.ftc.teamcode.Robot_Parts;
+
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Basic_Test_Drive;
@@ -6,10 +8,13 @@ import org.firstinspires.ftc.teamcode.Basic_Test_Drive;
 public class Controllers{
     Controllers controller;
     int armRaiseSpeed;
+    Gamepad gamepad1;
 
-    public Controllers(Controllers a) {
+
+    public Controllers(Controllers a, Gamepad b) {
         armRaiseSpeed = 5;
         controller = a;
+        gamepad1 = b;
     }
 
     public void UpdateMovement() {

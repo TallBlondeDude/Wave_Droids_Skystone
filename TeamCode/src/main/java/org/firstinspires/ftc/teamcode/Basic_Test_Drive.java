@@ -3,8 +3,6 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Robot_Parts.*;
 
@@ -16,13 +14,14 @@ public class Basic_Test_Drive extends OpMode {
     public Wheels Wheels;
     public void init() {
         Moters = new Moters(hardwareMap.get(DcMotor.class, "frontLeftDrive"),
-                hardwareMap.get(DcMotor.class, "frontLeftDrive"), hardwareMap.get(DcMotor.class,
-                "frontLeftDrive"), hardwareMap.get(DcMotor.class, "frontLeftDrive"));
-        Gamepad = new controller(gamepad1);
-        Wheels = new Wheels(Moters);
-    }
-
-    public void init_loop() {
+                hardwareMap.get(DcMotor.class, "frontRightDrive"), hardwareMap.get(DcMotor.class,
+                "backLeftDrive"), hardwareMap.get(DcMotor.class, "backRightDrive"));
+        Moters.backRightDrive.setDirection(DcMotor.Direction.FORWARD);
+        Moters.frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
+        Moters.backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
+        Moters.frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
+        Gamepad = new Controllers(Gamepad, gamepad1);
+        Wheels = new Wheels(Moters, telemetry);
     }
 
     @Override

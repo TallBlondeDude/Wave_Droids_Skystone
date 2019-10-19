@@ -1,18 +1,24 @@
 package org.firstinspires.ftc.teamcode.Robot_Parts;
 
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Basic_Test_Drive;
 
 public class Wheels{
     Moters Moters;
-    public Wheels(Moters A) {
+    Telemetry telemetry;
+
+    public Wheels(Moters A, Telemetry t) {
      Moters = A;
+        telemetry = t;
     }
 
-    public void Drive(double directionInRadians, double turnInRadians, float powerInPercentage) {
+
+    public void Drive(double directionInRadians, float turnInRadians, float powerInPercentage) {
 
         double wheelsSetA = Math.sin(directionInRadians - .7957) * powerInPercentage + turnInRadians;
         double wheelsSetB = Math.sin(directionInRadians + .7957) * powerInPercentage + turnInRadians;
@@ -26,11 +32,17 @@ public class Wheels{
             wheelsSetA = wheelsSetA / wheelsSetB;
             wheelsSetB = 1;
         }
+        Moters.backLeftDrive.setPower(wheelsSetA);
+        Moters.frontLeftDrive.setPower(wheelsSetB);
+        Moters.frontRightDrive.setPower(wheelsSetA);
+        Moters.backRightDrive.setPower(wheelsSetB);
+        telemetry.addData("Wheel Set A:", wheelsSetA);
+        telemetry.addData("Wheel Set B:", wheelsSetB);
+
         // convert power into encoder distance
         double encoderAmount = powerInPercentage * 3;
         // Send calculated power to wheels, inversion is due to battery power flow & wheel location
 
-        Drive(wheelsSetA, wheelsSetB, encoderAmount);
 
     }
 

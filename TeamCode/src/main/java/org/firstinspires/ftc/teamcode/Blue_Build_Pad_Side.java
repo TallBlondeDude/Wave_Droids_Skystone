@@ -1,3 +1,4 @@
+/*
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -29,3 +30,5 @@ public class Blue_Build_Pad_Side extends OpMode {
     }
 
 }
+
+ */
