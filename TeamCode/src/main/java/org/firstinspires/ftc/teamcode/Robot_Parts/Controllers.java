@@ -42,7 +42,7 @@ public class Controllers{
         double ycord = gamepad1.left_stick_y;
         // inverse tangent
         double theta = Math.atan2(xcord, ycord);
-        return theta;
+        return (theta - 1.57079);
     }
 
     public void BackBumpers() {

@@ -20,24 +20,30 @@ public class Wheels{
 
     public void Drive(double directionInRadians, float turnInRadians, float powerInPercentage) {
 
-        double wheelsSetA = Math.sin(directionInRadians - .7957) * powerInPercentage + turnInRadians;
-        double wheelsSetB = Math.sin(directionInRadians + .7957) * powerInPercentage + turnInRadians;
+        double wheelsSetA = Math.sin(directionInRadians - .7957) * powerInPercentage;
+        double wheelsSetB = Math.sin(directionInRadians + .7957) * powerInPercentage;
+        double turnInPercentage = turnInRadians;
+        double motorCheck;
+        double maxSpeed = .6;
         //checks if one of the wheel sets is > 100% power, if so reduce it to one, and reduce the other by the same factor
-        if (wheelsSetA > 1) {
-            wheelsSetB = wheelsSetB / wheelsSetA;
-            wheelsSetA = 1;
+        double[] powers = {wheelsSetA + turnInPercentage, wheelsSetA - turnInPercentage, wheelsSetB + turnInPercentage, wheelsSetB - turnInPercentage};
+        for (int i = 0; i < powers.length; i++) {
+            if (powers[i] > maxSpeed) {
+                motorCheck = maxSpeed / powers[i];
+                for (int h = 0; h < powers.length; h++) {
+                    powers[h] = powers[h] * motorCheck;
+                }
+            }
         }
 
-        if (wheelsSetB > 1) {
-            wheelsSetA = wheelsSetA / wheelsSetB;
-            wheelsSetB = 1;
-        }
-        Moters.backLeftDrive.setPower(wheelsSetA);
-        Moters.frontLeftDrive.setPower(wheelsSetB);
-        Moters.frontRightDrive.setPower(wheelsSetA);
-        Moters.backRightDrive.setPower(wheelsSetB);
-        telemetry.addData("Wheel Set A:", wheelsSetA);
-        telemetry.addData("Wheel Set B:", wheelsSetB);
+        Moters.backLeftDrive.setPower(powers[0]);
+        Moters.frontRightDrive.setPower(-powers[1]);
+        Moters.frontLeftDrive.setPower(powers[2]);
+        Moters.backRightDrive.setPower(powers[3]);
+        telemetry.addData("back left:", powers[0]);
+        telemetry.addData("front right:", powers[1]);
+        telemetry.addData("front left:", powers[2]);
+        telemetry.addData("back right:", powers[3]);
 
         // convert power into encoder distance
         double encoderAmount = powerInPercentage * 3;
