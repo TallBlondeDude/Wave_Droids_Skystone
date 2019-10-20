@@ -1,18 +1,20 @@
 package org.firstinspires.ftc.teamcode.Robot_Parts;
+
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-public class Controllers extends LinearOpMode {
-    // Initialize variables
+import org.firstinspires.ftc.teamcode.Basic_Test_Drive;
+
+public class Controllers{
     Controllers controller;
-    int armRaiseSpeed = 5;
+    int armRaiseSpeed;
+    Gamepad gamepad1;
 
 
-    public Controllers() {
-    }
-
-    //useless
-    @Override
-    public void runOpMode() throws InterruptedException {
+    public Controllers(Controllers a, Gamepad b) {
+        armRaiseSpeed = 5;
+        controller = a;
+        gamepad1 = b;
     }
 
     public void UpdateMovement() {
@@ -31,7 +33,8 @@ public class Controllers extends LinearOpMode {
         double squareY = ycord * ycord;
         //Find the sqrt
         double magnitude = Math.sqrt(squareY + squareX);
-        return magnitude;
+
+        return magnitude / 1.1;
     }
 
     //finds angle with true right being 0 degrees
@@ -40,7 +43,7 @@ public class Controllers extends LinearOpMode {
         double ycord = gamepad1.left_stick_y;
         // inverse tangent
         double theta = Math.atan2(xcord, ycord);
-        return theta;
+        return (theta - 1.57079);
     }
 
     public void BackBumpers() {

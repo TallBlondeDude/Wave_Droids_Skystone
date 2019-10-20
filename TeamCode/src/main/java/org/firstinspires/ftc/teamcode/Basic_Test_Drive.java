@@ -2,18 +2,26 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Robot_Parts.*;
 
 @TeleOp(name = "Mechanum Two Joysick", group = "Iterative Opmode")
 public class Basic_Test_Drive extends OpMode {
     // Declare OpMode members.
-    private Controllers Gamepad = new Controllers();
-    private Wheels Wheels = new Wheels();
-
-    @Override
+    public Controllers Gamepad;
+    public Moters Moters;
+    public Wheels Wheels;
     public void init() {
+        Moters = new Moters(hardwareMap.get(DcMotor.class, "frontLeftDrive"),
+                hardwareMap.get(DcMotor.class, "frontRightDrive"), hardwareMap.get(DcMotor.class,
+                "backLeftDrive"), hardwareMap.get(DcMotor.class, "backRightDrive"));
+        Moters.backRightDrive.setDirection(DcMotor.Direction.FORWARD);
+        Moters.frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
+        Moters.backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
+        Moters.frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
+        Gamepad = new Controllers(Gamepad, gamepad1);
+        Wheels = new Wheels(Moters, telemetry);
     }
 
     @Override

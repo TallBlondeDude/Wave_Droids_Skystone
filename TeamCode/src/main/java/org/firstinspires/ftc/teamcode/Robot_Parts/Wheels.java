@@ -1,34 +1,52 @@
 package org.firstinspires.ftc.teamcode.Robot_Parts;
 
+import java.lang.Math;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-public class Wheels {
-    public Wheels() {
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.Basic_Test_Drive;
+
+public class Wheels{
+    Moters Moters;
+    Telemetry telemetry;
+
+    public Wheels(Moters A, Telemetry t) {
+     Moters = A;
+        telemetry = t;
     }
-    private Moters Moters = new Moters();
 
-    public void Drive(double directionInRadians, double turnInRadians, float powerInPercentage) {
 
-        double wheelsSetA = Math.sin(directionInRadians - .7957) * powerInPercentage + turnInRadians;
-        double wheelsSetB = Math.sin(directionInRadians + .7957) * powerInPercentage + turnInRadians;
+    public void Drive(double directionInRadians, float turnInRadians, float powerInPercentage) {
+
+        double wheelsSetA = Math.sin(directionInRadians - .7957) * powerInPercentage;
+        double wheelsSetB = Math.sin(directionInRadians + .7957) * powerInPercentage;
+        double motorCheck;
+        double maxSpeed = .8;
         //checks if one of the wheel sets is > 100% power, if so reduce it to one, and reduce the other by the same factor
-        if (wheelsSetA > 1) {
-            wheelsSetB = wheelsSetB / wheelsSetA;
-            wheelsSetA = 1;
+        double[] powers = {wheelsSetA + turnInRadians, wheelsSetA - turnInRadians, wheelsSetB + turnInRadians, wheelsSetB - turnInRadians};
+        double largestSpeedSoFar = powers[0];
+
+        for (int i = 1; i < 4; i++) {
+            if (Math.abs(powers[i]) > largestSpeedSoFar) {
+                largestSpeedSoFar = Math.abs(powers[i]);
+            }
         }
+        motorCheck = maxSpeed / largestSpeedSoFar;
+        for (int h = 0; h < 4; h++) {
+            powers[h] = powers[h] * motorCheck;
 
-        if (wheelsSetB > 1) {
-            wheelsSetA = wheelsSetA / wheelsSetB;
-            wheelsSetB = 1;
         }
-        // convert power into encoder distance
-        double encoderAmount = powerInPercentage * 3;
-        // Send calculated power to wheels, inversion is due to battery power flow & wheel location
+        Moters.backLeftDrive.setPower(powers[0]);
+        Moters.frontRightDrive.setPower(-powers[1]);
+        Moters.frontLeftDrive.setPower(powers[2]);
+        Moters.backRightDrive.setPower(powers[3]);
 
-        Drive(wheelsSetA, wheelsSetB, encoderAmount);
-
+        telemetry.addData("back left:", powers[0]);
+        telemetry.addData("front right:", powers[1]);
+        telemetry.addData("front left:", powers[2]);
+        telemetry.addData("back right:", powers[3]);
     }
 
     private void Drive(double wheelsSetA, double wheelsSetB, double Power) {
@@ -51,80 +69,17 @@ public class Wheels {
     }
 
 
-    public void DriveDistance(double directionInRadians, double powerInPercentage, double distanceInEncoderTicks){
-        // plotted out points and this fit them, xcord gives turning factor
+    /*public void Turn(double turnXCord, double turnPower) {
+        if (turnXCord > 0){
 
-        // reset encoder count
-        Moters.frontLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        Moters.frontRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        Moters.backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        Moters.backRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        // set left motor to run to target encoder position and stop with brakes on.
-        Moters.frontLeftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        Moters.frontRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        Moters.backLeftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        Moters.backRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        double wheelsSetA = Math.sin(directionInRadians - .7957) * powerInPercentage;
-        double wheelsSetB = Math.sin(directionInRadians + .7957) * powerInPercentage;
-        //checks if one of the wheel sets is > 100% power, if so reduce it to one, and reduce the other by the same factor
-        if (wheelsSetA > 1) {
-            wheelsSetB = wheelsSetB / wheelsSetA;
-            wheelsSetA = 1;
         }
-
-        if (wheelsSetB > 1) {
-            wheelsSetA = wheelsSetA / wheelsSetB;
-            wheelsSetB = 1;
-        }
-        double efficiancy = wheelsSetA + wheelsSetB;
-        efficiancy = Math.abs(efficiancy);
-
-        // convert power into encoder distance
-        Moters.frontLeftDrive.getCurrentPosition();
-
-        // Send calculated power to wheels, inversion is due to battery power flow & wheel location
-
-        Moters.frontRightDrive.setPower(-1 * wheelsSetB);
-        Moters.backRightDrive.setPower(-1 * wheelsSetA);
-        Moters.backLeftDrive.setPower(wheelsSetB);
-        Moters.frontLeftDrive.setPower(wheelsSetA);
+        Moters.backLeftDrive.setPower(leftPower);
+        Moters.frontLeftDrive.setPower(leftPower);
+        Moters.frontRightDrive.setPower(rightPower);
+        Moters.backRightDrive.setPower(rightPower);
 
     }
 
-    public void findEfficiency() {
-
-    }
-
-    public void Turn(double turnInRadians, double turnPower) {
-        double percentTurn = turnInRadians / 6.283;
-        double direction = turnInRadians / turnInRadians;
-
-        // reset encoder count
-        Moters.frontLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        Moters.frontRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        Moters.backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        Moters.backRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        // set left motor to run to target encoder position and stop with brakes on.
-        Moters.frontLeftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        Moters.frontRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        Moters.backLeftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        Moters.backRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        // percentTurn / xxx =
-        Moters.backLeftDrive.setPower(direction);
-        Moters.frontLeftDrive.setPower(direction);
-        Moters.frontRightDrive.setPower(direction);
-        Moters.backRightDrive.setPower(direction);
-        // wait(waitTime);
-
-        Moters.backLeftDrive.setPower(0);
-        Moters.frontLeftDrive.setPower(0);
-        Moters.frontRightDrive.setPower(0);
-        Moters.backRightDrive.setPower(0);
-
-    }
+     */
 
 }
