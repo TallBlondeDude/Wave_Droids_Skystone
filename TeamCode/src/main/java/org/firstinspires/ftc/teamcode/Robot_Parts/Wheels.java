@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.Robot_Parts;
 
-
+import java.lang.Math;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -22,34 +22,31 @@ public class Wheels{
 
         double wheelsSetA = Math.sin(directionInRadians - .7957) * powerInPercentage;
         double wheelsSetB = Math.sin(directionInRadians + .7957) * powerInPercentage;
-        double turnInPercentage = turnInRadians;
         double motorCheck;
-        double maxSpeed = .6;
+        double maxSpeed = .8;
         //checks if one of the wheel sets is > 100% power, if so reduce it to one, and reduce the other by the same factor
-        double[] powers = {wheelsSetA + turnInPercentage, wheelsSetA - turnInPercentage, wheelsSetB + turnInPercentage, wheelsSetB - turnInPercentage};
-        for (int i = 0; i < powers.length; i++) {
-            if (powers[i] > maxSpeed) {
-                motorCheck = maxSpeed / powers[i];
-                for (int h = 0; h < powers.length; h++) {
-                    powers[h] = powers[h] * motorCheck;
-                }
+        double[] powers = {wheelsSetA + turnInRadians, wheelsSetA - turnInRadians, wheelsSetB + turnInRadians, wheelsSetB - turnInRadians};
+        double largestSpeedSoFar = powers[0];
+
+        for (int i = 1; i < 4; i++) {
+            if (Math.abs(powers[i]) > largestSpeedSoFar) {
+                largestSpeedSoFar = Math.abs(powers[i]);
             }
         }
+        motorCheck = maxSpeed / largestSpeedSoFar;
+        for (int h = 0; h < 4; h++) {
+            powers[h] = powers[h] * motorCheck;
 
+        }
         Moters.backLeftDrive.setPower(powers[0]);
         Moters.frontRightDrive.setPower(-powers[1]);
         Moters.frontLeftDrive.setPower(powers[2]);
         Moters.backRightDrive.setPower(powers[3]);
+
         telemetry.addData("back left:", powers[0]);
         telemetry.addData("front right:", powers[1]);
         telemetry.addData("front left:", powers[2]);
         telemetry.addData("back right:", powers[3]);
-
-        // convert power into encoder distance
-        double encoderAmount = powerInPercentage * 3;
-        // Send calculated power to wheels, inversion is due to battery power flow & wheel location
-
-
     }
 
     private void Drive(double wheelsSetA, double wheelsSetB, double Power) {

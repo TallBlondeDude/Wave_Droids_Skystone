@@ -33,7 +33,8 @@ public class Controllers{
         double squareY = ycord * ycord;
         //Find the sqrt
         double magnitude = Math.sqrt(squareY + squareX);
-        return magnitude;
+
+        return magnitude / 1.1;
     }
 
     //finds angle with true right being 0 degrees
