@@ -13,12 +13,13 @@ public class Wheels{
     Telemetry telemetry;
     double orignalMaxSpeed;
     double maxSpeed;
-
+    double encodersPerInch;
     public Wheels(Moters A, Telemetry t) {
      Moters = A;
         telemetry = t;
         orignalMaxSpeed = .6;
         maxSpeed = orignalMaxSpeed;
+        encodersPerInch = 4;
     }
 
 
@@ -52,10 +53,50 @@ public class Wheels{
         telemetry.addData("back right:", powers[3]);
     }
 
-    public void driveDistance(double inches, double directionInRadians) {
+    public void driveDistanceFoward(double inches, double power) {
+        //find how many encoder ticks we need to move
+        encoderDistance = inches * encodersPerInch;
+        //set the power for this operation
+        Moters.backLeftDrive.setPower(power)
+        Moters.backRightDrive.setPower(power)
+        Moters.frontLeftDrive.setPower(power)
+        Moters.frontRightDrive.setPower(power)
 
+        //Reset them so we good
+        Moters.backLeftDrive.STOP_AND_RESET_ENCODER;
+        Moters.backRightDrive.STOP_AND_RESET_ENCODER;
+        Moters.frontLeftDrive.STOP_AND_RESET_ENCODER;
+        Moters.frontRightDrive.STOP_AND_RESET_ENCODER;
+        //set encoders target location
+        Moters.backLeftDrive.setTargetPosition(encoderDistance);
+        Moters.backRightDrive.setTargetPosition(encoderDistance);
+        Moters.frontLeftDrive.setTargetPosition(encoderDistance);
+        Moters.frontRightDrive.setTargetPosition(encoderDistance);
 
     }
+
+    public void driveDistanceCrabwalk(double inchesToTheRight, double power) {
+        //find how many encoder ticks we need to move
+        double friction = 1.05;
+        encoderDistance = inchesToTheRight * encodersPerInch * 2 * friction;
+        //set the power for this operation
+        Moters.backLeftDrive.setPower(power)
+        Moters.backRightDrive.setPower(power)
+        Moters.frontLeftDrive.setPower(power)
+        Moters.frontRightDrive.setPower(power)
+
+        //Reset them so we good
+        Moters.backLeftDrive.STOP_AND_RESET_ENCODER;
+        Moters.backRightDrive.STOP_AND_RESET_ENCODER;
+        Moters.frontLeftDrive.STOP_AND_RESET_ENCODER;
+        Moters.frontRightDrive.STOP_AND_RESET_ENCODER;
+        //set encoders target location
+        Moters.backLeftDrive.setTargetPosition(encoderDistance);
+        Moters.backRightDrive.setTargetPosition(encoderDistance);
+        Moters.frontLeftDrive.setTargetPosition(encoderDistance);
+        Moters.frontRightDrive.setTargetPosition(encoderDistance);
+
+
     private void Drive(double wheelsSetA, double wheelsSetB, double Power) {
         int constant = (int) Math.round(Power * 10);
         int newWheelSetA = (int) (constant * wheelsSetA);

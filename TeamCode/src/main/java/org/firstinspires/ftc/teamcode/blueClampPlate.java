@@ -15,7 +15,7 @@ public class blueClampPlate extends LinearOpMode {
     public Moters Moters;
     public Wheels Wheels;
     public Servos Servos;
-
+    private double distanceWallTooPlate;
     @Override
     public void runOpMode() throws InterruptedException {
         Moters = new Moters(hardwareMap.get(DcMotor.class, "frontLeftDrive"),
@@ -30,20 +30,27 @@ public class blueClampPlate extends LinearOpMode {
         Moters.backLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Moters.backRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Moters.frontLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        Moters.backLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Moters.frontLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Moters.frontRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Moters.backRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+        //distance in inches to wall
+
+        distanceWallTooPlate = 40;
+        double distanceToLine = 40;
         Wheels = new Wheels(Moters, telemetry);
         waitForStart();
-        Wheels.Drive(3.4415 / 2, 0, 60);
-        sleep(500);
-        Moters.Halt();
-        sleep(3000);
+        Wheels.driveDistanceFoward(distanceWallTooPlate, .6);
+        sleep(5000);
         Servos.setPlateServoPos(0);
         sleep(1000);
-        Wheels.Drive((3 / 2 * 3.1415), 0, 100);
+        Wheels.driveDistanceFoward(-distanceWallTooPlate, .8);
         sleep(2000);
         Servos.setPlateServoPos(0);
         sleep(1000);
-        Wheels.Drive(0, 0, 60);
+        Wheels.driveDistanceCrabwalk(distanceToLine, .6)
+        //pray that we end up over the line <3 mabey get an encoder function set up if we have time
         sleep(2500);
         Moters.Halt();
 
