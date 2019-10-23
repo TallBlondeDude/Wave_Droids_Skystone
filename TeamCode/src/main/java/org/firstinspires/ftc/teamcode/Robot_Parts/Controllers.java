@@ -9,17 +9,21 @@ public class Controllers{
     Controllers controller;
     int armRaiseSpeed;
     Gamepad gamepad1;
+    Wheels wheels;
+    double lastAPress;
 
 
-    public Controllers(Controllers a, Gamepad b) {
+    public Controllers(Controllers a, Gamepad b, Wheels c) {
         armRaiseSpeed = 5;
         controller = a;
         gamepad1 = b;
+        wheels = c;
+        lastAPress = 0;
     }
 
     public void UpdateMovement() {
-        BackBumpers();
-        BackTriggers();
+        //  BackBumpers();
+        //  BackTriggers();
         AButton();
     }
 
@@ -50,7 +54,15 @@ public class Controllers{
     }
 
     public void AButton() {
-
+        double timestamp = gamepad1.timestamp;
+        if (lastAPress - timestamp < 2) {
+            if (wheels.maxSpeed == wheels.orignalMaxSpeed) {
+                wheels.maxSpeed = wheels.maxSpeed / 2;
+            } else {
+                wheels.maxSpeed = wheels.maxSpeed * 2;
+            }
+            lastAPress = timestamp;
+        }
     }
 
     public void BackTriggers() {
