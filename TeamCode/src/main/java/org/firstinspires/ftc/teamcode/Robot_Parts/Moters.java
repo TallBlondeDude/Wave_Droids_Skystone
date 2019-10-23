@@ -19,4 +19,12 @@ public class Moters {
 
     }
 
+    public void Halt() {
+        frontLeftDrive.setPower(0);
+        frontRightDrive.setPower(0);
+        backRightDrive.setPower(0);
+        backLeftDrive.setPower(0);
+    }
+
+
 }

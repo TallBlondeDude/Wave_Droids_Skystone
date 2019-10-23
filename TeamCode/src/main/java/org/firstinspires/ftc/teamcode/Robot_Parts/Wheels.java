@@ -11,10 +11,14 @@ import org.firstinspires.ftc.teamcode.Basic_Test_Drive;
 public class Wheels{
     Moters Moters;
     Telemetry telemetry;
+    double orignalMaxSpeed;
+    double maxSpeed;
 
     public Wheels(Moters A, Telemetry t) {
      Moters = A;
         telemetry = t;
+        orignalMaxSpeed = .6;
+        maxSpeed = orignalMaxSpeed;
     }
 
 
@@ -23,7 +27,6 @@ public class Wheels{
         double wheelsSetA = Math.sin(directionInRadians - .7957) * powerInPercentage;
         double wheelsSetB = Math.sin(directionInRadians + .7957) * powerInPercentage;
         double motorCheck;
-        double maxSpeed = .8;
         //checks if one of the wheel sets is > 100% power, if so reduce it to one, and reduce the other by the same factor
         double[] powers = {wheelsSetA + turnInRadians, wheelsSetA - turnInRadians, wheelsSetB + turnInRadians, wheelsSetB - turnInRadians};
         double largestSpeedSoFar = powers[0];
@@ -49,6 +52,10 @@ public class Wheels{
         telemetry.addData("back right:", powers[3]);
     }
 
+    public void driveDistance(double inches, double directionInRadians) {
+
+
+    }
     private void Drive(double wheelsSetA, double wheelsSetB, double Power) {
         int constant = (int) Math.round(Power * 10);
         int newWheelSetA = (int) (constant * wheelsSetA);
