@@ -9,19 +9,20 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Robot_Parts.*;
 
-@Autonomous(name = "Blue Grab Plate", group = "Iterative Opmode")
+@Autonomous(name = "Blue Grab Plate with telementary", group = "Linear Opmode")
 public class blueClampPlate extends LinearOpMode {
     // Declare OpMode members.
     public Moters Moters;
     public Wheels Wheels;
     public Servos Servos;
+    private long servoRotationTime;
     private double distanceWallTooPlate;
     @Override
     public void runOpMode() throws InterruptedException {
         Moters = new Moters(hardwareMap.get(DcMotor.class, "frontLeftDrive"),
                 hardwareMap.get(DcMotor.class, "frontRightDrive"), hardwareMap.get(DcMotor.class,
                 "backLeftDrive"), hardwareMap.get(DcMotor.class, "backRightDrive"));
-        Servos = new Servos(hardwareMap.get(Servo.class, ""), hardwareMap.get(Servo.class, ""));
+        Servos = new Servos(hardwareMap.get(Servo.class, "leftPlateServo"), hardwareMap.get(Servo.class, "rightPlateServo"));
         Moters.backRightDrive.setDirection(DcMotor.Direction.FORWARD);
         Moters.frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
         Moters.backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
@@ -36,22 +37,46 @@ public class blueClampPlate extends LinearOpMode {
         Moters.backRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         //distance in inches to wall
-
+        servoRotationTime = 1000;
         distanceWallTooPlate = 40;
         double distanceToLine = 40;
         Wheels = new Wheels(Moters, telemetry);
         waitForStart();
-        Wheels.driveDistanceFoward(distanceWallTooPlate, .6);
+
+        telemetry.addData("Task", "Going to plate");
+        telemetry.update();
+        Wheels.driveDistanceFoward(-distanceWallTooPlate, .2);
+        telemetry.addData("Task", "Going to plate");
+        telemetry.update();
+        sleep(5000);
+
+        telemetry.addData("Task", "Closing Servos");
+        telemetry.update();
+        Servos.setPlateServoPos(0);
+        sleep(servoRotationTime);
+        Servos.setPlateServoPos(.5);
+        sleep(100);
+        Wheels.driveDistanceFoward(distanceWallTooPlate, .3);
+        telemetry.addData("Task", "Back to wall");
+        telemetry.update();
+
         sleep(5000);
         Servos.setPlateServoPos(0);
-        sleep(1000);
-        Wheels.driveDistanceFoward(-distanceWallTooPlate, .8);
-        sleep(2000);
-        Servos.setPlateServoPos(0);
-        sleep(1000);
-        Wheels.driveDistanceCrabwalk(distanceToLine, .6)
+        sleep(servoRotationTime);
+        Servos.setPlateServoPos(.5);
+
+        telemetry.addData("Task", "Opening Servos");
+        telemetry.update();
+
+        sleep(3000);
+        Wheels.driveDistanceCrabwalk(distanceToLine, .2);
+        telemetry.addData("Task", "Going to line");
+        telemetry.update();
+
         //pray that we end up over the line <3 mabey get an encoder function set up if we have time
-        sleep(2500);
+        sleep(3500);
+        telemetry.addData("Task", "Stopping");
+        telemetry.update();
         Moters.Halt();
 
     }

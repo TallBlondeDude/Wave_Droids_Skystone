@@ -14,12 +14,13 @@ public class Wheels{
     double orignalMaxSpeed;
     double maxSpeed;
     double encodersPerInch;
+
     public Wheels(Moters A, Telemetry t) {
-     Moters = A;
+        Moters = A;
         telemetry = t;
         orignalMaxSpeed = .6;
         maxSpeed = orignalMaxSpeed;
-        encodersPerInch = 4;
+        encodersPerInch = 10;
     }
 
 
@@ -55,66 +56,37 @@ public class Wheels{
 
     public void driveDistanceFoward(double inches, double power) {
         //find how many encoder ticks we need to move
-        encoderDistance = inches * encodersPerInch;
+        int encoderDistance = (int) (-1 * inches * encodersPerInch);
         //set the power for this operation
-        Moters.backLeftDrive.setPower(power)
-        Moters.backRightDrive.setPower(power)
-        Moters.frontLeftDrive.setPower(power)
-        Moters.frontRightDrive.setPower(power)
+        Moters.backLeftDrive.setPower(.5 * -power);
+        Moters.backRightDrive.setPower(-power);
+        Moters.frontLeftDrive.setPower(.5 * -power);
+        Moters.frontRightDrive.setPower(-power);
 
-        //Reset them so we good
-        Moters.backLeftDrive.STOP_AND_RESET_ENCODER;
-        Moters.backRightDrive.STOP_AND_RESET_ENCODER;
-        Moters.frontLeftDrive.STOP_AND_RESET_ENCODER;
-        Moters.frontRightDrive.STOP_AND_RESET_ENCODER;
         //set encoders target location
-        Moters.backLeftDrive.setTargetPosition(encoderDistance);
-        Moters.backRightDrive.setTargetPosition(encoderDistance);
-        Moters.frontLeftDrive.setTargetPosition(encoderDistance);
-        Moters.frontRightDrive.setTargetPosition(encoderDistance);
+        Moters.backLeftDrive.setTargetPosition(Moters.backLeftDrive.getCurrentPosition() + encoderDistance);
+        Moters.backRightDrive.setTargetPosition(Moters.backRightDrive.getCurrentPosition() + encoderDistance);
+        Moters.frontLeftDrive.setTargetPosition(Moters.frontLeftDrive.getCurrentPosition() + encoderDistance);
+        Moters.frontRightDrive.setTargetPosition(Moters.frontRightDrive.getCurrentPosition() + encoderDistance);
 
     }
 
     public void driveDistanceCrabwalk(double inchesToTheRight, double power) {
         //find how many encoder ticks we need to move
         double friction = 1.05;
-        encoderDistance = inchesToTheRight * encodersPerInch * 2 * friction;
+        int encoderDistance = (int) (inchesToTheRight * encodersPerInch * 2 * friction);
         //set the power for this operation
-        Moters.backLeftDrive.setPower(power)
-        Moters.backRightDrive.setPower(power)
-        Moters.frontLeftDrive.setPower(power)
-        Moters.frontRightDrive.setPower(power)
+        Moters.backLeftDrive.setPower(-power);
+        Moters.backRightDrive.setPower(power);
+        Moters.frontLeftDrive.setPower(power);
+        Moters.frontRightDrive.setPower(power);
 
-        //Reset them so we good
-        Moters.backLeftDrive.STOP_AND_RESET_ENCODER;
-        Moters.backRightDrive.STOP_AND_RESET_ENCODER;
-        Moters.frontLeftDrive.STOP_AND_RESET_ENCODER;
-        Moters.frontRightDrive.STOP_AND_RESET_ENCODER;
         //set encoders target location
-        Moters.backLeftDrive.setTargetPosition(encoderDistance);
-        Moters.backRightDrive.setTargetPosition(encoderDistance);
-        Moters.frontLeftDrive.setTargetPosition(encoderDistance);
-        Moters.frontRightDrive.setTargetPosition(encoderDistance);
+        Moters.backLeftDrive.setTargetPosition(Moters.backLeftDrive.getCurrentPosition() + encoderDistance);
+        Moters.backRightDrive.setTargetPosition(Moters.backRightDrive.getCurrentPosition() + encoderDistance);
+        Moters.frontLeftDrive.setTargetPosition(Moters.frontLeftDrive.getCurrentPosition() + encoderDistance);
+        Moters.frontRightDrive.setTargetPosition(Moters.frontRightDrive.getCurrentPosition() - encoderDistance);
 
-
-    private void Drive(double wheelsSetA, double wheelsSetB, double Power) {
-        int constant = (int) Math.round(Power * 10);
-        int newWheelSetA = (int) (constant * wheelsSetA);
-        int newWheelSetB = (int) (constant * wheelsSetA);
-        Moters.frontLeftDrive.setTargetPosition(Moters.frontLeftDrive.getCurrentPosition() + (-1 * newWheelSetA));
-        Moters.frontLeftDrive.setTargetPosition(Moters.backRightDrive.getCurrentPosition() + (newWheelSetA));
-        Moters.frontLeftDrive.setTargetPosition(Moters.frontRightDrive.getCurrentPosition() + (newWheelSetB));
-        Moters.frontLeftDrive.setTargetPosition(Moters.backLeftDrive.getCurrentPosition() + (-1 * newWheelSetB));
-
-    }
-    public void Stop() {
-        Moters.backLeftDrive.setPower(0);
-        Moters.frontLeftDrive.setPower(0);
-        Moters.frontRightDrive.setPower(0);
-        Moters.backRightDrive.setPower(0);
-
-
-    }
 
 
     /*public void Turn(double turnXCord, double turnPower) {
@@ -130,4 +102,5 @@ public class Wheels{
 
      */
 
+    }
 }

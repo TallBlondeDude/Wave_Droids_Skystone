@@ -9,12 +9,13 @@ public class Controllers{
     Controllers controller;
     int armRaiseSpeed;
     Gamepad gamepad1;
+    Wheels wheels;
 
-
-    public Controllers(Controllers a, Gamepad b) {
+    public Controllers(Controllers a, Gamepad b, Wheels c) {
         armRaiseSpeed = 5;
         controller = a;
         gamepad1 = b;
+        wheels = c;
     }
 
     public void UpdateMovement() {

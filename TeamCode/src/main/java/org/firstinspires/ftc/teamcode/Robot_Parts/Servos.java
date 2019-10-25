@@ -12,7 +12,7 @@ public class Servos {
         this.rightPlateServo = rightPlateServo;
     }
 
-    public void setPlateServoPos(int position) {
+    public void setPlateServoPos(double position) {
         rightPlateServo.setPosition(position);
         leftPlateServo.setPosition(position);
     }
