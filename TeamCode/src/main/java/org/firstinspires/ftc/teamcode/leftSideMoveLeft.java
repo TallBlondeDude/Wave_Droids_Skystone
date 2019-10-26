@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Robot_Parts.*;
 
-@Autonomous(name = "BASIC Left Side (Forward, then Over)", group = "Iterative Opmode")
-public class blueLeftSideBASIC extends LinearOpMode {
+@Autonomous(name = "left Side Move Right", group = "Iterative Opmode")
+public class leftSideMoveLeft extends LinearOpMode {
     // Declare OpMode members.
     public Controllers Gamepad;
     public Moters Moters;
@@ -31,19 +31,10 @@ public class blueLeftSideBASIC extends LinearOpMode {
 
         Wheels = new Wheels(Moters, telemetry);
         waitForStart();
-        Wheels.Drive(1.7, 0, 60);
-        sleep(700);
+        Wheels.Drive(0 / 2, 0, 60);
+        sleep(500);
         Moters.Halt();
-        sleep(750);
-        Wheels.Turn(-.6);
-        sleep(350);
-        Moters.Halt();
-        sleep(2000);
-        Wheels.Drive(0
-                , 0, 100);
-        sleep(1200);
 
-        Moters.Halt();
 
     }
 

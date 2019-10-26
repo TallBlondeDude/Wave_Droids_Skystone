@@ -5,16 +5,19 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.Robot_Parts.*;
+import org.firstinspires.ftc.teamcode.Robot_Parts.Moters;
+import org.firstinspires.ftc.teamcode.Robot_Parts.Servos;
+import org.firstinspires.ftc.teamcode.Robot_Parts.Wheels;
 
-@Autonomous(name = "Blue Grab Plate with telementary", group = "Linear Opmode")
-public class blueClampPlate extends LinearOpMode {
+@Autonomous(name = "Red Grab Plate with telementary", group = "Linear Opmode")
+public class redClampPlate extends LinearOpMode {
     // Declare OpMode members.
     public Moters Moters;
     public Wheels Wheels;
     public Servos Servos;
     private long servoRotationTime;
     private double distanceWallTooPlate;
+
     @Override
     public void runOpMode() throws InterruptedException {
         Moters = new Moters(hardwareMap.get(DcMotor.class, "frontLeftDrive"),
@@ -65,7 +68,7 @@ public class blueClampPlate extends LinearOpMode {
         telemetry.update();
 
         sleep(3000);
-        Wheels.driveDistanceCrabwalk(distanceToLine, .2);
+        Wheels.driveDistanceCrabwalk(-distanceToLine, .2);
         telemetry.addData("Task", "Going to line");
         telemetry.update();
 
@@ -76,4 +79,3 @@ public class blueClampPlate extends LinearOpMode {
         Moters.Halt();
     }
 }
-

@@ -11,16 +11,16 @@ import org.firstinspires.ftc.teamcode.Basic_Test_Drive;
 public class Wheels{
     Moters Moters;
     Telemetry telemetry;
-    double orignalMaxSpeed;
+    final double orignalMaxSpeed;
     double maxSpeed;
-    double encodersPerInch;
+    final double encodersPerInch;
 
     public Wheels(Moters A, Telemetry t) {
         Moters = A;
         telemetry = t;
         orignalMaxSpeed = .6;
         maxSpeed = orignalMaxSpeed;
-        encodersPerInch = 10;
+        encodersPerInch = 3;
     }
 
 
@@ -43,9 +43,9 @@ public class Wheels{
             powers[h] = powers[h] * motorCheck;
 
         }
-        Moters.backLeftDrive.setPower(powers[0]);
+        Moters.backLeftDrive.setPower(.51 * powers[0]);
         Moters.frontRightDrive.setPower(-powers[1]);
-        Moters.frontLeftDrive.setPower(powers[2]);
+        Moters.frontLeftDrive.setPower(.51 * powers[2]);
         Moters.backRightDrive.setPower(powers[3]);
 
         telemetry.addData("back left:", powers[0]);
@@ -58,10 +58,10 @@ public class Wheels{
         //find how many encoder ticks we need to move
         int encoderDistance = (int) (-1 * inches * encodersPerInch);
         //set the power for this operation
-        Moters.backLeftDrive.setPower(.5 * -power);
+        Moters.backLeftDrive.setPower(.8 * -power);
         Moters.backRightDrive.setPower(-power);
-        Moters.frontLeftDrive.setPower(.5 * -power);
-        Moters.frontRightDrive.setPower(-power);
+        Moters.frontLeftDrive.setPower(.8 * -power);
+        Moters.frontRightDrive.setPower(.9 * -power);
 
         //set encoders target location
         Moters.backLeftDrive.setTargetPosition(Moters.backLeftDrive.getCurrentPosition() + encoderDistance);
@@ -76,9 +76,9 @@ public class Wheels{
         double friction = 1.05;
         int encoderDistance = (int) (inchesToTheRight * encodersPerInch * 2 * friction);
         //set the power for this operation
-        Moters.backLeftDrive.setPower(-power);
+        Moters.backLeftDrive.setPower(.5 * -power);
         Moters.backRightDrive.setPower(power);
-        Moters.frontLeftDrive.setPower(power);
+        Moters.frontLeftDrive.setPower(.5 * power);
         Moters.frontRightDrive.setPower(power);
 
         //set encoders target location
@@ -87,20 +87,17 @@ public class Wheels{
         Moters.frontLeftDrive.setTargetPosition(Moters.frontLeftDrive.getCurrentPosition() + encoderDistance);
         Moters.frontRightDrive.setTargetPosition(Moters.frontRightDrive.getCurrentPosition() - encoderDistance);
 
+    }
 
+    public void Turn(double turnPower) {
 
-    /*public void Turn(double turnXCord, double turnPower) {
-        if (turnXCord > 0){
-
-        }
-        Moters.backLeftDrive.setPower(leftPower);
-        Moters.frontLeftDrive.setPower(leftPower);
-        Moters.frontRightDrive.setPower(rightPower);
-        Moters.backRightDrive.setPower(rightPower);
+        Moters.backLeftDrive.setPower(-turnPower);
+        Moters.frontLeftDrive.setPower(-turnPower);
+        Moters.frontRightDrive.setPower(turnPower);
+        Moters.backRightDrive.setPower(turnPower);
 
     }
 
-     */
 
     }
-}
+

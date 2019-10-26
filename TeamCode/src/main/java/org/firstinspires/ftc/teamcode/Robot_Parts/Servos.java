@@ -4,8 +4,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class Servos {
-    public Servo rightPlateServo;
-    public Servo leftPlateServo;
+    private Servo rightPlateServo;
+    private Servo leftPlateServo;
 
     public Servos(Servo rightPlateServo, Servo leftPlateServo) {
         this.leftPlateServo = leftPlateServo;
@@ -15,5 +15,10 @@ public class Servos {
     public void setPlateServoPos(double position) {
         rightPlateServo.setPosition(position);
         leftPlateServo.setPosition(position);
+    }
+
+    public void Halt() {
+        rightPlateServo.setPosition(.5);
+        leftPlateServo.setPosition(.5);
     }
 }

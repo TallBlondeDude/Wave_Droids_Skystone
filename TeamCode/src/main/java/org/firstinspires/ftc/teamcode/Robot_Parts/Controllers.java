@@ -10,18 +10,18 @@ public class Controllers{
     int armRaiseSpeed;
     Gamepad gamepad1;
     Wheels wheels;
+    Servos Servos;
 
-    public Controllers(Controllers a, Gamepad b, Wheels c) {
+    public Controllers(Controllers a, Gamepad b, Wheels c, Servos d) {
         armRaiseSpeed = 5;
         controller = a;
         gamepad1 = b;
         wheels = c;
+        Servos = d;
     }
 
     public void UpdateMovement() {
-        BackBumpers();
-        BackTriggers();
-        AButton();
+
     }
 
     //Finds distance between 0, 0 and the joysticks location
@@ -51,10 +51,11 @@ public class Controllers{
     }
 
     public void AButton() {
-
+        Servos.setPlateServoPos(1);
     }
 
-    public void BackTriggers() {
+    public void BButton() {
+        Servos.setPlateServoPos(0);
 
     }
 }
