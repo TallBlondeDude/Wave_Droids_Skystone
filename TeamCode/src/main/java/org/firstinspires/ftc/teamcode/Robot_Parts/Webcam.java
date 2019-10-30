@@ -135,7 +135,7 @@ public class Webcam {
         phoneZRotate = 0;
 
         Webcam = a;
-        Telemetry = b;
+        telemetry = b;
     }
 
     public int findSkystone() {
@@ -530,7 +530,7 @@ public class Webcam {
         }
 
         telemetry.addData("Skystone Position", positionSkystone);
-
+        if Skystone
         telemetry.update();
 
 
