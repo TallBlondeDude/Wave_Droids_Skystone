@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Robot_Parts.*;
 
@@ -13,9 +12,6 @@ public class Basic_Test_Drive extends OpMode {
     public Controllers Gamepad;
     public Moters Moters;
     public Wheels Wheels;
-    public Servos Servos;
-    Servo rightPlateServo;
-    Servo leftPlateServo;
     public void init() {
         Moters = new Moters(hardwareMap.get(DcMotor.class, "frontLeftDrive"),
                 hardwareMap.get(DcMotor.class, "frontRightDrive"), hardwareMap.get(DcMotor.class,
@@ -24,24 +20,13 @@ public class Basic_Test_Drive extends OpMode {
         Moters.frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
         Moters.backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
         Moters.frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
-        Servos = new Servos(hardwareMap.get(Servo.class, "leftPlateServo"), hardwareMap.get(Servo.class, "rightPlateServo"));
+        Gamepad = new Controllers(Gamepad, gamepad1, Wheels);
         Wheels = new Wheels(Moters, telemetry);
-        Gamepad = new Controllers(Gamepad, gamepad1, Wheels, Servos);
-        rightPlateServo = hardwareMap.get(Servo.class, "rightPlateServo");
-        leftPlateServo = hardwareMap.get(Servo.class, "rightPlateServo");
     }
-
 
     @Override
     public void loop() {
-        if (gamepad1.a) {
-            rightPlateServo.setPosition(0);
-            leftPlateServo.setPosition(1);
-        }
-        if (gamepad1.b) {
-            leftPlateServo.setPosition(.5);
-            rightPlateServo.setPosition(.5);
-        }
+        Gamepad.UpdateMovement();
         double polarAngle = Gamepad.polarAngle();
         double polarMagnitude = Gamepad.polarMagnitude();
         telemetry.addData("Direction in Radians", "Angle: " + polarAngle);
@@ -54,9 +39,6 @@ public class Basic_Test_Drive extends OpMode {
      */
     @Override
     public void stop() {
-        telemetry.addData("Task", "Halting");
-        Moters.Halt();
-        Servos.Halt();
     }
 
 }

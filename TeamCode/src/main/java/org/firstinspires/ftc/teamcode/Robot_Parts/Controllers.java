@@ -38,6 +38,7 @@ public class Controllers{
         return magnitude / 1.1;
     }
 
+
     //finds angle with true right being 0 degrees
     public double polarAngle() {
         double xcord = gamepad1.left_stick_x;
@@ -45,6 +46,7 @@ public class Controllers{
         // inverse tangent
         double theta = Math.atan2(xcord, ycord);
         return (theta - 1.57079);
+
     }
 
     public void BackBumpers() {
