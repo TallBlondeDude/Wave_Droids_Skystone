@@ -3,7 +3,9 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.Robot_Parts.*;
 
 @TeleOp(name = "Mechanum Two Joysick", group = "Iterative Opmode")
@@ -12,7 +14,12 @@ public class Basic_Test_Drive extends OpMode {
     public Controllers Gamepad;
     public Moters Moters;
     public Wheels Wheels;
+    public Servos Servos;
+    Servo rightPlateServo;
+    Servo leftPlateServo;
+    Webcam Camera;
     public void init() {
+        Camera = new Webcam(hardwareMap.get(WebcamName.class, "Webcam 1"), telemetry, hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName()));
         Moters = new Moters(hardwareMap.get(DcMotor.class, "frontLeftDrive"),
                 hardwareMap.get(DcMotor.class, "frontRightDrive"), hardwareMap.get(DcMotor.class,
                 "backLeftDrive"), hardwareMap.get(DcMotor.class, "backRightDrive"));
@@ -20,13 +27,24 @@ public class Basic_Test_Drive extends OpMode {
         Moters.frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
         Moters.backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
         Moters.frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
-        Gamepad = new Controllers(Gamepad, gamepad1, Wheels);
+        Servos = new Servos(hardwareMap.get(Servo.class, "leftPlateServo"), hardwareMap.get(Servo.class, "rightPlateServo"));
         Wheels = new Wheels(Moters, telemetry);
+        Gamepad = new Controllers(Gamepad, gamepad1, Wheels, Servos);
+        rightPlateServo = hardwareMap.get(Servo.class, "rightPlateServo");
+        leftPlateServo = hardwareMap.get(Servo.class, "rightPlateServo");
     }
+
 
     @Override
     public void loop() {
-        Gamepad.UpdateMovement();
+        if (gamepad1.a) {
+            rightPlateServo.setPosition(0);
+            leftPlateServo.setPosition(1);
+        }
+        if (gamepad1.b) {
+            leftPlateServo.setPosition(.5);
+            rightPlateServo.setPosition(.5);
+        }
         double polarAngle = Gamepad.polarAngle();
         double polarMagnitude = Gamepad.polarMagnitude();
         telemetry.addData("Direction in Radians", "Angle: " + polarAngle);
@@ -39,6 +57,9 @@ public class Basic_Test_Drive extends OpMode {
      */
     @Override
     public void stop() {
+        telemetry.addData("Task", "Halting");
+        Moters.Halt();
+        Servos.Halt();
     }
 
 }
