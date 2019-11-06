@@ -15,24 +15,19 @@ import static java.lang.Math.round;
 
 @Autonomous(name = "Right Side Move Left", group = "Iterative Opmode")
 public class grabSkystoneBlue extends LinearOpMode {
-    int skystonePosition = 1;
     int distanceFromWallToScanArea = 48;
     int distanceToPlate = 78;
-    int distanceToStoneFromScanAreaStrafe;
-    int distanceToStoneFromScanAreaFoward;
-    int distanceToLineFromPlate;
-    int distanceToWallFromPlate;
-    int distanceToLeftStoneFoward;
-    int distanceToLeftStoneStrafe;
-    int distanceToCenterStoneFoward;
-    int distanceToCenterStoneStrafe;
-    int distanceToRightStoneFoward;
-    int distanceToRightStoneStrafe;
+    int distanceToLineFromPlate = 9;
+    int distanceToWallFromPlate = 25;
+    int distanceToStoneFoward = 25;
+    double distanceToLeftStoneStrafe = 3.75;
+    double distanceToCenterStoneStrafe = 3.75;
+    double distanceToRightStoneStrafe = 12;
+    double distanceToSecondStone = 64;
 
     @Override
     public void runOpMode() throws InterruptedException {
         Moters Moters;
-        Servos Servos;
         Webcam Camera;
         Wheels Wheels;
         Camera = new Webcam(hardwareMap.get(WebcamName.class, "Webcam 1"), telemetry, hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName()));
@@ -44,19 +39,18 @@ public class grabSkystoneBlue extends LinearOpMode {
         Moters.frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
         Moters.backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
         Moters.frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
-        Servos = new Servos(hardwareMap.get(Servo.class, "leftPlateServo"), hardwareMap.get(Servo.class, "rightPlateServo"));
         Wheels = new Wheels(Moters, telemetry);
         int iterations = 20;
-        int skystoneLocation = 0;
-        int locationTested;
+        int skystoneLocation;
         int sumOfLocations = 0;
-
+        Wheels.driveDistanceFoward(distanceFromWallToScanArea, .9);
+        sleep(2500);
         for (int x = 0; x < iterations; ) {
             skystoneLocation = Camera.findSkystone();
             telemetry.addData("Skystone Location", skystoneLocation);
             telemetry.update();
             if (skystoneLocation != 5) {
-                locationTested = round(Camera.findSkystone() + sumOfLocations);
+                sumOfLocations = round(Camera.findSkystone() + sumOfLocations);
                 x++;
             }
 
@@ -64,15 +58,57 @@ public class grabSkystoneBlue extends LinearOpMode {
         int locationOfSkystone = Math.round(sumOfLocations / iterations);
         // if it is LEFT
         if (locationOfSkystone == -1) {
-            Wheels.driveDistanceFoward(distanceToLeftStoneFoward, .5);
-            sleep(3500);
+            Wheels.driveDistanceFoward(distanceToStoneFoward, .5);
+            sleep(1500);
             Wheels.driveDistanceCrabwalk(distanceToLeftStoneStrafe, .8);
-            sleep(3500);
+            sleep(1500);
             //Arm.grabSkystone();
             Wheels.driveDistanceFoward(-distanceToLeftStoneStrafe, -.6);
-            sleep(3000);
+            sleep(1500);
+            distanceToPlate = distanceToPlate + 8;
 
         }
+        if (locationOfSkystone == 0) {
+            Wheels.driveDistanceFoward(distanceToStoneFoward, .5);
+            sleep(1500);
+            Wheels.driveDistanceCrabwalk(distanceToCenterStoneStrafe, .8);
+            sleep(1500);
+            //Arm.grabSkystone();
+            Wheels.driveDistanceFoward(-distanceToCenterStoneStrafe, -.6);
+            sleep(1500);
+            distanceToPlate = distanceToPlate + 4;
+        }
+        if (locationOfSkystone == -1) {
+            Wheels.driveDistanceFoward(distanceToStoneFoward, .5);
+            sleep(1500);
+            Wheels.driveDistanceCrabwalk(distanceToRightStoneStrafe, .8);
+            sleep(1500);
+            //Arm.grabSkystone();
+            Wheels.driveDistanceFoward(-distanceToRightStoneStrafe, .6);
+            sleep(1500);
+        }
+        distanceToSecondStone = distanceToSecondStone + (7 * (locationOfSkystone + 1)) + 3.5;
+        Wheels.driveDistanceCrabwalk(-distanceToPlate, .8);
+        sleep(3000);
+        //Arm.Drop;
+        sleep(1500);
+        Wheels.driveDistanceCrabwalk(distanceToSecondStone, .7);
+        sleep(3000);
+        Wheels.driveDistanceFoward(distanceToStoneFoward, .7);
+        sleep(1500);
+        //Arm.Grab
+        sleep(1500);
+        Wheels.driveDistanceFoward(-distanceToStoneFoward, .7);
+        sleep(1500);
+        Wheels.driveDistanceCrabwalk(-distanceToSecondStone, .8);
+        sleep(3000);
+        //Arm.Drop
+        Wheels.driveDistanceFoward(-distanceToWallFromPlate, 1);
+        sleep(3000);
+        Wheels.driveDistanceCrabwalk(distanceToLineFromPlate, 1);
+
+        Moters.Halt();
+
 
     }
 
