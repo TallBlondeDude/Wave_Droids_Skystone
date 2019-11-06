@@ -568,7 +568,6 @@ public class dogeCVtest extends LinearOpMode {
 
         // Tap the preview window to receive a fresh image.
 
-
         targetsSkyStone.activate();
 
         while (!isStopRequested()) {
