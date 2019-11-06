@@ -19,7 +19,6 @@ public class Basic_Test_Drive extends OpMode {
     Servo leftPlateServo;
     Webcam Camera;
     public void init() {
-        Camera = new Webcam(hardwareMap.get(WebcamName.class, "Webcam 1"), telemetry, hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName()));
         Moters = new Moters(hardwareMap.get(DcMotor.class, "frontLeftDrive"),
                 hardwareMap.get(DcMotor.class, "frontRightDrive"), hardwareMap.get(DcMotor.class,
                 "backLeftDrive"), hardwareMap.get(DcMotor.class, "backRightDrive"));
@@ -30,8 +29,6 @@ public class Basic_Test_Drive extends OpMode {
         Servos = new Servos(hardwareMap.get(Servo.class, "leftPlateServo"), hardwareMap.get(Servo.class, "rightPlateServo"));
         Wheels = new Wheels(Moters, telemetry);
         Gamepad = new Controllers(Gamepad, gamepad1, Wheels, Servos);
-        rightPlateServo = hardwareMap.get(Servo.class, "rightPlateServo");
-        leftPlateServo = hardwareMap.get(Servo.class, "rightPlateServo");
     }
 
 
@@ -45,6 +42,7 @@ public class Basic_Test_Drive extends OpMode {
             leftPlateServo.setPosition(.5);
             rightPlateServo.setPosition(.5);
         }
+        telemetry.addData("Skystone", Camera.findSkystone());
         double polarAngle = Gamepad.polarAngle();
         double polarMagnitude = Gamepad.polarMagnitude();
         telemetry.addData("Direction in Radians", "Angle: " + polarAngle);
