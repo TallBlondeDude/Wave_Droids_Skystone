@@ -32,6 +32,7 @@ public class Basic_Test_Drive extends OpMode {
                 hardwareMap.get(Servo.class, "rotationVertical"));
         Wheels = new Wheels(Moters, telemetry);
         Gamepad = new Controllers(Gamepad, gamepad1, Wheels, Servos);
+        Moters.setTeleMode();
     }
 
 
