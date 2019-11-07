@@ -14,11 +14,23 @@ public class Wheels{
     final double orignalMaxSpeed;
     double maxSpeed;
     final double encodersPerInch;
+    double ticksBeforeSlowdown;
+
+    public double findAdjustedPower(int encoderTicksRemaining, double basePower){
+        double possiblePower = Math.sqrt(basePower/ticksBeforeSlowdown);
+        if (possiblePower > 1){
+            possiblePower = 1;
+        }
+        else if (possiblePower < .4){
+            possiblePower = .3;
+        }
+        return possiblePower;
+    }
 
     public Wheels(Moters A, Telemetry t) {
         Moters = A;
         telemetry = t;
-        orignalMaxSpeed = .6;
+        orignalMaxSpeed = 1;
         maxSpeed = orignalMaxSpeed;
         encodersPerInch = 422.2176;
     }
@@ -43,9 +55,9 @@ public class Wheels{
             powers[h] = powers[h] * motorCheck;
 
         }
-        Moters.backLeftDrive.setPower(.51 * powers[0]);
+        Moters.backLeftDrive.setPower(powers[0]);
         Moters.frontRightDrive.setPower(-powers[1]);
-        Moters.frontLeftDrive.setPower(.51 * powers[2]);
+        Moters.frontLeftDrive.setPower( powers[2]);
         Moters.backRightDrive.setPower(powers[3]);
 
         telemetry.addData("back left:", powers[0]);
@@ -69,11 +81,14 @@ public class Wheels{
                 && Moters.frontRightDrive.getCurrentPosition() != idealPostionFrontRight
                 && Moters.backRightDrive.getCurrentPosition() != idealPostionBackRight
                 && Moters.backLeftDrive.getCurrentPosition() != idealPostionBackLeft) {
-
-            Moters.backLeftDrive.setPower(((idealPostionBackLeft - Moters.backLeftDrive.getCurrentPosition()) * power));
-            Moters.backRightDrive.setPower(power);
-            Moters.frontLeftDrive.setPower(.55 * power);
-            Moters.frontRightDrive.setPower(power);
+            Moters.backLeftDrive.setPower(findAdjustedPower(idealPostionBackLeft
+                    -Moters.frontLeftDrive.getCurrentPosition()), power));
+            Moters.backRightDrive.setPower(findAdjustedPower(idealPostionBackRight
+                    -Moters.backRightDrive.getCurrentPosition()), power);
+            Moters.frontLeftDrive.setPower(findAdjustedPower(idealPostionBackLeft
+                    -Moters.backLeftDrive.getCurrentPosition()), power);
+            Moters.frontRightDrive.setPower(findAdjustedPower(idealPostionFrontRight
+                    -Moters.frontRightDrive.getCurrentPosition()), power));
 
         }
 
@@ -83,11 +98,6 @@ public class Wheels{
         //find how many encoder ticks we need to move
         double friction = 1.04;
         int encoderDistance = (int) (inchesToTheRight * encodersPerInch * 2 * friction);
-        //set the power for this operation
-        Moters.backLeftDrive.setPower(.5 * -power);
-        Moters.backRightDrive.setPower(power);
-        Moters.frontLeftDrive.setPower(.5 * power);
-        Moters.frontRightDrive.setPower(power);
 
         //set encoders target location
         Moters.backLeftDrive.setTargetPosition(Moters.backLeftDrive.getCurrentPosition() + encoderDistance);
@@ -95,7 +105,20 @@ public class Wheels{
         Moters.frontLeftDrive.setTargetPosition(Moters.frontLeftDrive.getCurrentPosition() + encoderDistance);
         Moters.frontRightDrive.setTargetPosition(Moters.frontRightDrive.getCurrentPosition() - encoderDistance);
 
+        while (Moters.frontLeftDrive.getCurrentPosition() != idealPostionBackLeft + encoderDistance
+                && Moters.frontRightDrive.getCurrentPosition() != idealPostionFrontRight
+                && Moters.backRightDrive.getCurrentPosition() != idealPostionBackRight
+                && Moters.backLeftDrive.getCurrentPosition() != idealPostionBackLeft) {
+            Moters.backLeftDrive.setPower(findAdjustedPower(idealPostionBackLeft
+                    -Moters.frontLeftDrive.getCurrentPosition()), power) + .3);
+            Moters.backRightDrive.setPower(findAdjustedPower(idealPostionBackRight
+                    -Moters.backRightDrive.getCurrentPosition()), power) + .3);
+            Moters.frontLeftDrive.setPower(findAdjustedPower(idealPostionBackLeft
+                    -Moters.backLeftDrive.getCurrentPosition()), power) + .3);
+            Moters.frontRightDrive.setPower(findAdjustedPower(idealPostionFrontRight
+                    -Moters.frontRightDrive.getCurrentPosition()), -power) + .3);
 
+        }
     }
 
     public void Turn(double turnPower) {
@@ -107,6 +130,31 @@ public class Wheels{
 
     }
 
+    public void TurnRadians(double radians, double power){
+        //radians * .5 * 1/pi
+        double percentOfCircle = radians * .5;
+        //dia * ticks per inch * percent
+        double encoderDistance = 12 * encodersPerInch * percentOfCircle;
+
+        int idealPostionBackLeft = Moters.backLeftDrive.getCurrentPosition() + encoderDistance;
+        int idealPostionBackRight = Moters.backLeftDrive.getCurrentPosition() + encoderDistance;
+        int idealPostionFrontLeft = Moters.backLeftDrive.getCurrentPosition() + encoderDistance;
+        int idealPostionFrontRight = Moters.backLeftDrive.getCurrentPosition() + encoderDistance;
+
+        //change  motor power based on distance
+        while (Moters.frontLeftDrive.getCurrentPosition() != idealPostionBackLeft + encoderDistance
+                && Moters.frontRightDrive.getCurrentPosition() != idealPostionFrontRight
+                && Moters.backRightDrive.getCurrentPosition() != idealPostionBackRight
+                && Moters.backLeftDrive.getCurrentPosition() != idealPostionBackLeft) {
+            Moters.backLeftDrive.setPower(findAdjustedPower(idealPostionBackLeft
+                    -Moters.frontLeftDrive.getCurrentPosition()), power));
+            Moters.backRightDrive.setPower(findAdjustedPower(idealPostionBackRight
+                    -Moters.backRightDrive.getCurrentPosition()), power));
+            Moters.frontLeftDrive.setPower(findAdjustedPower(idealPostionBackLeft
+                    -Moters.backLeftDrive.getCurrentPosition()), power));
+            Moters.frontRightDrive.setPower(findAdjustedPower(idealPostionFrontRight
+                    -Moters.frontRightDrive.getCurrentPosition()), power));
+    }
 
     }
 

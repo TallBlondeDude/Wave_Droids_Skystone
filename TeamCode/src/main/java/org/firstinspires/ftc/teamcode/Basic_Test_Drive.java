@@ -26,7 +26,10 @@ public class Basic_Test_Drive extends OpMode {
         Moters.frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
         Moters.backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
         Moters.frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
-        Servos = new Servos(hardwareMap.get(Servo.class, "leftPlateServo"), hardwareMap.get(Servo.class, "rightPlateServo"));
+        Servos = new Servos(hardwareMap.get(Servo.class, "leftPlateServo"), hardwareMap.get(Servo.class, "rightPlateServo"),
+                hardwareMap.get(Servo.class, "grabberServo"),
+                hardwareMap.get(Servo.class, "rotationHorizontal"),
+                hardwareMap.get(Servo.class, "rotationVertical"));
         Wheels = new Wheels(Moters, telemetry);
         Gamepad = new Controllers(Gamepad, gamepad1, Wheels, Servos);
     }
