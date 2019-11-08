@@ -15,23 +15,21 @@ public class Basic_Test_Drive extends OpMode {
     public Moters Moters;
     public Wheels Wheels;
     public Servos Servos;
+    Arm Arm;
     Servo rightPlateServo;
     Servo leftPlateServo;
     Webcam Camera;
     public void init() {
         Moters = new Moters(hardwareMap.get(DcMotor.class, "frontLeftDrive"),
                 hardwareMap.get(DcMotor.class, "frontRightDrive"), hardwareMap.get(DcMotor.class,
-                "backLeftDrive"), hardwareMap.get(DcMotor.class, "backRightDrive"));
-        Moters.backRightDrive.setDirection(DcMotor.Direction.FORWARD);
-        Moters.frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
-        Moters.backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
-        Moters.frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
+                "backLeftDrive"), hardwareMap.get(DcMotor.class, "backRightDrive"), hardwareMap.get(DcMotor.class, "armMotor"));
+        Arm = new Arm(Moters, telemetry);
         Servos = new Servos(hardwareMap.get(Servo.class, "leftPlateServo"), hardwareMap.get(Servo.class, "rightPlateServo"),
                 hardwareMap.get(Servo.class, "grabberServo"),
                 hardwareMap.get(Servo.class, "rotationHorizontal"),
                 hardwareMap.get(Servo.class, "rotationVertical"));
         Wheels = new Wheels(Moters, telemetry);
-        Gamepad = new Controllers(Gamepad, gamepad1, Wheels, Servos);
+        Gamepad = new Controllers(Gamepad, gamepad1, Wheels, Servos, gamepad2, Arm);
         Moters.setTeleMode();
     }
 

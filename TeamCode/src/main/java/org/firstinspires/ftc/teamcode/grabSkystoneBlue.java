@@ -55,11 +55,8 @@ public class grabSkystoneBlue extends LinearOpMode {
             skystoneLocation = Camera.findSkystone();
             telemetry.addData("Skystone Location", skystoneLocation);
             telemetry.update();
-            if (skystoneLocation != 5) {
-                sumOfLocations = round(Camera.findSkystone() + sumOfLocations);
-                x++;
-            }
-
+            sumOfLocations = round(Camera.findSkystone() + sumOfLocations);
+            x++;
         }
         int locationOfSkystone = Math.round(sumOfLocations / iterations);
         // if it is LEFT

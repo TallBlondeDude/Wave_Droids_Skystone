@@ -6,21 +6,31 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.Basic_Test_Drive;
 
 public class Controllers{
-    Controllers controller;
-    int armRaiseSpeed;
-    Gamepad gamepad1;
-    Wheels wheels;
-    Servos Servos;
+    private Controllers controller;
+    private int armRaiseSpeed;
+    private Gamepad gamepad1;
+    private Wheels wheels;
+    private Servos Servos;
+    private Gamepad gamepad2;
+    private Arm Arm;
 
-    public Controllers(Controllers a, Gamepad b, Wheels c, Servos d) {
+    public Controllers(Controllers a, Gamepad b, Wheels c, Servos d, Gamepad f, Arm g) {
         armRaiseSpeed = 5;
         controller = a;
         gamepad1 = b;
+        gamepad2 = f;
         wheels = c;
+        Arm = g;
         Servos = d;
     }
 
     public void UpdateMovement() {
+        if (gamepad1.a) {
+            AButton();
+        }
+        if (gamepad1.b) {
+            BButton();
+        }
 
     }
 
@@ -34,10 +44,12 @@ public class Controllers{
         double squareY = ycord * ycord;
         //Find the sqrt
         double magnitude = Math.sqrt(squareY + squareX);
-
         return magnitude / 1.1;
     }
 
+    public void armSpeedDetector() {
+        Arm.changeVerticalArmPos(gamepad2.left_stick_x);
+    }
 
     //finds angle with true right being 0 degrees
     public double polarAngle() {
@@ -49,7 +61,7 @@ public class Controllers{
 
     }
 
-    public void BackBumpers() {
+    public void BackBumper() {
     }
 
     public void AButton() {
@@ -58,6 +70,5 @@ public class Controllers{
 
     public void BButton() {
         Servos.setPlateServoPos(0);
-
     }
 }

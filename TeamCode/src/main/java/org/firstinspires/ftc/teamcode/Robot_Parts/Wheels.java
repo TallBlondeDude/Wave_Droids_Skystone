@@ -6,7 +6,6 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.Basic_Test_Drive;
 
 public class Wheels{
     private Moters Moters;
@@ -18,6 +17,15 @@ public class Wheels{
     private int idealPostionBackRight;
     private int idealPostionFrontLeft;
     private int idealPostionFrontRight;
+
+
+    public Wheels(Moters A, Telemetry t) {
+        Moters = A;
+        telemetry = t;
+        orignalMaxSpeed = 1;
+        maxSpeed = orignalMaxSpeed;
+        encodersPerInch = 422.2176;
+    }
 
     private double findAdjustedPower(int encoderTicksRemaining, double basePower) {
         double possiblePower = Math.sqrt(basePower / encoderTicksRemaining);
@@ -32,15 +40,6 @@ public class Wheels{
         }
         return possiblePower;
     }
-
-    public Wheels(Moters A, Telemetry t) {
-        Moters = A;
-        telemetry = t;
-        orignalMaxSpeed = 1;
-        maxSpeed = orignalMaxSpeed;
-        encodersPerInch = 422.2176;
-    }
-
 
     public void Drive(double directionInRadians, float turnInRadians, float powerInPercentage) {
 
