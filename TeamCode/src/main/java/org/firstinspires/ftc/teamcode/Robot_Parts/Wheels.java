@@ -61,8 +61,8 @@ public class Wheels{
 
         }
         Moters.backLeftDrive.setPower(powers[0]);
-        Moters.frontRightDrive.setPower(-powers[1]);
-        Moters.frontLeftDrive.setPower( powers[2]);
+        Moters.frontRightDrive.setPower(powers[1]);
+        Moters.frontLeftDrive.setPower(powers[2]);
         Moters.backRightDrive.setPower(powers[3]);
 
         telemetry.addData("back left:", powers[0]);
@@ -134,10 +134,10 @@ public class Wheels{
 
     public void Turn(double turnPower) {
 
-        Moters.backLeftDrive.setPower(-turnPower);
-        Moters.frontLeftDrive.setPower(-turnPower);
-        Moters.frontRightDrive.setPower(turnPower);
-        Moters.backRightDrive.setPower(turnPower);
+        Moters.backLeftDrive.setPower(turnPower);
+        Moters.frontLeftDrive.setPower(turnPower);
+        Moters.frontRightDrive.setPower(-turnPower);
+        Moters.backRightDrive.setPower(-turnPower);
 
     }
 

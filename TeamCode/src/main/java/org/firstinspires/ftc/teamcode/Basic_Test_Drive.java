@@ -16,35 +16,35 @@ public class Basic_Test_Drive extends OpMode {
     public Wheels Wheels;
     public Servos Servos;
     Arm Arm;
-    Servo rightPlateServo;
-    Servo leftPlateServo;
-    Webcam Camera;
+
+    //  Servo rightPlateServo;
+    //  Servo leftPlateServo;
+    //  Webcam Camera;
     public void init() {
         Moters = new Moters(hardwareMap.get(DcMotor.class, "frontLeftDrive"),
                 hardwareMap.get(DcMotor.class, "frontRightDrive"), hardwareMap.get(DcMotor.class,
-                "backLeftDrive"), hardwareMap.get(DcMotor.class, "backRightDrive"), hardwareMap.get(DcMotor.class, "armMotor"));
+                "backLeftDrive"), hardwareMap.get(DcMotor.class, "backRightDrive"),
+                hardwareMap.get(DcMotor.class, "armMotor"));
+
         Arm = new Arm(Moters, telemetry);
-        Servos = new Servos(hardwareMap.get(Servo.class, "leftPlateServo"), hardwareMap.get(Servo.class, "rightPlateServo"),
-                hardwareMap.get(Servo.class, "grabberServo"),
-                hardwareMap.get(Servo.class, "rotationHorizontal"),
-                hardwareMap.get(Servo.class, "rotationVertical"));
+
+        //  Servos = new Servos(hardwareMap.get(Servo.class, "leftPlateServo"), hardwareMap.get(Servo.class, "rightPlateServo"),
+        //          hardwareMap.get(Servo.class, "grabberServo"),
+        //          hardwareMap.get(Servo.class, "rotationHorizontal"),
+        //          hardwareMap.get(Servo.class, "rotationVertical"));
+
         Wheels = new Wheels(Moters, telemetry);
+
         Gamepad = new Controllers(Gamepad, gamepad1, Wheels, Servos, gamepad2, Arm);
+
         Moters.setTeleMode();
     }
 
 
     @Override
     public void loop() {
-        if (gamepad1.a) {
-            rightPlateServo.setPosition(0);
-            leftPlateServo.setPosition(1);
-        }
-        if (gamepad1.b) {
-            leftPlateServo.setPosition(.5);
-            rightPlateServo.setPosition(.5);
-        }
-        telemetry.addData("Skystone", Camera.findSkystone());
+
+        //   telemetry.addData("Skystone", Camera.findSkystone());
         double polarAngle = Gamepad.polarAngle();
         double polarMagnitude = Gamepad.polarMagnitude();
         telemetry.addData("Direction in Radians", "Angle: " + polarAngle);
@@ -59,7 +59,7 @@ public class Basic_Test_Drive extends OpMode {
     public void stop() {
         telemetry.addData("Task", "Halting");
         Moters.Halt();
-        Servos.Halt();
+        //    Servos.Halt();
     }
 
 }

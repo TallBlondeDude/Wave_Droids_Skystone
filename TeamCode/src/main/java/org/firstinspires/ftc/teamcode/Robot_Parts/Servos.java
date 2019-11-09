@@ -7,15 +7,15 @@ public class Servos {
     private Servo rightPlateServo;
     private Servo leftPlateServo;
     private Servo grabberServo;
-    private Servo rotationHorizontalServo;
-    private Servo rotationVerticalServo;
+    private Servo inOutServo;
+    private Servo modeArmServo;
 
-    public Servos(Servo rightPlateServo, Servo leftPlateServo, Servo grabberServo, Servo rotationHorizontalServo, Servo rotationVerticalServo) {
+    public Servos(Servo rightPlateServo, Servo leftPlateServo, Servo grabberServo, Servo inOutServo, Servo modeArmServo) {
         this.leftPlateServo = leftPlateServo;
         this.rightPlateServo = rightPlateServo;
         this.grabberServo = grabberServo;
-        this.rotationHorizontalServo = rotationHorizontalServo;
-        this.rotationVerticalServo = rotationVerticalServo;
+        this.inOutServo = inOutServo;
+        this.modeArmServo = modeArmServo;
 
     }
 
@@ -24,11 +24,24 @@ public class Servos {
         leftPlateServo.setPosition(position);
     }
 
+    public void setGrabberServo(double power) {
+        if (Math.abs(power) != power) {
+            grabberServo.setDirection(Servo.Direction.REVERSE);
+        } else {
+            grabberServo.setDirection(Servo.Direction.FORWARD);
+        }
+        grabberServo.setPosition(Math.abs(power));
+    }
+
+    public void setInOutServo(double position) {
+        inOutServo.setPosition(position);
+    }
+
+    public void setModeArmServo(double position) {
+        modeArmServo.setPosition(position);
+    }
     public void Halt() {
         rightPlateServo.setPosition(.5);
         leftPlateServo.setPosition(.5);
-        rotationHorizontalServo.setPosition(.5);
-        rotationVerticalServo.setPosition(.5);
-        grabberServo.setPosition(.5);
     }
 }
