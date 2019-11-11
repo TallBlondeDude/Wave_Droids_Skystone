@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.teamcode.Robot_Parts.Arm;
 import org.firstinspires.ftc.teamcode.Robot_Parts.Moters;
 import org.firstinspires.ftc.teamcode.Robot_Parts.Servos;
 import org.firstinspires.ftc.teamcode.Robot_Parts.Webcam;
@@ -31,6 +32,7 @@ public class grabSkystoneBlue extends LinearOpMode {
         Webcam Camera;
         Wheels Wheels;
         Servos Servos;
+        Arm Arm;
         Camera = new Webcam(hardwareMap.get(WebcamName.class, "Webcam 1"), telemetry,
                 hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName()));
         Servos = new Servos(hardwareMap.get(Servo.class, "leftPlateServo"), hardwareMap.get(Servo.class, "rightPlateServo"),
@@ -41,6 +43,7 @@ public class grabSkystoneBlue extends LinearOpMode {
                 hardwareMap.get(DcMotor.class, "frontRightDrive"), hardwareMap.get(DcMotor.class,
                 "backLeftDrive"), hardwareMap.get(DcMotor.class, "backRightDrive"), hardwareMap.get(DcMotor.class, "armMotor"));
         Wheels = new Wheels(Moters, telemetry);
+        Arm = new Arm(Moters, telemetry, Servos);
         Moters.setAutoMode();
         int iterations = 20;
         int skystoneLocation;
@@ -61,7 +64,11 @@ public class grabSkystoneBlue extends LinearOpMode {
      //       sleep(1500);
             Wheels.driveDistanceCrabwalk(distanceToLeftStoneStrafe, 1);
      //       sleep(1500);
-            //Arm.grabSkystone();
+            Arm.grab();
+            sleep(1000);
+            Arm.tighten();
+            sleep(1000);
+            Arm.hold();
             Wheels.driveDistanceFoward(-distanceToLeftStoneStrafe, -1);
        //     sleep(1500);
             distanceToPlate = distanceToPlate + 8;
@@ -89,27 +96,36 @@ public class grabSkystoneBlue extends LinearOpMode {
         distanceToSecondStone = distanceToSecondStone + (7 * (locationOfSkystone + 1)) + 3.5;
         Wheels.driveDistanceCrabwalk(-distanceToPlate, .8);
      //   sleep(3000);
-        //Arm.Drop;
+        Arm.grab();
+        sleep(1000);
+        Arm.tighten();
+        sleep(1000);
+        Arm.hold();
      //   sleep(1500);
         Wheels.driveDistanceCrabwalk(distanceToSecondStone, 1);
     //    sleep(3000);
         Wheels.driveDistanceFoward(distanceToStoneFoward, 1);
     //    sleep(1500);
-        //Arm.Grab
+        Arm.grab();
+        sleep(1000);
+        Arm.tighten();
+        sleep(1000);
+        Arm.hold();
    //     sleep(1500);
         Wheels.driveDistanceFoward(-distanceToStoneFoward, 1);
    //     sleep(1500);
         Wheels.driveDistanceCrabwalk(-distanceToSecondStone, 1);
    //     sleep(3000);
-        //Arm.Drop
+        Arm.grab();
+        sleep(1000);
+        Arm.tighten();
+        sleep(1000);
+        Arm.hold();
         Wheels.driveDistanceFoward(-distanceToWallFromPlate, 1);
   //      sleep(3000);
         Wheels.driveDistanceCrabwalk(distanceToLineFromPlate, 1);
-
         Moters.Halt();
         Servos.Halt();
-
-
     }
 
 }

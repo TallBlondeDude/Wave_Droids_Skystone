@@ -26,7 +26,7 @@ public class Basic_Test_Drive extends OpMode {
                 "backLeftDrive"), hardwareMap.get(DcMotor.class, "backRightDrive"),
                 hardwareMap.get(DcMotor.class, "armMotor"));
 
-        Arm = new Arm(Moters, telemetry);
+        Arm = new Arm(Moters, telemetry, Servos);
 
         //  Servos = new Servos(hardwareMap.get(Servo.class, "leftPlateServo"), hardwareMap.get(Servo.class, "rightPlateServo"),
         //          hardwareMap.get(Servo.class, "grabberServo"),
