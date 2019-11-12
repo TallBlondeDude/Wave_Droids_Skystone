@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.Robot_Parts;
 
 
+import com.vuforia.Vuforia;
+
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.Camera;
@@ -403,7 +405,6 @@ public class Webcam {
 
     // We need to rotate the camera around it's long axis to bring the correct camera forward.
     public int findSkystone() {
-
 
         targetVisible = false;
 

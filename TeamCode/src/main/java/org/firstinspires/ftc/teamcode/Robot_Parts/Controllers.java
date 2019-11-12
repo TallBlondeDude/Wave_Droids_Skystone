@@ -26,12 +26,23 @@ public class Controllers{
 
     public void UpdateMovement() {
         if (gamepad1.a) {
-            AButton();
+            AButtonGamepad1();
         }
         if (gamepad1.b) {
-            BButton();
+            BButtonGamepad1();
         }
-
+        BackBumpersGamepad2();
+        armSpeedDetector();
+        if (gamepad2.a) {
+            Servos.setInOutServo(1);
+        } else if (gamepad2.b) {
+            Servos.setInOutServo(0);
+        }
+        if (gamepad2.x) {
+            Servos.setModeArmServo(1);
+        } else if (gamepad2.y) {
+            Servos.setModeArmServo(0);
+        }
     }
 
     //Finds distance between 0, 0 and the joysticks location
@@ -61,14 +72,21 @@ public class Controllers{
 
     }
 
-    public void BackBumper() {
+    public void BackBumpersGamepad2() {
+        if (gamepad2.left_bumper) {
+            Arm.tighten();
+        } else if (gamepad2.right_bumper) {
+            Arm.grab();
+        } else {
+            Arm.hold();
+        }
     }
 
-    public void AButton() {
+    public void AButtonGamepad1() {
         Servos.setPlateServoPos(1);
     }
 
-    public void BButton() {
+    public void BButtonGamepad1() {
         Servos.setPlateServoPos(0);
     }
 }

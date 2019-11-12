@@ -136,8 +136,8 @@ public class Wheels{
 
         Moters.backLeftDrive.setPower(turnPower);
         Moters.frontLeftDrive.setPower(turnPower);
-        Moters.frontRightDrive.setPower(-turnPower);
-        Moters.backRightDrive.setPower(-turnPower);
+        Moters.frontRightDrive.setPower(turnPower);
+        Moters.backRightDrive.setPower(turnPower);
 
     }
 
