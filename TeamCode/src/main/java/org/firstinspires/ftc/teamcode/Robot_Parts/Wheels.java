@@ -1,9 +1,6 @@
 package org.firstinspires.ftc.teamcode.Robot_Parts;
 
 import java.lang.Math;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-
-import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
@@ -108,7 +105,7 @@ public class Wheels{
         Moters.backLeftDrive.setTargetPosition(Moters.backLeftDrive.getCurrentPosition() + encoderDistance);
         Moters.backRightDrive.setTargetPosition(Moters.backRightDrive.getCurrentPosition() + encoderDistance);
         Moters.frontLeftDrive.setTargetPosition(Moters.frontLeftDrive.getCurrentPosition() + encoderDistance);
-        Moters.frontRightDrive.setTargetPosition(Moters.frontRightDrive.getCurrentPosition() - encoderDistance);
+        Moters.frontRightDrive.setTargetPosition(Moters.frontRightDrive.getCurrentPosition() + encoderDistance);
         idealPostionBackLeft = Moters.backLeftDrive.getCurrentPosition() + encoderDistance;
         idealPostionBackRight = Moters.backLeftDrive.getCurrentPosition() + encoderDistance;
         idealPostionFrontLeft = Moters.backLeftDrive.getCurrentPosition() + encoderDistance;

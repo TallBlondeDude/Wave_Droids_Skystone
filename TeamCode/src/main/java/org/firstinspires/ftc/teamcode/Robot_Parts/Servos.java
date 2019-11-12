@@ -1,6 +1,4 @@
 package org.firstinspires.ftc.teamcode.Robot_Parts;
-
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class Servos {

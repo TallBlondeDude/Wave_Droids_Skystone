@@ -1,10 +1,7 @@
 package org.firstinspires.ftc.teamcode.Robot_Parts;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import org.firstinspires.ftc.teamcode.Basic_Test_Drive;
 
 public class Moters {
     public DcMotor frontLeftDrive;
