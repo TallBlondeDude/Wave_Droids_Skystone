@@ -3,13 +3,15 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.Robot_Parts.*;
+import org.firstinspires.ftc.teamcode.Robot_Parts.Arm;
+import org.firstinspires.ftc.teamcode.Robot_Parts.Controllers;
+import org.firstinspires.ftc.teamcode.Robot_Parts.Moters;
+import org.firstinspires.ftc.teamcode.Robot_Parts.Servos;
+import org.firstinspires.ftc.teamcode.Robot_Parts.Wheels;
 
-@TeleOp(name = "Mechanum Two Joysick", group = "Iterative Opmode")
-public class Basic_Test_Drive extends OpMode {
+@TeleOp(name = "Gyro Drive", group = "Iterative Opmode")
+public class Advanced_Drive extends OpMode {
     // Declare OpMode members.
     public Controllers Gamepad;
     public Moters Moters;
@@ -35,7 +37,7 @@ public class Basic_Test_Drive extends OpMode {
 
         Wheels = new Wheels(Moters, telemetry);
 
-        Gamepad = new Controllers(Gamepad, gamepad1, Wheels, Servos, gamepad2, Arm, telemetry, Moters);
+        Gamepad = new Controllers(Gamepad, gamepad1, Wheels, Servos, gamepad2, Arm);
 
         Moters.setTeleMode();
     }
@@ -50,7 +52,6 @@ public class Basic_Test_Drive extends OpMode {
         telemetry.addData("Direction in Radians", "Angle: " + polarAngle);
         telemetry.addData("Speed in Percentage", polarMagnitude);
         Wheels.Drive(polarAngle, gamepad1.right_stick_x, (float) polarMagnitude);
-        Gamepad.UpdateMovement();
     }
 
     /*

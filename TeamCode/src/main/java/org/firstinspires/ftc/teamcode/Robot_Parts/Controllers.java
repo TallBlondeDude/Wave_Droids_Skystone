@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.Robot_Parts;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 
 public class Controllers{
     private Controllers controller;
@@ -10,9 +12,11 @@ public class Controllers{
     private Wheels wheels;
     private Servos Servos;
     private Gamepad gamepad2;
+    Moters Moters;
     private Arm Arm;
+    Telemetry telemetry;
 
-    public Controllers(Controllers a, Gamepad b, Wheels c, Servos d, Gamepad f, Arm g) {
+    public Controllers(Controllers a, Gamepad b, Wheels c, Servos d, Gamepad f, Arm g, Telemetry telemetry, Moters Moters) {
         armRaiseSpeed = 5;
         controller = a;
         gamepad1 = b;
@@ -20,6 +24,8 @@ public class Controllers{
         wheels = c;
         Arm = g;
         Servos = d;
+        this.telemetry = telemetry;
+        this.Moters = Moters;
     }
 
     public void UpdateMovement() {
@@ -78,13 +84,16 @@ public class Controllers{
         } else {
             Arm.hold();
         }
+        telemetry.addData("Back Bumper", Moters.armMotor.getPower());
     }
 
     public void AButtonGamepad1() {
         Servos.setPlateServoPos(1);
+        telemetry.addData("A Button Pressed", "true");
     }
 
     public void BButtonGamepad1() {
         Servos.setPlateServoPos(0);
+        telemetry.addData("B Button Pressed", "true");
     }
 }
