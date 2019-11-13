@@ -44,7 +44,7 @@ public class Wheels{
         double wheelsSetB = Math.sin(directionInRadians + .7957) * powerInPercentage;
         double motorCheck;
         //checks if one of the wheel sets is > 100% power, if so reduce it to one, and reduce the other by the same factor
-        double[] powers = {wheelsSetA + turnInRadians, wheelsSetA - turnInRadians, -wheelsSetB + turnInRadians, -wheelsSetB - turnInRadians};
+        double[] powers = {wheelsSetA + turnInRadians, wheelsSetA - turnInRadians, wheelsSetB + turnInRadians, wheelsSetB - turnInRadians};
         double largestSpeedSoFar = powers[0];
 
         for (int i = 1; i < 4; i++) {

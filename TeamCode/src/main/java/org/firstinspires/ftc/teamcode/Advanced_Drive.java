@@ -37,7 +37,7 @@ public class Advanced_Drive extends OpMode {
 
         Wheels = new Wheels(Moters, telemetry);
 
-        Gamepad = new Controllers(Gamepad, gamepad1, Wheels, Servos, gamepad2, Arm);
+        Gamepad = new Controllers(Gamepad, gamepad1, Wheels, Servos, gamepad2, Arm, telemetry, Moters);
 
         Moters.setTeleMode();
     }

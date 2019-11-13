@@ -19,9 +19,9 @@ public class Moters {
     }
 
     public void setTeleMode() {
-        backRightDrive.setDirection(DcMotor.Direction.FORWARD);
+        backRightDrive.setDirection(DcMotor.Direction.REVERSE);
         frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
-        backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
+        backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
         frontRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

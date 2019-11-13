@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.Robot_Parts;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.CRServo;
 
 public class Servos {
     private Servo rightPlateServo;
@@ -8,7 +7,6 @@ public class Servos {
     private Servo grabberServo;
     private Servo inOutServo;
     private Servo modeArmServo;
-    private CRServo _crServo;
 
 
     public Servos(Servo rightPlateServo, Servo leftPlateServo, Servo grabberServo, Servo inOutServo, Servo modeArmServo) {

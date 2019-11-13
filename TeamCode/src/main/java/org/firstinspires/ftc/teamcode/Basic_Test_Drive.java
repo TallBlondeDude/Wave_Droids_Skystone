@@ -49,8 +49,8 @@ public class Basic_Test_Drive extends OpMode {
         double polarMagnitude = Gamepad.polarMagnitude();
         telemetry.addData("Direction in Radians", "Angle: " + polarAngle);
         telemetry.addData("Speed in Percentage", polarMagnitude);
-        Wheels.Drive(polarAngle, gamepad1.right_stick_x, (float) polarMagnitude);
         Gamepad.UpdateMovement();
+        Wheels.Drive(polarAngle, gamepad1.right_stick_x, (float) polarMagnitude);
     }
 
     /*
