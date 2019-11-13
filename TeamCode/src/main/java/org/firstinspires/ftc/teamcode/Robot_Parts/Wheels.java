@@ -21,11 +21,12 @@ public class Wheels{
         telemetry = t;
         orignalMaxSpeed = 1;
         maxSpeed = orignalMaxSpeed;
-        encodersPerInch = 422.2176;
+        encodersPerInch = 422.2176 / 4;
     }
 
     private double findAdjustedPower(int encoderTicksRemaining, double basePower) {
-        double possiblePower = Math.sqrt(basePower / encoderTicksRemaining);
+        double possiblePower = Math.sqrt(basePower / Math.abs(encoderTicksRemaining));
+        possiblePower = possiblePower * encoderTicksRemaining / Math.abs(encoderTicksRemaining);
         if (possiblePower > 1){
             possiblePower = 1;
         } else if (possiblePower < .4 && possiblePower > 0) {
@@ -57,10 +58,10 @@ public class Wheels{
             powers[h] = powers[h] * motorCheck;
 
         }
-        Moters.backLeftDrive.setPower(powers[0]);
-        Moters.frontRightDrive.setPower(powers[1]);
-        Moters.frontLeftDrive.setPower(powers[2]);
-        Moters.backRightDrive.setPower(powers[3]);
+        Moters.backLeftDrive.setPower(powers[1]);
+        Moters.frontRightDrive.setPower(powers[2]);
+        Moters.frontLeftDrive.setPower(powers[3]);
+        Moters.backRightDrive.setPower(powers[0]);
 
         telemetry.addData("back left:", powers[0]);
         telemetry.addData("front right:", powers[1]);
@@ -68,10 +69,9 @@ public class Wheels{
         telemetry.addData("back right:", powers[3]);
     }
 
-
     public void driveDistanceFoward(double inches, double power) {
         //find how many encoder ticks we need to move
-        int encoderDistance = (int) (-1 * inches * encodersPerInch);
+        int encoderDistance = (int) (-inches * encodersPerInch);
         //find ideal encoder pos
         idealPostionBackLeft = Moters.backLeftDrive.getCurrentPosition() + encoderDistance;
         idealPostionBackRight = Moters.backLeftDrive.getCurrentPosition() + encoderDistance;
@@ -102,12 +102,13 @@ public class Wheels{
         int encoderDistance = (int) (inchesToTheRight * encodersPerInch * 2 * friction);
 
         //set encoders target location
-        Moters.backLeftDrive.setTargetPosition(Moters.backLeftDrive.getCurrentPosition() + encoderDistance);
-        Moters.backRightDrive.setTargetPosition(Moters.backRightDrive.getCurrentPosition() + encoderDistance);
+        Moters.backLeftDrive.setTargetPosition(Moters.backLeftDrive.getCurrentPosition() - encoderDistance);
+        Moters.backRightDrive.setTargetPosition(Moters.backRightDrive.getCurrentPosition() - encoderDistance);
         Moters.frontLeftDrive.setTargetPosition(Moters.frontLeftDrive.getCurrentPosition() + encoderDistance);
         Moters.frontRightDrive.setTargetPosition(Moters.frontRightDrive.getCurrentPosition() + encoderDistance);
-        idealPostionBackLeft = Moters.backLeftDrive.getCurrentPosition() + encoderDistance;
-        idealPostionBackRight = Moters.backLeftDrive.getCurrentPosition() + encoderDistance;
+
+        idealPostionBackLeft = Moters.backLeftDrive.getCurrentPosition() - encoderDistance;
+        idealPostionBackRight = Moters.backLeftDrive.getCurrentPosition() - encoderDistance;
         idealPostionFrontLeft = Moters.backLeftDrive.getCurrentPosition() + encoderDistance;
         idealPostionFrontRight = Moters.backLeftDrive.getCurrentPosition() + encoderDistance;
 
