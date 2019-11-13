@@ -31,8 +31,7 @@ public class rightSideMoveRight extends LinearOpMode {
 
         Wheels = new Wheels(Moters, telemetry);
         waitForStart();
-        Wheels.Drive(3.1415, 0, 60);
-        sleep(500);
+        Wheels.driveDistanceCrabwalk(12, 1);
         Moters.Halt();
 
 
