@@ -73,13 +73,13 @@ public class Wheels{
         //find how many encoder ticks we need to move
         int encoderDistance = (int) (-inches * encodersPerInch);
         //find ideal encoder pos
-        idealPostionBackLeft = Moters.backLeftDrive.getCurrentPosition() + encoderDistance;
-        idealPostionBackRight = Moters.backLeftDrive.getCurrentPosition() + encoderDistance;
-        idealPostionFrontLeft = Moters.backLeftDrive.getCurrentPosition() + encoderDistance;
-        idealPostionFrontRight = Moters.backLeftDrive.getCurrentPosition() + encoderDistance;
+        idealPostionBackLeft = Moters.backLeftDrive.getCurrentPosition() - encoderDistance;
+        idealPostionBackRight = Moters.backLeftDrive.getCurrentPosition() - encoderDistance;
+        idealPostionFrontLeft = Moters.backLeftDrive.getCurrentPosition() - encoderDistance;
+        idealPostionFrontRight = Moters.backLeftDrive.getCurrentPosition() - encoderDistance;
 
         //change  motor power based on distance
-        while (Moters.frontLeftDrive.getCurrentPosition() != idealPostionBackLeft + encoderDistance
+        while (Moters.frontLeftDrive.getCurrentPosition() != idealPostionBackLeft
                 && Moters.frontRightDrive.getCurrentPosition() != idealPostionFrontRight
                 && Moters.backRightDrive.getCurrentPosition() != idealPostionBackRight
                 && Moters.backLeftDrive.getCurrentPosition() != idealPostionBackLeft) {
@@ -111,8 +111,9 @@ public class Wheels{
         idealPostionBackRight = Moters.backLeftDrive.getCurrentPosition() - encoderDistance;
         idealPostionFrontLeft = Moters.backLeftDrive.getCurrentPosition() + encoderDistance;
         idealPostionFrontRight = Moters.backLeftDrive.getCurrentPosition() + encoderDistance;
-
-        while (Moters.frontLeftDrive.getCurrentPosition() != idealPostionBackLeft + encoderDistance
+        telemetry.addData("Encoders Target Pos Set", idealPostionBackLeft);
+        telemetry.update();
+        while (Moters.frontLeftDrive.getCurrentPosition() != idealPostionBackLeft
                 && Moters.frontRightDrive.getCurrentPosition() != idealPostionFrontRight
                 && Moters.backRightDrive.getCurrentPosition() != idealPostionBackRight
                 && Moters.backLeftDrive.getCurrentPosition() != idealPostionBackLeft) {
@@ -125,7 +126,9 @@ public class Wheels{
                     - Moters.backLeftDrive.getCurrentPosition(), power));
             Moters.frontRightDrive.setPower(findAdjustedPower(idealPostionFrontRight
                     - Moters.frontRightDrive.getCurrentPosition(), power));
-
+            telemetry.addData("Encoders Target Pos", Moters.backLeftDrive.getCurrentPosition());
+            telemetry.addData("Back Left Motor Power", Moters.backLeftDrive.getPower());
+            telemetry.update();
 
         }
     }

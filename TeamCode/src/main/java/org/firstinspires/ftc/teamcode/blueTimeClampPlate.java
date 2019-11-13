@@ -5,27 +5,26 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.Robot_Parts.*;
+import org.firstinspires.ftc.teamcode.Robot_Parts.Moters;
+import org.firstinspires.ftc.teamcode.Robot_Parts.Servos;
+import org.firstinspires.ftc.teamcode.Robot_Parts.Wheels;
 
 @Autonomous(name = "Blue Grab Plate with telementary", group = "Linear Opmode")
-public class blueClampPlate extends LinearOpMode {
+public class blueTimeClampPlate extends LinearOpMode {
     // Declare OpMode members.
     public Moters Moters;
     public Wheels Wheels;
     public Servos Servos;
     private long servoRotationTime;
     private double distanceWallTooPlate;
+
     @Override
     public void runOpMode() throws InterruptedException {
         Moters = new Moters(hardwareMap.get(DcMotor.class, "frontLeftDrive"),
                 hardwareMap.get(DcMotor.class, "frontRightDrive"), hardwareMap.get(DcMotor.class,
                 "backLeftDrive"), hardwareMap.get(DcMotor.class, "backRightDrive"), hardwareMap.get(DcMotor.class, "armMotor"));
-        Moters.backLeftDrive.setTargetPosition(Moters.backLeftDrive.getCurrentPosition());
-        Moters.frontLeftDrive.setTargetPosition(Moters.frontLeftDrive.getCurrentPosition());
-        Moters.backRightDrive.setTargetPosition(Moters.backRightDrive.getCurrentPosition());
-        Moters.frontRightDrive.setTargetPosition(Moters.frontRightDrive.getCurrentPosition());
 
-        Moters.setAutoMode();
+        Moters.setTeleMode();
         Servos = new Servos(hardwareMap.get(Servo.class, "leftPlateServo"),
                 hardwareMap.get(Servo.class, "rightPlateServo"), hardwareMap.get(Servo.class, "grabberServo"),
                 hardwareMap.get(Servo.class, "inOutServo"), hardwareMap.get(Servo.class, "modeArmServo"));
@@ -36,23 +35,20 @@ public class blueClampPlate extends LinearOpMode {
         double distanceToLine = 20;
         Wheels = new Wheels(Moters, telemetry);
         waitForStart();
-
-        Wheels.driveDistanceCrabwalk(9, .8);
+        Wheels.Drive(3.1415, 0, (float) .9);
+        sleep(650);
+        Wheels.Drive(1 / 2 * 3.1415, 0, (float) .9);
         telemetry.addData("Task", "Going to plate");
         telemetry.update();
-        sleep(4000);
-        Wheels.driveDistanceFoward(distanceWallTooPlate, .8);
-        sleep(4000);
-
+        sleep(3000);
+        Moters.Halt();
         telemetry.addData("Task", "Closing Servos");
         telemetry.update();
         Servos.setPlateServoPos(0);
         sleep(servoRotationTime);
-
         Servos.setPlateServoPos(1);
         sleep(servoRotationTime);
-
-        Wheels.driveDistanceFoward(-distanceWallTooPlate, 1);
+        Wheels.driveDistanceFoward(-distanceWallTooPlate, .3);
         telemetry.addData("Task", "Back to wall");
         telemetry.update();
         sleep(4000);
@@ -65,7 +61,7 @@ public class blueClampPlate extends LinearOpMode {
         telemetry.update();
 
         sleep(3000);
-        Wheels.driveDistanceCrabwalk(distanceToLine, .6);
+        Wheels.driveDistanceCrabwalk(distanceToLine, .2);
         telemetry.addData("Task", "Going to line");
         telemetry.update();
         sleep(4000);

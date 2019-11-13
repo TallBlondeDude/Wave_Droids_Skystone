@@ -7,12 +7,12 @@ public class Arm {
     private Moters Moters;
     private Telemetry telemetry;
     private double gravity = 0;
-    private Servos Servos;
+    private Servos ArmServos;
     public double targetPositionArm;
 
     public Arm(Moters A, Telemetry t, Servos s) {
         Moters = A;
-        Servos = s;
+        ArmServos = s;
         telemetry = t;
         targetPositionArm = 0;
     }
@@ -36,19 +36,19 @@ public class Arm {
         changeVerticalArmPos(1, 3);
         while (Moters.armMotor.getCurrentPosition() != targetPositionArm) {
         }
-        Servos.setInOutServo(1);
-        Servos.setModeArmServo(1);
+        ArmServos.setInOutServo(1);
+        ArmServos.setModeArmServo(1);
     }
 
     public void grab() {
-        Servos.setGrabberServo(1);
+        ArmServos.setGrabberServo(1);
     }
 
     public void tighten() {
-        Servos.setGrabberServo(0);
+        ArmServos.setGrabberServo(0);
     }
 
     public void hold() {
-        Servos.setGrabberServo(.5);
+        ArmServos.setGrabberServo(.5);
     }
 }
