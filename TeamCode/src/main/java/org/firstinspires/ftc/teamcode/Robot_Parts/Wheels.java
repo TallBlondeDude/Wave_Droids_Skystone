@@ -9,7 +9,7 @@ public class Wheels{
     private Telemetry telemetry;
     private final double orignalMaxSpeed;
     private double maxSpeed;
-    private final double encodersPerInch;
+    public final double encodersPerInch;
     private int idealPostionBackLeft;
     private int idealPostionBackRight;
     private int idealPostionFrontLeft;
@@ -21,7 +21,7 @@ public class Wheels{
         telemetry = t;
         orignalMaxSpeed = 1;
         maxSpeed = orignalMaxSpeed;
-        encodersPerInch = 422.2176 / 4;
+        encodersPerInch = (1.2 * 69) / 1.65;
     }
 
     private double findAdjustedPower(int encoderTicksRemaining, double basePower) {

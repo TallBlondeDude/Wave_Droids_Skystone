@@ -18,7 +18,42 @@ public class Moters {
         this.armMotor = armMotor;
     }
 
+    public void setTargetPositionWheels(int target) {
+        backLeftDrive.setTargetPosition(target + backLeftDrive.getCurrentPosition());
+        frontRightDrive.setTargetPosition(target + frontRightDrive.getCurrentPosition());
+        backRightDrive.setTargetPosition(target + backRightDrive.getCurrentPosition());
+        frontLeftDrive.setTargetPosition(target + frontLeftDrive.getCurrentPosition());
+    }
+
+    public void setTargetPositionWheelsCrabwalk(int target) {
+        backLeftDrive.setTargetPosition(target + backLeftDrive.getCurrentPosition());
+        frontRightDrive.setTargetPosition((int) (.98 * (-target + frontRightDrive.getCurrentPosition())));
+        backRightDrive.setTargetPosition(target + backRightDrive.getCurrentPosition());
+        frontLeftDrive.setTargetPosition(-target + frontLeftDrive.getCurrentPosition());
+    }
+
+    public void setWheelPower(double power) {
+        backLeftDrive.setPower(power);
+        frontRightDrive.setPower(.9 * power);
+        frontLeftDrive.setPower(power);
+        backRightDrive.setPower(.9 * power);
+    }
+
+    public void setWheelPowerCrabwalk(double power) {
+        backLeftDrive.setPower(power);
+        frontRightDrive.setPower(.9 * power);
+        frontLeftDrive.setPower(power);
+        backRightDrive.setPower(power);
+    }
+
+    public void stopAndResetEncoders() {
+        backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    }
     public void setTeleMode() {
+
         backRightDrive.setDirection(DcMotor.Direction.FORWARD);
         frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
         backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
@@ -34,6 +69,10 @@ public class Moters {
     }
 
     public void setAutoMode() {
+        backRightDrive.setTargetPosition(backRightDrive.getCurrentPosition());
+        frontRightDrive.setTargetPosition(frontRightDrive.getCurrentPosition());
+        backLeftDrive.setTargetPosition(backLeftDrive.getCurrentPosition());
+        frontLeftDrive.setTargetPosition(frontLeftDrive.getCurrentPosition());
         backRightDrive.setDirection(DcMotor.Direction.FORWARD);
         frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
         backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
@@ -42,6 +81,7 @@ public class Moters {
         backLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        stopAndResetEncoders();
         backLeftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         frontLeftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         frontRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
