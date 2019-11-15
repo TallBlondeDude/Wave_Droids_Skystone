@@ -30,30 +30,38 @@ public class blueClampPlateRawEncoders extends LinearOpMode {
         Servo leftServo = hardwareMap.get(Servo.class, "leftPlateServo");
 
         servoRotationTime = 1000;
-        distanceWallTooPlate = 17;
+        distanceWallTooPlate = 13;
         double distanceToLine = 27;
         Wheels = new Wheels(Moters, telemetry);
         waitForStart();
         Moters.setWheelPower(.8);
-
+        rightServo.setPosition(0);
+        leftServo.setPosition(1);
+        Moters.setWheelPowerCrabwalk(.8);
         Moters.setTargetPositionWheelsCrabwalk((int) (Wheels.encodersPerInch * 16));
-        telemetry.addData("Task", "Going to plate");
+        telemetry.addData("Task", "Crabwalking");
         telemetry.update();
-        sleep(2000);
+        sleep(1000);
+
         Moters.setWheelPower(.3);
         Moters.setTargetPositionWheels((int) (2 * Wheels.encodersPerInch * -distanceWallTooPlate));
-        sleep(4500);
+        telemetry.addData("Task", "Going to plate");
+        telemetry.update();
+        sleep(3500);
+
         Moters.setWheelPower(.1);
         Moters.setTargetPositionWheels((int) (2 * Wheels.encodersPerInch * -3));
-        telemetry.addData("Task", "Closing Servos");
-        telemetry.update();
         sleep(1500);
+
         Moters.setWheelPower(1);
         rightServo.setPosition(1);
         leftServo.setPosition(0);
-
+        telemetry.addData("Task", "Closing Servos");
+        telemetry.update();
         sleep(servoRotationTime);
-        Moters.setTargetPositionWheels((int) (4 * distanceWallTooPlate * Wheels.encodersPerInch));
+
+        Moters.setWheelPower(.6);
+        Moters.setTargetPositionWheels((int) (4.5 * distanceWallTooPlate * Wheels.encodersPerInch));
         telemetry.addData("Task", "Back to wall");
         telemetry.update();
         sleep(4000);
@@ -63,15 +71,34 @@ public class blueClampPlateRawEncoders extends LinearOpMode {
         telemetry.addData("Task", "Opening Servos");
         telemetry.update();
         sleep(servoRotationTime);
+
         Moters.setWheelPower(1);
-        Moters.setTargetPositionWheels((int) (-16 * Wheels.encodersPerInch));
-        telemetry.addData("Task", "Going to line");
+        // start according to line pattern
+        Moters.setTargetPositionWheels((int) (12 * Wheels.encodersPerInch));
+        telemetry.addData("Task", "Correcting for Error");
+        sleep(1000);
+
+        Moters.setWheelPowerCrabwalk(.5);
+        Moters.setTargetPositionWheelsCrabwalk((int) (-15 * Wheels.encodersPerInch));
+        sleep(2000);
+
+        Moters.setTargetPositionWheels((int) (-24 * Wheels.encodersPerInch));
+        telemetry.addData("Task", "Back to wall");
+        telemetry.update();
+        sleep(3500);
+
+        Moters.setWheelPowerCrabwalk(.5);
+        Moters.setTargetPositionWheelsCrabwalk((int) (15 * Wheels.encodersPerInch));
+        telemetry.addData("Task", "Pushing it over");
+        telemetry.update();
+        sleep(2000);
+
+        Moters.setWheelPowerCrabwalk(.5);
+        Moters.setTargetPositionWheelsCrabwalk((int) (-24 * Wheels.encodersPerInch));
+        telemetry.addData("Task", "moving to line");
         telemetry.update();
         sleep(3000);
-        rightServo.setPosition(0);
-        leftServo.setPosition(1);
-        sleep(servoRotationTime);
-        Moters.setTargetPositionWheels((int) (-32 * Wheels.encodersPerInch));
+
         //pray that we end up over the line
         telemetry.addData("Task", "Stopping");
         telemetry.update();
