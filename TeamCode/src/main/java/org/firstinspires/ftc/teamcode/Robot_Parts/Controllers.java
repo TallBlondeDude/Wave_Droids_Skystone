@@ -93,7 +93,7 @@ public class Controllers{
     }
 
     public void BButtonGamepad1() {
-        Servos.setPlateServoPos(0);
+        Servos.setPlateServoPos(1);
         telemetry.addData("B Button Pressed", "true");
     }
 }

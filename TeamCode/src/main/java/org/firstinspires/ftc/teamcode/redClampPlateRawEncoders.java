@@ -9,8 +9,8 @@ import org.firstinspires.ftc.teamcode.Robot_Parts.Moters;
 import org.firstinspires.ftc.teamcode.Robot_Parts.Servos;
 import org.firstinspires.ftc.teamcode.Robot_Parts.Wheels;
 
-@Autonomous(name = "Blue Plate basic Encoders", group = "Linear Opmode")
-public class blueClampPlateRawEncoders extends LinearOpMode {
+@Autonomous(name = "Red Plate basic Encoders", group = "Linear Opmode")
+public class redClampPlateRawEncoders extends LinearOpMode {
     // Declare OpMode members.
     public Moters Moters;
     public Wheels Wheels;
@@ -38,7 +38,7 @@ public class blueClampPlateRawEncoders extends LinearOpMode {
         rightServo.setPosition(0);
         leftServo.setPosition(1);
         Moters.setWheelPowerCrabwalk(.8);
-        Moters.setTargetPositionWheelsCrabwalk((int) (Wheels.encodersPerInch * 16));
+        Moters.setTargetPositionWheelsCrabwalk(-(int) (Wheels.encodersPerInch * 19));
         telemetry.addData("Task", "Crabwalking");
         telemetry.update();
         sleep(1000);
@@ -66,6 +66,12 @@ public class blueClampPlateRawEncoders extends LinearOpMode {
         telemetry.update();
         sleep(4000);
 
+        Moters.setWheelPower(.4);
+        // start according to line pattern
+        Moters.setTargetPositionWheels((int) (2 * Wheels.encodersPerInch));
+        telemetry.addData("Task", "Correcting for Error");
+        sleep(1500);
+
         rightServo.setPosition(0);
         leftServo.setPosition(1);
         telemetry.addData("Task", "Opening Servos");
@@ -74,32 +80,12 @@ public class blueClampPlateRawEncoders extends LinearOpMode {
 
         Moters.setWheelPower(1);
         // start according to line pattern
-        Moters.setTargetPositionWheels((int) (4 * Wheels.encodersPerInch));
+        Moters.setTargetPositionWheels((int) (2 * Wheels.encodersPerInch));
         telemetry.addData("Task", "Correcting for Error");
-        sleep(1000);
+        sleep(1500);
 
         Moters.setWheelPowerCrabwalk(.5);
-        Moters.setTargetPositionWheelsCrabwalk((int) (-24.5 * Wheels.encodersPerInch));
-        sleep(2000);
-
-        Moters.setTargetPositionWheels((int) (-10 * Wheels.encodersPerInch));
-        telemetry.addData("Task", "Back to wall");
-        telemetry.update();
-        sleep(3500);
-
-        Moters.setWheelPowerCrabwalk(.8);
-        Moters.setTargetPositionWheelsCrabwalk((int) (20 * Wheels.encodersPerInch));
-        telemetry.addData("Task", "Pushing it over");
-        telemetry.update();
-        sleep(2000);
-
-        Moters.setTargetPositionWheels((int) (-19 * Wheels.encodersPerInch));
-        telemetry.addData("Task", "Back to wall");
-        telemetry.update();
-        sleep(3500);
-
-        Moters.setWheelPowerCrabwalk(.5);
-        Moters.setTargetPositionWheelsCrabwalk((int) (-31 * Wheels.encodersPerInch));
+        Moters.setTargetPositionWheelsCrabwalk((int) (59 * Wheels.encodersPerInch));
         telemetry.addData("Task", "moving to line");
         telemetry.update();
         sleep(3000);

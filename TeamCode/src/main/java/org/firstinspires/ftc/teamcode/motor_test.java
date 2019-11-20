@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -9,6 +10,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.Robot_Parts.*;
 
 @TeleOp(name = "Servo Test", group = "Iterative Opmode")
+@Disabled
 public class motor_test extends LinearOpMode {
     // Declare OpMode members.
     public DcMotor frontLeftDrive;

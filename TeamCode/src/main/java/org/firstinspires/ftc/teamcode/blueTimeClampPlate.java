@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -10,6 +11,7 @@ import org.firstinspires.ftc.teamcode.Robot_Parts.Servos;
 import org.firstinspires.ftc.teamcode.Robot_Parts.Wheels;
 
 @Autonomous(name = "Blue Grab Plate with telementary", group = "Linear Opmode")
+@Disabled
 public class blueTimeClampPlate extends LinearOpMode {
     // Declare OpMode members.
     public Moters Moters;

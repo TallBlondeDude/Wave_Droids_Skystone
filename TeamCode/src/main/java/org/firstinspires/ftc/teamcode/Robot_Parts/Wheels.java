@@ -9,7 +9,7 @@ public class Wheels{
     private Telemetry telemetry;
     private final double orignalMaxSpeed;
     private double maxSpeed;
-    public final double encodersPerInch;
+    public static double encodersPerInch;
     private int idealPostionBackLeft;
     private int idealPostionBackRight;
     private int idealPostionFrontLeft;
@@ -73,10 +73,7 @@ public class Wheels{
         //find how many encoder ticks we need to move
         int encoderDistance = (int) (-inches * encodersPerInch);
         //find ideal encoder pos
-        idealPostionBackLeft = Moters.backLeftDrive.getCurrentPosition() - encoderDistance;
-        idealPostionBackRight = Moters.backLeftDrive.getCurrentPosition() - encoderDistance;
-        idealPostionFrontLeft = Moters.backLeftDrive.getCurrentPosition() - encoderDistance;
-        idealPostionFrontRight = Moters.backLeftDrive.getCurrentPosition() - encoderDistance;
+        Moters.setTargetPositionWheels(encoderDistance);
 
         //change  motor power based on distance
         while (Moters.frontLeftDrive.getCurrentPosition() != idealPostionBackLeft
@@ -102,11 +99,7 @@ public class Wheels{
         int encoderDistance = (int) (inchesToTheRight * encodersPerInch * 2 * friction);
 
         //set encoders target location
-        Moters.backLeftDrive.setTargetPosition(Moters.backLeftDrive.getCurrentPosition() - encoderDistance);
-        Moters.backRightDrive.setTargetPosition(Moters.backRightDrive.getCurrentPosition() - encoderDistance);
-        Moters.frontLeftDrive.setTargetPosition(Moters.frontLeftDrive.getCurrentPosition() + encoderDistance);
-        Moters.frontRightDrive.setTargetPosition(Moters.frontRightDrive.getCurrentPosition() + encoderDistance);
-
+        Moters.setTargetPositionWheelsCrabwalk(encoderDistance);
         idealPostionBackLeft = Moters.backLeftDrive.getCurrentPosition() - encoderDistance;
         idealPostionBackRight = Moters.backLeftDrive.getCurrentPosition() - encoderDistance;
         idealPostionFrontLeft = Moters.backLeftDrive.getCurrentPosition() + encoderDistance;
@@ -137,8 +130,8 @@ public class Wheels{
 
         Moters.backLeftDrive.setPower(turnPower);
         Moters.frontLeftDrive.setPower(turnPower);
-        Moters.frontRightDrive.setPower(turnPower);
-        Moters.backRightDrive.setPower(turnPower);
+        Moters.frontRightDrive.setPower(-turnPower);
+        Moters.backRightDrive.setPower(-turnPower);
 
     }
 

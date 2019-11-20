@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -9,9 +10,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.teamcode.Robot_Parts.*;
 
 @Autonomous(name = "Right Side Move Left", group = "Iterative Opmode")
+@Disabled
 public class rightSideMoveRight extends LinearOpMode {
     // Declare OpMode members.
-    public Controllers Gamepad;
     public Moters Moters;
     public Wheels Wheels;
 
@@ -31,7 +32,9 @@ public class rightSideMoveRight extends LinearOpMode {
 
         Wheels = new Wheels(Moters, telemetry);
         waitForStart();
-        Wheels.driveDistanceCrabwalk(12, 1);
+        Moters.setWheelPower(.5);
+        Moters.setTargetPositionWheelsCrabwalk((int) (-8 * Wheels.encodersPerInch));
+        sleep(2000);
         Moters.Halt();
 
 

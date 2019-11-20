@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.Robot_Parts.Servos;
 import org.firstinspires.ftc.teamcode.Robot_Parts.Wheels;
 
 @Autonomous(name = "Blue Plate basic Encoders", group = "Linear Opmode")
-public class blueClampPlateRawEncoders extends LinearOpMode {
+public class blueClampPlateRawEncodersGoBack extends LinearOpMode {
     // Declare OpMode members.
     public Moters Moters;
     public Wheels Wheels;
@@ -93,7 +93,7 @@ public class blueClampPlateRawEncoders extends LinearOpMode {
         telemetry.update();
         sleep(2000);
 
-        Moters.setTargetPositionWheels((int) (-19 * Wheels.encodersPerInch));
+        Moters.setTargetPositionWheels((int) (25 * Wheels.encodersPerInch));
         telemetry.addData("Task", "Back to wall");
         telemetry.update();
         sleep(3500);

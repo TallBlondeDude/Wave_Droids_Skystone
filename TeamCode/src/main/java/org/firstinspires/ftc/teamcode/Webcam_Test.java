@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.disnodeteam.dogecv.math.Line;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -16,6 +17,8 @@ import static java.lang.Math.E;
 import static java.lang.Math.round;
 
 @TeleOp(name = "Doge Test", group = "Linear Opmode")
+@Disabled
+
 public class Webcam_Test extends LinearOpMode {
 
     private int skystoneLocation;

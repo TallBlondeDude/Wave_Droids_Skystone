@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -11,10 +12,8 @@ import org.firstinspires.ftc.teamcode.Robot_Parts.*;
 @Autonomous(name = "BASIC Left Side (Forward, then Over)", group = "Iterative Opmode")
 public class blueLeftSideBASIC extends LinearOpMode {
     // Declare OpMode members.
-    public Controllers Gamepad;
     public Moters Moters;
     public Wheels Wheels;
-
     @Override
     public void runOpMode() throws InterruptedException {
         Moters = new Moters(hardwareMap.get(DcMotor.class, "frontLeftDrive"),
@@ -32,20 +31,17 @@ public class blueLeftSideBASIC extends LinearOpMode {
         Wheels = new Wheels(Moters, telemetry);
         waitForStart();
         Wheels.Drive(1.7, 0, 60);
-        sleep(700);
+        sleep(600);
         Moters.Halt();
         sleep(750);
         Wheels.Turn(-.6);
-        sleep(350);
+        sleep(300);
         Moters.Halt();
         sleep(2000);
-        Wheels.Drive(0
-                , 0, 100);
-        sleep(1200);
+        Wheels.Drive(3.1415, 0, 100);
+        sleep(600);
 
         Moters.Halt();
-
-
 
     }
 

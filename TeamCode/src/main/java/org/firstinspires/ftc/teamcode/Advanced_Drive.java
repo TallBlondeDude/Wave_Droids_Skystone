@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -11,6 +12,7 @@ import org.firstinspires.ftc.teamcode.Robot_Parts.Servos;
 import org.firstinspires.ftc.teamcode.Robot_Parts.Wheels;
 
 @TeleOp(name = "Gyro Drive", group = "Iterative Opmode")
+@Disabled
 public class Advanced_Drive extends OpMode {
     // Declare OpMode members.
     public Controllers Gamepad;

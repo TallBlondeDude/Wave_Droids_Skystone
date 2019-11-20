@@ -8,10 +8,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Robot_Parts.*;
 
-@Autonomous(name = "left Side Move Right", group = "Iterative Opmode")
+@Autonomous(name = "Backwards on Left Side, Fowards on Right", group = "Iterative Opmode")
 public class leftSideMoveLeft extends LinearOpMode {
     // Declare OpMode members.
-    public Controllers Gamepad;
     public Moters Moters;
     public Wheels Wheels;
 

@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -15,6 +16,7 @@ import org.firstinspires.ftc.teamcode.Robot_Parts.Wheels;
 import static java.lang.Math.round;
 
 @Autonomous(name = "Right Side Move Left", group = "Iterative Opmode")
+@Disabled
 public class grabSkystoneBlue extends LinearOpMode {
     int distanceFromWallToScanArea = 48;
     int distanceToPlate = 78;
