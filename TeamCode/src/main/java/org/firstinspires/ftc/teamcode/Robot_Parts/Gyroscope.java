@@ -1,36 +1,63 @@
 package org.firstinspires.ftc.teamcode.Robot_Parts;
 
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
+import com.qualcomm.hardware.bosch.BNO055IMU;
 
-public class Gyroscope implements SensorEventListener {
-    public float x, y, z;
-    public SensorManager sensorManager;
-    public Sensor sensor;
+import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 
-    public Gyroscope(Object a) {
-        x = 0;
-        y = 0;
-        z = 0;
-        sensorManager = (SensorManager) a; //a is getSystemService(Context.SENSOR_SERVICE); but you need to have access to the context to begin with
-        sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
-        sensorManager.registerListener(this, sensor, sensorManager.SENSOR_DELAY_NORMAL);
+import org.firstinspires.ftc.robotcore.external.Func;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.robotcore.external.navigation.Position;
+import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
+
+import com.qualcomm.hardware.bosch.BNO055IMU;
+
+
+public class Gyroscope {
+    public BNO055IMU imu;
+    public Orientation Orientation;
+    float angle;
+    Telemetry telemetry;
+
+    public Gyroscope(BNO055IMU imu, double xcord, double ycord, Telemetry telemetry) {
+        // provide positional information.
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
+        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
+        parameters.loggingEnabled = true;
+        parameters.loggingTag = "IMU";
+        parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
+        this.telemetry = telemetry;
+        // Retrieve and initialize the IMU. We expect the IMU to be attached to an I2C port
+        // on a Core Device Interface Module, configured to be a sensor of type "AdaFruit IMU",
+        // and named "imu".
+        this.imu = imu;
+        imu.initialize(parameters);
+        imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
+        telemetry.addData("IMU STATE", "Initalized");
+        telemetry.update();
     }
 
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        if (event.sensor.getType() == Sensor.TYPE_ORIENTATION) {
-            x = event.values[0];
-            y = event.values[1];
+    public void gyroTelementary() {
+        telemetry.addData("Velocity", getVelocity());
+        telemetry.addData("Orientation", getOrientation());
+    }
 
-        }
+    public float getOrientation() {
+        return imu.getAngularOrientation().firstAngle;
+    }
+
+    public float getVelocity() {
+        //pytha for magnitude
+        return (float) Math.sqrt((float) ((imu.getVelocity().xVeloc * imu.getVelocity().xVeloc) +
+                (imu.getVelocity().yVeloc * imu.getVelocity().yVeloc)));
     }
 
 
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-    }
 
 }

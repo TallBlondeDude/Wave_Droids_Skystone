@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Robot_Parts.Arm;
 import org.firstinspires.ftc.teamcode.Robot_Parts.Controllers;
@@ -32,10 +33,9 @@ public class Advanced_Drive extends OpMode {
 
         Arm = new Arm(Moters, telemetry, Servos);
 
-        //  Servos = new Servos(hardwareMap.get(Servo.class, "leftPlateServo"), hardwareMap.get(Servo.class, "rightPlateServo"),
-        //          hardwareMap.get(Servo.class, "grabberServo"),
-        //          hardwareMap.get(Servo.class, "rotationHorizontal"),
-        //          hardwareMap.get(Servo.class, "rotationVertical"));
+        Servos = new Servos(hardwareMap.get(Servo.class, "leftPlateServo"), hardwareMap.get(Servo.class, "rightPlateServo"),
+                hardwareMap.get(Servo.class, "grabberServo"),
+                hardwareMap.get(Servo.class, "rotationHorizontal"), hardwareMap.get(Servo.class, "rotationVertical"));
 
         Wheels = new Wheels(Moters, telemetry);
 

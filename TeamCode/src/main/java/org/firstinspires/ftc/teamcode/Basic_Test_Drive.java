@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -16,7 +17,7 @@ public class Basic_Test_Drive extends OpMode {
     public Wheels Wheels;
     public Servos Servos;
     Arm Arm;
-
+    public Gyroscope Gyroscope;
     //  Servo rightPlateServo;
     //  Servo leftPlateServo;
     //  Webcam Camera;
@@ -33,7 +34,7 @@ public class Basic_Test_Drive extends OpMode {
         Arm = new Arm(Moters, telemetry, Servos);
 
         Wheels = new Wheels(Moters, telemetry);
-
+        Gyroscope = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"), 0, 0, telemetry);
         Gamepad = new Controllers(Gamepad, gamepad1, Wheels, Servos, gamepad2, Arm, telemetry, Moters);
 
         Moters.setTeleMode();
@@ -49,6 +50,7 @@ public class Basic_Test_Drive extends OpMode {
         telemetry.addData("Direction in Radians", "Angle: " + polarAngle);
         telemetry.addData("Speed in Percentage", polarMagnitude);
         Gamepad.UpdateMovement();
+        Gyroscope.gyroTelementary();
         Wheels.Drive(polarAngle, gamepad1.right_stick_x, (float) polarMagnitude);
     }
 
