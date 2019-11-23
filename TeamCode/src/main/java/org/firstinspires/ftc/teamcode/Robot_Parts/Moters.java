@@ -9,13 +9,17 @@ public class Moters {
     public DcMotor backLeftDrive;
     public DcMotor backRightDrive;
     public DcMotor armMotor;
+    public DcMotor leftIntake;
+    public DcMotor rightIntake;
     // public DcMotor armMotor;
-    public Moters(DcMotor frontLeftDrive, DcMotor frontRightDrive, DcMotor backLeftDrive, DcMotor backRightDrive, DcMotor armMotor) {
+    public Moters(DcMotor frontLeftDrive, DcMotor frontRightDrive, DcMotor backLeftDrive, DcMotor backRightDrive, DcMotor armMotor, DcMotor leftIntake, DcMotor rightIntake) {
         this.frontLeftDrive = frontLeftDrive;
         this.frontRightDrive = frontRightDrive;
         this.backLeftDrive = backLeftDrive;
         this.backRightDrive = backRightDrive;
         this.armMotor = armMotor;
+        this.leftIntake = leftIntake;
+        this.rightIntake = rightIntake;
     }
 
     public void setTargetPositionWheels(int target) {
@@ -86,7 +90,6 @@ public class Moters {
         frontLeftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         frontRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         backRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
     }
 
     public void Halt() {
@@ -95,6 +98,7 @@ public class Moters {
         backRightDrive.setPower(0);
         backLeftDrive.setPower(0);
     }
+
 
 
 }
