@@ -13,6 +13,7 @@ public class Controllers{
     private Servos Servos;
     private Gamepad gamepad2;
     Moters Moters;
+    Intake Intake;
     private Arm Arm;
     Telemetry telemetry;
 
@@ -34,6 +35,12 @@ public class Controllers{
         }
         if (gamepad1.b) {
             BButtonGamepad1();
+        }
+        if (gamepad1.x){
+            XButtonGamepad1();
+        }
+        if (gamepad1.y){
+            YButtonGamepad1();
         }
         BackBumpersGamepad2();
         armSpeedDetector();
@@ -95,5 +102,14 @@ public class Controllers{
     public void BButtonGamepad1() {
         Servos.setPlateServoPos(1);
         telemetry.addData("B Button Pressed", "true");
+    }
+    public void XButtonGamepad1(){
+        Intake.IntakeGo();
+        telemetry.addData("X Button Pressed", "true");
+    }
+    public void YButtonGamepad1(){
+        Intake.IntakeStop();
+        telemetry.addData("Y Button Pressed", "true");
+
     }
 }
