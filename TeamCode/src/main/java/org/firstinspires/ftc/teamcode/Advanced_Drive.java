@@ -29,7 +29,9 @@ public class Advanced_Drive extends OpMode {
         Moters = new Moters(hardwareMap.get(DcMotor.class, "frontLeftDrive"),
                 hardwareMap.get(DcMotor.class, "frontRightDrive"), hardwareMap.get(DcMotor.class,
                 "backLeftDrive"), hardwareMap.get(DcMotor.class, "backRightDrive"),
-                hardwareMap.get(DcMotor.class, "armMotor"));
+                hardwareMap.get(DcMotor.class, "armMotor"), hardwareMap.get(DcMotor.class, "leftIntake"), hardwareMap.get(DcMotor.class, "rightIntake"));
+
+
 
         Arm = new Arm(Moters, telemetry, Servos);
 

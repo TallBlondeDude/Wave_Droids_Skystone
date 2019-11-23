@@ -12,7 +12,8 @@ public class Moters {
     public DcMotor leftIntake;
     public DcMotor rightIntake;
     // public DcMotor armMotor;
-    public Moters(DcMotor frontLeftDrive, DcMotor frontRightDrive, DcMotor backLeftDrive, DcMotor backRightDrive, DcMotor armMotor, DcMotor leftIntake, DcMotor rightIntake) {
+    public Moters(DcMotor frontLeftDrive, DcMotor frontRightDrive, DcMotor backLeftDrive, DcMotor backRightDrive, DcMotor armMotor,
+                  DcMotor leftIntake, DcMotor rightIntake) {
         this.frontLeftDrive = frontLeftDrive;
         this.frontRightDrive = frontRightDrive;
         this.backLeftDrive = backLeftDrive;

@@ -20,7 +20,9 @@ public class rightSideMoveRight extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         Moters = new Moters(hardwareMap.get(DcMotor.class, "frontLeftDrive"),
                 hardwareMap.get(DcMotor.class, "frontRightDrive"), hardwareMap.get(DcMotor.class,
-                "backLeftDrive"), hardwareMap.get(DcMotor.class, "backRightDrive"), hardwareMap.get(DcMotor.class, "armMotor"));
+                "backLeftDrive"), hardwareMap.get(DcMotor.class, "backRightDrive"),
+                hardwareMap.get(DcMotor.class, "armMotor"), hardwareMap.get(DcMotor.class, "leftIntake"), hardwareMap.get(DcMotor.class, "rightIntake"));
+
         Moters.backRightDrive.setDirection(DcMotor.Direction.FORWARD);
         Moters.frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
         Moters.backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
