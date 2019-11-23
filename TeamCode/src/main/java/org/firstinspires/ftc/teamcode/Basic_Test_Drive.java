@@ -16,7 +16,7 @@ public class Basic_Test_Drive extends OpMode {
     public Wheels Wheels;
     public Servos Servos;
     Arm Arm;
-
+    Intake Intake;
     //  Servo rightPlateServo;
     //  Servo leftPlateServo;
     //  Webcam Camera;
@@ -24,14 +24,14 @@ public class Basic_Test_Drive extends OpMode {
         Moters = new Moters(hardwareMap.get(DcMotor.class, "frontLeftDrive"),
                 hardwareMap.get(DcMotor.class, "frontRightDrive"), hardwareMap.get(DcMotor.class,
                 "backLeftDrive"), hardwareMap.get(DcMotor.class, "backRightDrive"),
-                hardwareMap.get(DcMotor.class, "armMotor"));
+                hardwareMap.get(DcMotor.class, "armMotor"), hardwareMap.get(DcMotor.class, "leftIntake"), hardwareMap.get(DcMotor.class, "rightIntake"));
 
 
         Servos = new Servos(hardwareMap.get(Servo.class, "leftPlateServo"),
                 hardwareMap.get(Servo.class, "rightPlateServo"), hardwareMap.get(Servo.class, "grabberServo"),
                 hardwareMap.get(Servo.class, "inOutServo"), hardwareMap.get(Servo.class, "modeArmServo"));
         Arm = new Arm(Moters, telemetry, Servos);
-
+        Intake = new Intake(Moters, telemetry);
         Wheels = new Wheels(Moters, telemetry);
 
         Gamepad = new Controllers(Gamepad, gamepad1, Wheels, Servos, gamepad2, Arm, telemetry, Moters);
