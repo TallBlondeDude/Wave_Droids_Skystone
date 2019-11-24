@@ -58,9 +58,9 @@ public class Wheels{
             powers[h] = powers[h] * motorCheck;
 
         }
-        Moters.backLeftDrive.setPower(powers[1]);
+        Moters.backLeftDrive.setPower(.9 * powers[1]);
         Moters.frontRightDrive.setPower(powers[2]);
-        Moters.frontLeftDrive.setPower(powers[3]);
+        Moters.frontLeftDrive.setPower(.9 * powers[3]);
         Moters.backRightDrive.setPower(powers[0]);
 
         telemetry.addData("back left:", powers[0]);
