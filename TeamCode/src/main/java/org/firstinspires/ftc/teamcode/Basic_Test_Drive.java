@@ -28,7 +28,7 @@ public class Basic_Test_Drive extends OpMode {
                 "backLeftDrive"), hardwareMap.get(DcMotor.class, "backRightDrive"),
                 hardwareMap.get(DcMotor.class, "armMotor"), hardwareMap.get(DcMotor.class, "leftIntake"), hardwareMap.get(DcMotor.class, "rightIntake"));
 
-        Gyro = new Gyroscope(hardwareMap.get(BNO055IMU.class, "imu"), 1, 1, telemetry);
+
         Servos = new Servos(hardwareMap.get(Servo.class, "leftPlateServo"),
                 hardwareMap.get(Servo.class, "rightPlateServo"), hardwareMap.get(Servo.class, "grabberServo"),
                 hardwareMap.get(Servo.class, "inOutServo"), hardwareMap.get(Servo.class, "modeArmServo"));
@@ -40,7 +40,6 @@ public class Basic_Test_Drive extends OpMode {
 
         Moters.setTeleMode();
     }
-
 
     @Override
     public void loop() {

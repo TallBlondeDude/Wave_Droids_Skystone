@@ -26,22 +26,26 @@ public class Gyroscope {
     public Gyroscope(BNO055IMU imu, double xcord, double ycord, Telemetry telemetry) {
         // provide positional information.
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-        parameters.mode = BNO055IMU.SensorMode.IMU;
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
         parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-        parameters.loggingEnabled = false;
-
+        parameters.calibrationDataFile = "AdafruitIMUCalibration.json";
+        parameters.loggingEnabled = true;
+        parameters.loggingTag = "IMU";
         this.telemetry = telemetry;
         // Retrieve and initialize the IMU. We expect the IMU to be attached to an I2C port
         // on a Core Device Interface Module, configured to be a sensor of type "AdaFruit IMU",
         // and named "imu".
         this.imu = imu;
         imu.initialize(parameters);
-        imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
         telemetry.addData("IMU STATE", "Initalized");
         telemetry.update();
+        imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
+
     }
 
+    public float getDirection() {
+        return 8;
+    }
     public void gyroTelementary() {
         telemetry.addData("Velocity", getVelocity());
         telemetry.addData("Orientation", getOrientation());
@@ -52,6 +56,7 @@ public class Gyroscope {
     }
 
     public float getVelocity() {
+
         //pytha for magnitude
         return (float) Math.sqrt((float) ((imu.getVelocity().xVeloc * imu.getVelocity().xVeloc) +
                 (imu.getVelocity().yVeloc * imu.getVelocity().yVeloc)));

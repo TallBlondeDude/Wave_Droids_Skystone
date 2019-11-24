@@ -1,19 +1,18 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import android.graphics.drawable.GradientDrawable;
+
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.Robot_Parts.Arm;
-import org.firstinspires.ftc.teamcode.Robot_Parts.Controllers;
-import org.firstinspires.ftc.teamcode.Robot_Parts.Moters;
-import org.firstinspires.ftc.teamcode.Robot_Parts.Servos;
-import org.firstinspires.ftc.teamcode.Robot_Parts.Wheels;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.teamcode.Robot_Parts.*;
 
-@TeleOp(name = "Gyro Drive", group = "Iterative Opmode")
-@Disabled
+@TeleOp(name = "Advanced Drive", group = "Iterative Opmode")
 public class Advanced_Drive extends OpMode {
     // Declare OpMode members.
     public Controllers Gamepad;
@@ -21,6 +20,8 @@ public class Advanced_Drive extends OpMode {
     public Wheels Wheels;
     public Servos Servos;
     Arm Arm;
+    float lastGyroCheck;
+    Gyroscope Gyro;
 
     //  Servo rightPlateServo;
     //  Servo leftPlateServo;
@@ -32,12 +33,10 @@ public class Advanced_Drive extends OpMode {
                 hardwareMap.get(DcMotor.class, "armMotor"), hardwareMap.get(DcMotor.class, "leftIntake"), hardwareMap.get(DcMotor.class, "rightIntake"));
 
 
-
+        Servos = new Servos(hardwareMap.get(Servo.class, "leftPlateServo"),
+                hardwareMap.get(Servo.class, "rightPlateServo"), hardwareMap.get(Servo.class, "grabberServo"),
+                hardwareMap.get(Servo.class, "inOutServo"), hardwareMap.get(Servo.class, "modeArmServo"));
         Arm = new Arm(Moters, telemetry, Servos);
-
-        Servos = new Servos(hardwareMap.get(Servo.class, "leftPlateServo"), hardwareMap.get(Servo.class, "rightPlateServo"),
-                hardwareMap.get(Servo.class, "grabberServo"),
-                hardwareMap.get(Servo.class, "rotationHorizontal"), hardwareMap.get(Servo.class, "rotationVertical"));
 
         Wheels = new Wheels(Moters, telemetry);
 
@@ -46,15 +45,19 @@ public class Advanced_Drive extends OpMode {
         Moters.setTeleMode();
     }
 
-
     @Override
     public void loop() {
-
+        if (lastGyroCheck < getRuntime() - .1) {
+            lastGyroCheck = (float) getRuntime();
+            float orientation = Gyro.getOrientation();
+            float direction = Gyro.getDirection();
+        }
         //   telemetry.addData("Skystone", Camera.findSkystone());
         double polarAngle = Gamepad.polarAngle();
         double polarMagnitude = Gamepad.polarMagnitude();
         telemetry.addData("Direction in Radians", "Angle: " + polarAngle);
         telemetry.addData("Speed in Percentage", polarMagnitude);
+        Gamepad.UpdateMovement();
         Wheels.Drive(polarAngle, gamepad1.right_stick_x, (float) polarMagnitude);
     }
 
