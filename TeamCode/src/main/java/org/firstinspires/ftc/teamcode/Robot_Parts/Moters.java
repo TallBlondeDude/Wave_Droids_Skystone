@@ -46,9 +46,9 @@ public class Moters {
         frontRightDrive.setTargetPosition(frontRightTarget);
         while (backLeftDrive.getCurrentPosition() != backLeftTarget && backRightDrive.getCurrentPosition() != backRightTarget &&
                 frontLeftDrive.getCurrentPosition() != frontLeftTarget && frontRightDrive.getCurrentPosition() != frontRightTarget) {
-            if (backLeftTarget - backLeftDrive.getCurrentPosition() > frontLeftTarget - frontLeftDrive.getCurrentPosition()) {
+            if (Math.abs(backLeftTarget - backLeftDrive.getCurrentPosition()) > Math.abs(frontLeftTarget - frontLeftDrive.getCurrentPosition())) {
                 backLeftDrive.setPower(backLeftDrive.getPower() * .9);
-            } else if (backLeftTarget - backLeftDrive.getCurrentPosition() < frontLeftTarget - frontLeftDrive.getCurrentPosition()) {
+            } else if (backLeftTarget - backLeftDrive.getCurrentPosition() < Math.abs(frontLeftTarget - frontLeftDrive.getCurrentPosition())) {
                 frontLeftDrive.setPower(frontLeftDrive.getPower() * .9);
             }
             if (frontRightTarget - frontRightDrive.getCurrentPosition() > backRightTarget - backRightDrive.getCurrentPosition()) {
