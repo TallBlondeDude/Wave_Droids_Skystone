@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Robot_Parts;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 
 public class Moters {
@@ -11,6 +12,10 @@ public class Moters {
     public DcMotor armMotor;
     public DcMotor leftIntake;
     public DcMotor rightIntake;
+    private int backLeftTarget;
+    private int frontLeftTarget;
+    private int backRightTarget;
+    private int frontRightTarget;
     // public DcMotor armMotor;
     public Moters(DcMotor frontLeftDrive, DcMotor frontRightDrive, DcMotor backLeftDrive, DcMotor backRightDrive, DcMotor armMotor,
                   DcMotor leftIntake, DcMotor rightIntake) {
@@ -31,7 +36,40 @@ public class Moters {
     }
 
     public void setTargetPositionWheelsCrabwalk(int target) {
-        backLeftDrive.setTargetPosition((int) (.7 * target) + backLeftDrive.getCurrentPosition());
+        backLeftTarget = (target) + backLeftDrive.getCurrentPosition();
+        frontRightTarget = (target) + backLeftDrive.getCurrentPosition();
+        frontLeftTarget = (target) + backLeftDrive.getCurrentPosition();
+        backRightTarget = (target) + backLeftDrive.getCurrentPosition();
+        backLeftDrive.setTargetPosition(backLeftTarget);
+        frontLeftDrive.setTargetPosition(frontLeftTarget);
+        backRightDrive.setTargetPosition(backRightTarget);
+        frontRightDrive.setTargetPosition(frontRightTarget);
+        while (backLeftDrive.getCurrentPosition() != backLeftTarget && backRightDrive.getCurrentPosition() != backRightTarget &&
+                frontLeftDrive.getCurrentPosition() != frontLeftTarget && frontRightDrive.getCurrentPosition() != frontRightTarget) {
+            if (backLeftTarget - backLeftDrive.getCurrentPosition() > frontLeftTarget - frontLeftDrive.getCurrentPosition()) {
+                backLeftDrive.setPower(backLeftDrive.getPower() * .9);
+            } else if (backLeftTarget - backLeftDrive.getCurrentPosition() < frontLeftTarget - frontLeftDrive.getCurrentPosition()) {
+                frontLeftDrive.setPower(frontLeftDrive.getPower() * .9);
+            }
+            if (frontRightTarget - frontRightDrive.getCurrentPosition() > backRightTarget - backRightDrive.getCurrentPosition()) {
+                frontRightDrive.setPower(frontRightDrive.getPower() * .9);
+
+            } else if (frontRightTarget - frontRightDrive.getCurrentPosition() < backRightTarget - backRightDrive.getCurrentPosition()) {
+                backRightDrive.setPower(backRightDrive.getPower() * .9);
+
+            }
+            if (frontRightTarget - frontRightDrive.getCurrentPosition() < frontLeftTarget - frontLeftDrive.getCurrentPosition()) {
+                frontLeftDrive.setPower(frontLeftDrive.getPower() * .9);
+            } else if (frontRightTarget - frontRightDrive.getCurrentPosition() > frontLeftTarget - frontLeftDrive.getCurrentPosition()) {
+                frontRightDrive.setPower(frontRightDrive.getPower() * .9);
+            }
+            if (backRightTarget - backRightDrive.getCurrentPosition() < backLeftTarget - backLeftDrive.getCurrentPosition()) {
+                backLeftDrive.setPower(backLeftDrive.getPower() * .9);
+            } else if (backRightTarget - backRightDrive.getCurrentPosition() > backLeftTarget - backLeftDrive.getCurrentPosition()) {
+                backRightDrive.setPower(backRightDrive.getPower() * .9);
+            }
+        }
+        backLeftDrive.setTargetPosition(backLeftTarget);
         frontRightDrive.setTargetPosition((int) (.7 * -target) + frontRightDrive.getCurrentPosition());
         backRightDrive.setTargetPosition(target + backRightDrive.getCurrentPosition());
         frontLeftDrive.setTargetPosition(-target + frontLeftDrive.getCurrentPosition());
@@ -57,8 +95,14 @@ public class Moters {
         frontLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         frontRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
-    public void setTeleMode() {
 
+    public void setTargetPositionArm(int position) {
+        armMotor.setTargetPosition(position);
+
+    }
+    public void setTeleMode() {
+        armMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRightDrive.setDirection(DcMotor.Direction.FORWARD);
         frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
         backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
@@ -74,6 +118,8 @@ public class Moters {
     }
 
     public void setAutoMode() {
+        armMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRightDrive.setTargetPosition(backRightDrive.getCurrentPosition());
         frontRightDrive.setTargetPosition(frontRightDrive.getCurrentPosition());
         backLeftDrive.setTargetPosition(backLeftDrive.getCurrentPosition());

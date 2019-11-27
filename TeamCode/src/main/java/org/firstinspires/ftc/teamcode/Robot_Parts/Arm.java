@@ -19,6 +19,7 @@ public class Arm {
 
     public void changeVerticalArmPos(double power) {
         Moters.armMotor.setPower(power + gravity);
+        Moters.setTargetPositionArm((int) (power * 10));
         telemetry.addData("Arm Power", power);
         telemetry.update();
     }
