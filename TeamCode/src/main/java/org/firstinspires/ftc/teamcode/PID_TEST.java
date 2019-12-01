@@ -1,17 +1,14 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.teamcode.Robot_Parts.*;
+import org.firstinspires.ftc.teamcode.Robot_Parts.Moters;
+import org.firstinspires.ftc.teamcode.Robot_Parts.Wheels;
 
-@Autonomous(name = "Right Side Move Left", group = "Iterative Opmode")
-@Disabled
-public class rightSideMoveRight extends LinearOpMode {
+@Autonomous(name = "PID_TEST", group = "Iterative Opmode")
+public class PID_TEST extends LinearOpMode {
     // Declare OpMode members.
     public Moters Moters;
     public Wheels Wheels;
@@ -31,14 +28,26 @@ public class rightSideMoveRight extends LinearOpMode {
         Moters.backLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Moters.backRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Moters.frontLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
+        float backLeftPower = 1;
+        float backRightPower = 1;
+        float frontLeftPower = 1;
+        float frontRightPower = 1;
         Wheels = new Wheels(Moters, telemetry);
         waitForStart();
-        Moters.setWheelPower(.5);
-        Moters.setTargetPositionWheelsCrabwalk((int) (-8 * org.firstinspires.ftc.teamcode.Robot_Parts.Wheels.encodersPerInch));
-        sleep(2000);
-        Moters.Halt();
+        Moters.backLeftDrive.setPower(backLeftPower);
+        Moters.frontRightDrive.setPower(frontRightPower);
+        Moters.backRightDrive.setPower(-backRightPower);
+        Moters.frontLeftDrive.setPower(-frontLeftPower);
 
+        sleep(600);
+
+        Moters.backLeftDrive.setPower(backLeftPower);
+        Moters.frontRightDrive.setPower(frontRightPower);
+        Moters.backRightDrive.setPower(backRightPower);
+        Moters.frontLeftDrive.setPower(frontLeftPower);
+
+        sleep(750);
+        Moters.Halt();
 
     }
 

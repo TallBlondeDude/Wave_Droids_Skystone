@@ -40,19 +40,19 @@ public class rightSidePlateFoward extends LinearOpMode {
         rightServo.setPosition(0);
         leftServo.setPosition(1);
         Moters.setWheelPowerCrabwalk(.8);
-        Moters.setTargetPositionWheelsCrabwalk(-(int) (Wheels.encodersPerInch * 19));
+        Moters.setTargetPositionWheelsCrabwalk(-(int) (org.firstinspires.ftc.teamcode.Robot_Parts.Wheels.encodersPerInch * 19));
         telemetry.addData("Task", "Crabwalking");
         telemetry.update();
         sleep(1000);
 
         Moters.setWheelPower(.3);
-        Moters.setTargetPositionWheels((int) (2 * Wheels.encodersPerInch * -distanceWallTooPlate));
+        Moters.setTargetPositionWheels((int) (2 * org.firstinspires.ftc.teamcode.Robot_Parts.Wheels.encodersPerInch * -distanceWallTooPlate));
         telemetry.addData("Task", "Going to plate");
         telemetry.update();
         sleep(3500);
 
         Moters.setWheelPower(.1);
-        Moters.setTargetPositionWheels((int) (2 * Wheels.encodersPerInch * -3));
+        Moters.setTargetPositionWheels((int) (2 * org.firstinspires.ftc.teamcode.Robot_Parts.Wheels.encodersPerInch * -3));
         sleep(1500);
 
         Moters.setWheelPower(1);
@@ -63,14 +63,14 @@ public class rightSidePlateFoward extends LinearOpMode {
         sleep(servoRotationTime);
 
         Moters.setWheelPower(.6);
-        Moters.setTargetPositionWheels((int) (3.5 * distanceWallTooPlate * Wheels.encodersPerInch));
+        Moters.setTargetPositionWheels((int) (3.5 * distanceWallTooPlate * org.firstinspires.ftc.teamcode.Robot_Parts.Wheels.encodersPerInch));
         telemetry.addData("Task", "Back to wall");
         telemetry.update();
         sleep(4000);
 
         Moters.setWheelPower(.4);
         // start according to line pattern
-        Moters.setTargetPositionWheels((int) (2 * Wheels.encodersPerInch));
+        Moters.setTargetPositionWheels((int) (2 * org.firstinspires.ftc.teamcode.Robot_Parts.Wheels.encodersPerInch));
         telemetry.addData("Task", "Correcting for Error");
         sleep(1500);
 
@@ -82,23 +82,23 @@ public class rightSidePlateFoward extends LinearOpMode {
 
         Moters.setWheelPower(1);
         // start according to line pattern
-        Moters.setTargetPositionWheels((int) (2 * Wheels.encodersPerInch));
+        Moters.setTargetPositionWheels((int) (2 * org.firstinspires.ftc.teamcode.Robot_Parts.Wheels.encodersPerInch));
         telemetry.addData("Task", "Correcting for Error");
         sleep(1500);
 
         Moters.setWheelPowerCrabwalk(.5);
-        Moters.setTargetPositionWheelsCrabwalk((int) ((57.5 - 17) * Wheels.encodersPerInch));
+        Moters.setTargetPositionWheelsCrabwalk((int) ((57.5 - 17) * org.firstinspires.ftc.teamcode.Robot_Parts.Wheels.encodersPerInch));
         telemetry.addData("Task", "moving to line");
         telemetry.update();
         sleep(3000);
         Moters.setWheelPower(1);
         // start according to line pattern
-        Moters.setTargetPositionWheels((int) (-35 * Wheels.encodersPerInch));
+        Moters.setTargetPositionWheels((int) (-35 * org.firstinspires.ftc.teamcode.Robot_Parts.Wheels.encodersPerInch));
         telemetry.addData("Task", "Correcting for Error");
         sleep(1500);
 
         Moters.setWheelPowerCrabwalk(.5);
-        Moters.setTargetPositionWheelsCrabwalk((int) ((17) * Wheels.encodersPerInch));
+        Moters.setTargetPositionWheelsCrabwalk((int) ((17) * org.firstinspires.ftc.teamcode.Robot_Parts.Wheels.encodersPerInch));
 
         //pray that we end up over the line
         telemetry.addData("Task", "Stopping");
