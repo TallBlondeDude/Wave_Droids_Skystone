@@ -73,10 +73,10 @@ public class Moters {
     }
 
     public void setTargetPositionWheelsCrabwalk(int target) {
-        backLeftTarget = (target) + backLeftDrive.getCurrentPosition();
+        backLeftTarget = -(target) - backLeftDrive.getCurrentPosition();
         frontRightTarget = (target) + frontRightDrive.getCurrentPosition();
         frontLeftTarget = (target) + frontLeftDrive.getCurrentPosition();
-        backRightTarget = (target) + backLeftDrive.getCurrentPosition();
+        backRightTarget = -(target) - backLeftDrive.getCurrentPosition();
         backLeftDrive.setTargetPosition(backLeftTarget);
         frontLeftDrive.setTargetPosition(frontLeftTarget);
         backRightDrive.setTargetPosition(backRightTarget);
