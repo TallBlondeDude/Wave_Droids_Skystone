@@ -16,6 +16,7 @@ public class Moters {
     private int frontLeftTarget;
     private int backRightTarget;
     private int frontRightTarget;
+    private int autoCorrectNumber;
     // public DcMotor armMotor;
     public Moters(DcMotor frontLeftDrive, DcMotor frontRightDrive, DcMotor backLeftDrive, DcMotor backRightDrive, DcMotor armMotor,
                   DcMotor leftIntake, DcMotor rightIntake) {
@@ -26,6 +27,7 @@ public class Moters {
         this.armMotor = armMotor;
         this.leftIntake = leftIntake;
         this.rightIntake = rightIntake;
+        autoCorrectNumber = 25;
     }
 
     public void setTargetPositionWheels(int target) {
@@ -46,33 +48,31 @@ public class Moters {
         frontRightDrive.setTargetPosition(frontRightTarget);
         while (backLeftDrive.getCurrentPosition() != backLeftTarget && backRightDrive.getCurrentPosition() != backRightTarget &&
                 frontLeftDrive.getCurrentPosition() != frontLeftTarget && frontRightDrive.getCurrentPosition() != frontRightTarget) {
-            if (Math.abs(backLeftTarget - backLeftDrive.getCurrentPosition()) > Math.abs(frontLeftTarget - frontLeftDrive.getCurrentPosition())) {
+            if (Math.abs(backLeftTarget - backLeftDrive.getCurrentPosition()) - autoCorrectNumber > Math.abs(frontLeftTarget - frontLeftDrive.getCurrentPosition())) {
                 backLeftDrive.setPower(backLeftDrive.getPower() * .9);
-            } else if (backLeftTarget - backLeftDrive.getCurrentPosition() < Math.abs(frontLeftTarget - frontLeftDrive.getCurrentPosition())) {
+            } else if (Math.abs(frontLeftTarget - frontLeftDrive.getCurrentPosition()) - autoCorrectNumber > Math.abs(backLeftTarget - backLeftDrive.getCurrentPosition())) {
                 frontLeftDrive.setPower(frontLeftDrive.getPower() * .9);
             }
-            if (frontRightTarget - frontRightDrive.getCurrentPosition() > backRightTarget - backRightDrive.getCurrentPosition()) {
-                frontRightDrive.setPower(frontRightDrive.getPower() * .9);
 
-            } else if (frontRightTarget - frontRightDrive.getCurrentPosition() < backRightTarget - backRightDrive.getCurrentPosition()) {
+            if (Math.abs(backRightTarget - backRightDrive.getCurrentPosition()) - autoCorrectNumber > Math.abs(frontRightTarget - frontRightDrive.getCurrentPosition())) {
                 backRightDrive.setPower(backRightDrive.getPower() * .9);
 
-            }
-            if (frontRightTarget - frontRightDrive.getCurrentPosition() < frontLeftTarget - frontLeftDrive.getCurrentPosition()) {
-                frontLeftDrive.setPower(frontLeftDrive.getPower() * .9);
-            } else if (frontRightTarget - frontRightDrive.getCurrentPosition() > frontLeftTarget - frontLeftDrive.getCurrentPosition()) {
+            } else if (Math.abs(frontRightTarget - frontRightDrive.getCurrentPosition()) - autoCorrectNumber > Math.abs(backRightTarget - backRightDrive.getCurrentPosition())) {
                 frontRightDrive.setPower(frontRightDrive.getPower() * .9);
             }
-            if (backRightTarget - backRightDrive.getCurrentPosition() < backLeftTarget - backLeftDrive.getCurrentPosition()) {
+
+            if (Math.abs(frontRightTarget - frontRightDrive.getCurrentPosition()) - autoCorrectNumber > Math.abs(frontLeftTarget - frontLeftDrive.getCurrentPosition())) {
+                frontLeftDrive.setPower(frontRightDrive.getPower() * .9);
+            } else if (Math.abs(frontRightTarget - frontRightDrive.getCurrentPosition() - autoCorrectNumber) > Math.abs(frontLeftTarget - frontLeftDrive.getCurrentPosition())) {
+                frontRightDrive.setPower(frontRightDrive.getPower() * .9);
+            }
+
+            if (Math.abs(backRightTarget - backRightDrive.getCurrentPosition()) + autoCorrectNumber < Math.abs(backLeftTarget - backLeftDrive.getCurrentPosition())) {
                 backLeftDrive.setPower(backLeftDrive.getPower() * .9);
-            } else if (backRightTarget - backRightDrive.getCurrentPosition() > backLeftTarget - backLeftDrive.getCurrentPosition()) {
+            } else if (Math.abs(backRightTarget - backRightDrive.getCurrentPosition()) - autoCorrectNumber > Math.abs(backLeftTarget - backLeftDrive.getCurrentPosition())) {
                 backRightDrive.setPower(backRightDrive.getPower() * .9);
             }
         }
-        backLeftDrive.setTargetPosition(backLeftTarget);
-        frontRightDrive.setTargetPosition((int) (.7 * -target) + frontRightDrive.getCurrentPosition());
-        backRightDrive.setTargetPosition(target + backRightDrive.getCurrentPosition());
-        frontLeftDrive.setTargetPosition(-target + frontLeftDrive.getCurrentPosition());
     }
 
     public void setWheelPower(double power) {
