@@ -31,16 +31,51 @@ public class Moters {
     }
 
     public void setTargetPositionWheels(int target) {
-        backLeftDrive.setTargetPosition(target + backLeftDrive.getCurrentPosition());
-        frontRightDrive.setTargetPosition(target + frontRightDrive.getCurrentPosition());
-        backRightDrive.setTargetPosition(target + backRightDrive.getCurrentPosition());
-        frontLeftDrive.setTargetPosition(target + frontLeftDrive.getCurrentPosition());
+        // backLeftDrive.setTargetPosition(target + backLeftDrive.getCurrentPosition());
+        // frontRightDrive.setTargetPosition(target + frontRightDrive.getCurrentPosition());
+        // backRightDrive.setTargetPosition(target + backRightDrive.getCurrentPosition());
+        // frontLeftDrive.setTargetPosition(target + frontLeftDrive.getCurrentPosition());
+        backLeftTarget = (target) + backLeftDrive.getCurrentPosition();
+        frontRightTarget = (target) + frontRightDrive.getCurrentPosition();
+        frontLeftTarget = (target) + frontLeftDrive.getCurrentPosition();
+        backRightTarget = (target) + backLeftDrive.getCurrentPosition();
+        backLeftDrive.setTargetPosition(backLeftTarget);
+        frontLeftDrive.setTargetPosition(frontLeftTarget);
+        backRightDrive.setTargetPosition(backRightTarget);
+        frontRightDrive.setTargetPosition(frontRightTarget);
+        while (backLeftDrive.getCurrentPosition() != backLeftTarget && backRightDrive.getCurrentPosition() != backRightTarget &&
+                frontLeftDrive.getCurrentPosition() != frontLeftTarget && frontRightDrive.getCurrentPosition() != frontRightTarget) {
+            if (Math.abs(backLeftTarget - backLeftDrive.getCurrentPosition()) - autoCorrectNumber > Math.abs(frontLeftTarget - frontLeftDrive.getCurrentPosition())) {
+                backLeftDrive.setPower(backLeftDrive.getPower() * .9);
+            } else if (Math.abs(frontLeftTarget - frontLeftDrive.getCurrentPosition()) - autoCorrectNumber > Math.abs(backLeftTarget - backLeftDrive.getCurrentPosition())) {
+                frontLeftDrive.setPower(frontLeftDrive.getPower() * .9);
+            }
+
+            if (Math.abs(backRightTarget - backRightDrive.getCurrentPosition()) - autoCorrectNumber > Math.abs(frontRightTarget - frontRightDrive.getCurrentPosition())) {
+                backRightDrive.setPower(backRightDrive.getPower() * .9);
+
+            } else if (Math.abs(frontRightTarget - frontRightDrive.getCurrentPosition()) - autoCorrectNumber > Math.abs(backRightTarget - backRightDrive.getCurrentPosition())) {
+                frontRightDrive.setPower(frontRightDrive.getPower() * .9);
+            }
+
+            if (Math.abs(frontRightTarget - frontRightDrive.getCurrentPosition()) - autoCorrectNumber > Math.abs(frontLeftTarget - frontLeftDrive.getCurrentPosition())) {
+                frontLeftDrive.setPower(frontRightDrive.getPower() * .9);
+            } else if (Math.abs(frontRightTarget - frontRightDrive.getCurrentPosition() - autoCorrectNumber) > Math.abs(frontLeftTarget - frontLeftDrive.getCurrentPosition())) {
+                frontRightDrive.setPower(frontRightDrive.getPower() * .9);
+            }
+
+            if (Math.abs(backRightTarget - backRightDrive.getCurrentPosition()) + autoCorrectNumber < Math.abs(backLeftTarget - backLeftDrive.getCurrentPosition())) {
+                backLeftDrive.setPower(backLeftDrive.getPower() * .9);
+            } else if (Math.abs(backRightTarget - backRightDrive.getCurrentPosition()) - autoCorrectNumber > Math.abs(backLeftTarget - backLeftDrive.getCurrentPosition())) {
+                backRightDrive.setPower(backRightDrive.getPower() * .9);
+            }
+        }
     }
 
     public void setTargetPositionWheelsCrabwalk(int target) {
         backLeftTarget = (target) + backLeftDrive.getCurrentPosition();
-        frontRightTarget = (target) + backLeftDrive.getCurrentPosition();
-        frontLeftTarget = (target) + backLeftDrive.getCurrentPosition();
+        frontRightTarget = (target) + frontRightDrive.getCurrentPosition();
+        frontLeftTarget = (target) + frontLeftDrive.getCurrentPosition();
         backRightTarget = (target) + backLeftDrive.getCurrentPosition();
         backLeftDrive.setTargetPosition(backLeftTarget);
         frontLeftDrive.setTargetPosition(frontLeftTarget);
