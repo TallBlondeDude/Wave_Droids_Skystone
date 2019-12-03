@@ -44,7 +44,9 @@ public class grabSkystoneBlue extends LinearOpMode {
         Moters = new Moters(hardwareMap.get(DcMotor.class, "frontLeftDrive"),
                 hardwareMap.get(DcMotor.class, "frontRightDrive"), hardwareMap.get(DcMotor.class,
                 "backLeftDrive"), hardwareMap.get(DcMotor.class, "backRightDrive"),
-                hardwareMap.get(DcMotor.class, "armMotor"), hardwareMap.get(DcMotor.class, "leftIntake"), hardwareMap.get(DcMotor.class, "rightIntake"));
+                hardwareMap.get(DcMotor.class, "upperArmMotor"), hardwareMap.get(DcMotor.class, "lowerArmMotor"),
+                hardwareMap.get(DcMotor.class, "leftIntake"),
+                hardwareMap.get(DcMotor.class, "rightIntake"));
 
         Wheels = new Wheels(Moters, telemetry);
         Arm = new Arm(Moters, telemetry, Servos);
@@ -68,9 +70,7 @@ public class grabSkystoneBlue extends LinearOpMode {
      //       sleep(1500);
             Wheels.driveDistanceCrabwalk(distanceToLeftStoneStrafe, 1);
      //       sleep(1500);
-            Arm.grab();
-            sleep(1000);
-            Arm.tighten();
+            Arm.loosen();
             sleep(1000);
             Arm.hold();
             Wheels.driveDistanceFoward(-distanceToLeftStoneStrafe, -1);
@@ -100,17 +100,18 @@ public class grabSkystoneBlue extends LinearOpMode {
         distanceToSecondStone = distanceToSecondStone + (7 * (locationOfSkystone + 1)) + 3.5;
         Wheels.driveDistanceCrabwalk(-distanceToPlate, .8);
      //   sleep(3000);
-        Arm.grab();
-        sleep(1000);
+        Arm.loosen();
+        Arm.changeVerticalArmPos(0, 1);
         Arm.tighten();
         sleep(1000);
         Arm.hold();
-     //   sleep(1500);
+        Arm.setPosition(4);
+        //   sleep(1500);
         Wheels.driveDistanceCrabwalk(distanceToSecondStone, 1);
     //    sleep(3000);
         Wheels.driveDistanceFoward(distanceToStoneFoward, 1);
     //    sleep(1500);
-        Arm.grab();
+        Arm.loosen();
         sleep(1000);
         Arm.tighten();
         sleep(1000);

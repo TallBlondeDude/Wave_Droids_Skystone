@@ -9,7 +9,8 @@ public class Moters {
     public DcMotor frontRightDrive;
     public DcMotor backLeftDrive;
     public DcMotor backRightDrive;
-    public DcMotor armMotor;
+    public DcMotor lowerArmMotor;
+    public DcMotor upperArmMotor;
     public DcMotor leftIntake;
     public DcMotor rightIntake;
     private int backLeftTarget;
@@ -17,24 +18,30 @@ public class Moters {
     private int backRightTarget;
     private int frontRightTarget;
     private int autoCorrectNumber;
+    private double weakBackLeftPower;
+    private double weakBackRightPower;
+    private double weakFrontLeftPower;
+    private double weakFrontRightPower;
+    private double strongBackLeftPower;
+    private double strongBackRightPower;
+    private double strongFrontLeftPower;
+    private double strongFrontRightPower;
+
     // public DcMotor armMotor;
-    public Moters(DcMotor frontLeftDrive, DcMotor frontRightDrive, DcMotor backLeftDrive, DcMotor backRightDrive, DcMotor armMotor,
+    public Moters(DcMotor frontLeftDrive, DcMotor frontRightDrive, DcMotor backLeftDrive, DcMotor backRightDrive, DcMotor lowerArmMotor,
+                  DcMotor upperArmMotor,
                   DcMotor leftIntake, DcMotor rightIntake) {
         this.frontLeftDrive = frontLeftDrive;
         this.frontRightDrive = frontRightDrive;
         this.backLeftDrive = backLeftDrive;
         this.backRightDrive = backRightDrive;
-        this.armMotor = armMotor;
+        this.upperArmMotor = upperArmMotor;
+        this.lowerArmMotor = lowerArmMotor;
         this.leftIntake = leftIntake;
         this.rightIntake = rightIntake;
         autoCorrectNumber = 25;
     }
-
     public void setTargetPositionWheels(int target) {
-        // backLeftDrive.setTargetPosition(target + backLeftDrive.getCurrentPosition());
-        // frontRightDrive.setTargetPosition(target + frontRightDrive.getCurrentPosition());
-        // backRightDrive.setTargetPosition(target + backRightDrive.getCurrentPosition());
-        // frontLeftDrive.setTargetPosition(target + frontLeftDrive.getCurrentPosition());
         backLeftTarget = (target) + backLeftDrive.getCurrentPosition();
         frontRightTarget = (target) + frontRightDrive.getCurrentPosition();
         frontLeftTarget = (target) + frontLeftDrive.getCurrentPosition();
@@ -45,6 +52,10 @@ public class Moters {
         frontRightDrive.setTargetPosition(frontRightTarget);
         while (backLeftDrive.getCurrentPosition() != backLeftTarget && backRightDrive.getCurrentPosition() != backRightTarget &&
                 frontLeftDrive.getCurrentPosition() != frontLeftTarget && frontRightDrive.getCurrentPosition() != frontRightTarget) {
+            backLeftDrive.setPower(strongBackLeftPower);
+            frontRightDrive.setPower(strongFrontRightPower);
+            frontLeftDrive.setPower(strongFrontLeftPower);
+            backRightDrive.setPower(strongBackRightPower);
             if (Math.abs(backLeftTarget - backLeftDrive.getCurrentPosition()) - autoCorrectNumber > Math.abs(frontLeftTarget - frontLeftDrive.getCurrentPosition())) {
                 backLeftDrive.setPower(backLeftDrive.getPower() * .9);
             } else if (Math.abs(frontLeftTarget - frontLeftDrive.getCurrentPosition()) - autoCorrectNumber > Math.abs(backLeftTarget - backLeftDrive.getCurrentPosition())) {
@@ -52,22 +63,20 @@ public class Moters {
             }
 
             if (Math.abs(backRightTarget - backRightDrive.getCurrentPosition()) - autoCorrectNumber > Math.abs(frontRightTarget - frontRightDrive.getCurrentPosition())) {
-                backRightDrive.setPower(backRightDrive.getPower() * .9);
+                backRightDrive.setPower(weakBackRightPower);
 
             } else if (Math.abs(frontRightTarget - frontRightDrive.getCurrentPosition()) - autoCorrectNumber > Math.abs(backRightTarget - backRightDrive.getCurrentPosition())) {
-                frontRightDrive.setPower(frontRightDrive.getPower() * .9);
+                frontRightDrive.setPower(weakFrontRightPower);
             }
-
             if (Math.abs(frontRightTarget - frontRightDrive.getCurrentPosition()) - autoCorrectNumber > Math.abs(frontLeftTarget - frontLeftDrive.getCurrentPosition())) {
-                frontLeftDrive.setPower(frontRightDrive.getPower() * .9);
+                frontLeftDrive.setPower(weakFrontLeftPower);
             } else if (Math.abs(frontRightTarget - frontRightDrive.getCurrentPosition() - autoCorrectNumber) > Math.abs(frontLeftTarget - frontLeftDrive.getCurrentPosition())) {
-                frontRightDrive.setPower(frontRightDrive.getPower() * .9);
+                frontRightDrive.setPower(weakFrontRightPower);
             }
-
             if (Math.abs(backRightTarget - backRightDrive.getCurrentPosition()) + autoCorrectNumber < Math.abs(backLeftTarget - backLeftDrive.getCurrentPosition())) {
-                backLeftDrive.setPower(backLeftDrive.getPower() * .9);
+                backLeftDrive.setPower(weakBackLeftPower);
             } else if (Math.abs(backRightTarget - backRightDrive.getCurrentPosition()) - autoCorrectNumber > Math.abs(backLeftTarget - backLeftDrive.getCurrentPosition())) {
-                backRightDrive.setPower(backRightDrive.getPower() * .9);
+                backRightDrive.setPower(weakFrontRightPower);
             }
         }
     }
@@ -83,6 +92,10 @@ public class Moters {
         frontRightDrive.setTargetPosition(frontRightTarget);
         while (backLeftDrive.getCurrentPosition() != backLeftTarget && backRightDrive.getCurrentPosition() != backRightTarget &&
                 frontLeftDrive.getCurrentPosition() != frontLeftTarget && frontRightDrive.getCurrentPosition() != frontRightTarget) {
+            backLeftDrive.setPower(strongBackLeftPower);
+            frontRightDrive.setPower(strongFrontRightPower);
+            frontLeftDrive.setPower(strongFrontLeftPower);
+            backRightDrive.setPower(strongBackRightPower);
             if (Math.abs(backLeftTarget - backLeftDrive.getCurrentPosition()) - autoCorrectNumber > Math.abs(frontLeftTarget - frontLeftDrive.getCurrentPosition())) {
                 backLeftDrive.setPower(backLeftDrive.getPower() * .9);
             } else if (Math.abs(frontLeftTarget - frontLeftDrive.getCurrentPosition()) - autoCorrectNumber > Math.abs(backLeftTarget - backLeftDrive.getCurrentPosition())) {
@@ -90,38 +103,52 @@ public class Moters {
             }
 
             if (Math.abs(backRightTarget - backRightDrive.getCurrentPosition()) - autoCorrectNumber > Math.abs(frontRightTarget - frontRightDrive.getCurrentPosition())) {
-                backRightDrive.setPower(backRightDrive.getPower() * .9);
+                backRightDrive.setPower(weakBackRightPower);
 
             } else if (Math.abs(frontRightTarget - frontRightDrive.getCurrentPosition()) - autoCorrectNumber > Math.abs(backRightTarget - backRightDrive.getCurrentPosition())) {
-                frontRightDrive.setPower(frontRightDrive.getPower() * .9);
+                frontRightDrive.setPower(weakFrontRightPower);
             }
-
             if (Math.abs(frontRightTarget - frontRightDrive.getCurrentPosition()) - autoCorrectNumber > Math.abs(frontLeftTarget - frontLeftDrive.getCurrentPosition())) {
-                frontLeftDrive.setPower(frontRightDrive.getPower() * .9);
+                frontLeftDrive.setPower(weakFrontLeftPower);
             } else if (Math.abs(frontRightTarget - frontRightDrive.getCurrentPosition() - autoCorrectNumber) > Math.abs(frontLeftTarget - frontLeftDrive.getCurrentPosition())) {
-                frontRightDrive.setPower(frontRightDrive.getPower() * .9);
+                frontRightDrive.setPower(weakFrontRightPower);
             }
-
             if (Math.abs(backRightTarget - backRightDrive.getCurrentPosition()) + autoCorrectNumber < Math.abs(backLeftTarget - backLeftDrive.getCurrentPosition())) {
-                backLeftDrive.setPower(backLeftDrive.getPower() * .9);
+                backLeftDrive.setPower(weakBackLeftPower);
             } else if (Math.abs(backRightTarget - backRightDrive.getCurrentPosition()) - autoCorrectNumber > Math.abs(backLeftTarget - backLeftDrive.getCurrentPosition())) {
-                backRightDrive.setPower(backRightDrive.getPower() * .9);
+                backRightDrive.setPower(weakFrontRightPower);
             }
         }
     }
 
     public void setWheelPower(double power) {
-        backLeftDrive.setPower(power);
-        frontRightDrive.setPower(.9 * power);
-        frontLeftDrive.setPower(power);
-        backRightDrive.setPower(.9 * power);
+        weakBackLeftPower = .8 * (power);
+        weakBackRightPower = .8 * (power);
+        weakFrontLeftPower = .8 * (power);
+        weakFrontRightPower = .8 * (power);
+        strongBackLeftPower = power;
+        strongBackRightPower = power * 9;
+        strongFrontLeftPower = power;
+        strongFrontRightPower = power * .9;
+        backLeftDrive.setPower(strongBackLeftPower);
+        frontRightDrive.setPower(strongFrontRightPower);
+        frontLeftDrive.setPower(strongFrontLeftPower);
+        backRightDrive.setPower(strongBackRightPower);
     }
 
     public void setWheelPowerCrabwalk(double power) {
-        backLeftDrive.setPower(.7 * power);
-        frontRightDrive.setPower(.7 * power);
-        frontLeftDrive.setPower(power);
-        backRightDrive.setPower(power);
+        weakBackLeftPower = 1 * (power);
+        weakBackRightPower = 1 * (power);
+        weakFrontLeftPower = 1 * (power);
+        weakFrontRightPower = 1 * (power);
+        strongBackLeftPower = power;
+        strongBackRightPower = power * 9;
+        strongFrontLeftPower = power;
+        strongFrontRightPower = power * .9;
+        backLeftDrive.setPower(strongBackLeftPower);
+        frontRightDrive.setPower(strongFrontRightPower);
+        frontLeftDrive.setPower(strongFrontLeftPower);
+        backRightDrive.setPower(strongBackRightPower);
     }
 
     public void stopAndResetEncoders() {
@@ -132,12 +159,12 @@ public class Moters {
     }
 
     public void setTargetPositionArm(int position) {
-        armMotor.setTargetPosition(position);
-
     }
     public void setTeleMode() {
-        armMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        upperArmMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        upperArmMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        lowerArmMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        lowerArmMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRightDrive.setDirection(DcMotor.Direction.FORWARD);
         frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
         backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
@@ -153,8 +180,10 @@ public class Moters {
     }
 
     public void setAutoMode() {
-        armMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        upperArmMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        upperArmMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        lowerArmMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        lowerArmMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRightDrive.setTargetPosition(backRightDrive.getCurrentPosition());
         frontRightDrive.setTargetPosition(frontRightDrive.getCurrentPosition());
         backLeftDrive.setTargetPosition(backLeftDrive.getCurrentPosition());

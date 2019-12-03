@@ -56,7 +56,6 @@ public class Wheels{
         motorCheck = maxSpeed / largestSpeedSoFar;
         for (int h = 0; h < 4; h++) {
             powers[h] = powers[h] * motorCheck;
-
         }
         Moters.backLeftDrive.setPower(.9 * powers[1]);
         Moters.frontRightDrive.setPower(powers[2]);
@@ -69,7 +68,7 @@ public class Wheels{
         telemetry.addData("back right:", powers[3]);
     }
 
-    public void driveDistanceFoward(double inches, double power) {
+    /* public void driveDistanceFoward(double inches, double power) {
         //find how many encoder ticks we need to move
         int encoderDistance = (int) (-inches * encodersPerInch);
         //find ideal encoder pos
@@ -93,6 +92,11 @@ public class Wheels{
         }
     }
 
+     */
+    public void driveDistanceFoward(double power, double distance) {
+        Moters.setWheelPower(power);
+        Moters.setTargetPositionWheels((int) (distance * encodersPerInch));
+    }
     public void driveDistanceCrabwalk(double inchesToTheRight, double power) {
         //find how many encoder ticks we need to move
         double friction = 1.04;

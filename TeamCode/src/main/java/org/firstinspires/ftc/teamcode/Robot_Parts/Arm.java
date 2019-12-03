@@ -18,30 +18,22 @@ public class Arm {
     }
 
     public void changeVerticalArmPos(double power) {
-        Moters.armMotor.setPower(power + gravity);
+        Moters.armMotorUpper.setPower(power);
+        Moters.armMotorLower.setPower(power);
         Moters.setTargetPositionArm((int) (power * 10));
         telemetry.addData("Arm Power", power);
         telemetry.update();
     }
 
-    public void changeVerticalArmPos(double power, double inchesUp) {
-        Moters.armMotor.setPower(power + gravity);
-        this.targetPositionArm = Moters.armMotor.getCurrentPosition() + (int) (inchesUp * ticksPerInch);
-        Moters.armMotor.setTargetPosition(Moters.armMotor.getCurrentPosition() + (int) (inchesUp * ticksPerInch));
+    public void changeVerticalArmPos(double power, double armPos) {
+        Moters.armMotorUpper.setPower(power + gravity);
+        Moters.armMotorLower.setTargetPosition();
         telemetry.addData("Arm Power", power);
         telemetry.addData("Target Position", (Moters.armMotor.getCurrentPosition() + (int) (inchesUp * ticksPerInch)) / ticksPerInch);
         telemetry.update();
     }
 
-    public void extendArm() {
-        changeVerticalArmPos(1, 3);
-        while (Moters.armMotor.getCurrentPosition() != targetPositionArm) {
-        }
-        ArmServos.setInOutServo(1);
-        ArmServos.setModeArmServo(1);
-    }
-
-    public void grab() {
+    public void loosen() {
         ArmServos.setGrabberServo(1);
     }
 

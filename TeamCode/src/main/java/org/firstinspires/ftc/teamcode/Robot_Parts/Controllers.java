@@ -87,7 +87,7 @@ public class Controllers{
         if (gamepad2.left_bumper) {
             Arm.tighten();
         } else if (gamepad2.right_bumper) {
-            Arm.grab();
+            Arm.loosen();
         } else {
             Arm.hold();
         }
