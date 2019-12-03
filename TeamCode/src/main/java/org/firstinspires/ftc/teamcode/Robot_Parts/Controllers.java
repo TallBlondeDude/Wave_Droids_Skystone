@@ -91,7 +91,6 @@ public class Controllers{
         } else {
             Arm.hold();
         }
-        telemetry.addData("Back Bumper", Moters.armMotor.getPower());
     }
 
     public void AButtonGamepad1() {

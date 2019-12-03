@@ -101,11 +101,11 @@ public class grabSkystoneBlue extends LinearOpMode {
         Wheels.driveDistanceCrabwalk(-distanceToPlate, .8);
      //   sleep(3000);
         Arm.loosen();
-        Arm.changeVerticalArmPos(0, 1);
+        Arm.changeVerticalArmPos(0, 0);
         Arm.tighten();
         sleep(1000);
         Arm.hold();
-        Arm.setPosition(4);
+        Arm.changeVerticalArmPos(0, 4);
         //   sleep(1500);
         Wheels.driveDistanceCrabwalk(distanceToSecondStone, 1);
     //    sleep(3000);
@@ -121,7 +121,7 @@ public class grabSkystoneBlue extends LinearOpMode {
    //     sleep(1500);
         Wheels.driveDistanceCrabwalk(-distanceToSecondStone, 1);
    //     sleep(3000);
-        Arm.grab();
+        Arm.loosen();
         sleep(1000);
         Arm.tighten();
         sleep(1000);

@@ -9,7 +9,23 @@ public class Arm {
     private double gravity = 0;
     private Servos ArmServos;
     public double targetPositionArm;
+    private int encoderTicksBottomShaft = 100;
 
+    int motorPickUpper(double pos) {
+        if ((pos * ticksPerInch) - encoderTicksBottomShaft > 0) {
+            return (int) ((pos * ticksPerInch) - encoderTicksBottomShaft);
+        } else {
+            return 0;
+        }
+    }
+
+    int motorPickLower(double pos) {
+        if ((pos * ticksPerInch) - encoderTicksBottomShaft > 0) {
+            return encoderTicksBottomShaft;
+        } else {
+            return (int) (encoderTicksBottomShaft * pos);
+        }
+    }
     public Arm(Moters A, Telemetry t, Servos s) {
         Moters = A;
         ArmServos = s;
@@ -18,18 +34,20 @@ public class Arm {
     }
 
     public void changeVerticalArmPos(double power) {
-        Moters.armMotorUpper.setPower(power);
-        Moters.armMotorLower.setPower(power);
+        Moters.lowerArmMotor.setPower(power);
+        Moters.upperArmMotor.setPower(power);
         Moters.setTargetPositionArm((int) (power * 10));
         telemetry.addData("Arm Power", power);
         telemetry.update();
     }
 
     public void changeVerticalArmPos(double power, double armPos) {
-        Moters.armMotorUpper.setPower(power + gravity);
-        Moters.armMotorLower.setTargetPosition();
+        Moters.upperArmMotor.setPower(power + gravity);
+        Moters.lowerArmMotor.setPower(power + gravity);
+        Moters.lowerArmMotor.setTargetPosition(motorPickLower(armPos));
+        Moters.upperArmMotor.setTargetPosition(motorPickUpper(armPos));
         telemetry.addData("Arm Power", power);
-        telemetry.addData("Target Position", (Moters.armMotor.getCurrentPosition() + (int) (inchesUp * ticksPerInch)) / ticksPerInch);
+        //  telemetry.addData("Target Position", (Moters.armMotor.getCurrentPosition() + (int) (inchesUp * ticksPerInch)) / ticksPerInch);
         telemetry.update();
     }
 
