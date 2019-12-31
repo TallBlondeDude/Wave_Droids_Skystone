@@ -382,7 +382,7 @@ public class Webcam {
 
         }
         allTrackables.addAll(targetsSkyStone);
-        final float CAMERA_FORWARD_DISPLACEMENT = 0 * mmPerInch;   // eg: Camera is 4 Inches in front of robot center
+        final float CAMERA_FORWARD_DISPLACEMENT = -5 * mmPerInch;   // eg: Camera is 4 Inches in front of robot center
 
         final float CAMERA_VERTICAL_DISPLACEMENT = 1 * mmPerInch;   // eg: Camera is 8 Inches above ground
 

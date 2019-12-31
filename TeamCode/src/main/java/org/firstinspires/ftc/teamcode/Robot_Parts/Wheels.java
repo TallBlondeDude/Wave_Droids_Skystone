@@ -57,15 +57,17 @@ public class Wheels{
         for (int h = 0; h < 4; h++) {
             powers[h] = powers[h] * motorCheck;
         }
-        Moters.backLeftDrive.setPower(.9 * powers[1]);
-        Moters.frontRightDrive.setPower(powers[2]);
-        Moters.frontLeftDrive.setPower(.9 * powers[3]);
-        Moters.backRightDrive.setPower(powers[0]);
+        Moters.backLeftDrive.setPower(powers[0]);
+        Moters.frontRightDrive.setPower(powers[1]);
+        Moters.frontLeftDrive.setPower(powers[2]);
+        Moters.backRightDrive.setPower(powers[3]);
 
         telemetry.addData("back left:", powers[0]);
         telemetry.addData("front right:", powers[1]);
         telemetry.addData("front left:", powers[2]);
         telemetry.addData("back right:", powers[3]);
+        telemetry.addData("turning", turnInRadians);
+        telemetry.addData("power in percentage", powerInPercentage);
     }
 
     /* public void driveDistanceFoward(double inches, double power) {

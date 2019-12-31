@@ -28,7 +28,6 @@ public class grabSkystoneBlue extends LinearOpMode {
     double distanceToRightStoneStrafe = 12;
     double distanceToSecondStone = 64;
 
-    @Override
     public void runOpMode() throws InterruptedException {
         Moters Moters;
         Webcam Camera;
@@ -63,6 +62,7 @@ public class grabSkystoneBlue extends LinearOpMode {
             sumOfLocations = round(Camera.findSkystone() + sumOfLocations);
             x++;
         }
+
         int locationOfSkystone = Math.round(sumOfLocations / iterations);
         // if it is LEFT
         if (locationOfSkystone == -1) {
@@ -88,7 +88,7 @@ public class grabSkystoneBlue extends LinearOpMode {
       //      sleep(1500);
             distanceToPlate = distanceToPlate + 4;
         }
-        if (locationOfSkystone == -1) {
+        else{
             Wheels.driveDistanceFoward(distanceToStoneFoward, 1);
       //      sleep(1500);
             Wheels.driveDistanceCrabwalk(distanceToRightStoneStrafe, 1);

@@ -28,23 +28,24 @@ public class blueClampPlateRawEncoders extends LinearOpMode {
                 hardwareMap.get(DcMotor.class, "rightIntake"));
 
         Moters.setAutoMode();
-
-        Servo rightServo = hardwareMap.get(Servo.class, "rightPlateServo");
-        Servo leftServo = hardwareMap.get(Servo.class, "leftPlateServo");
-
+        Servos = new Servos(hardwareMap.get(Servo.class, "leftPlateServo"),
+                hardwareMap.get(Servo.class, "rightPlateServo"), hardwareMap.get(Servo.class, "grabberServo"),
+                hardwareMap.get(Servo.class, "inOutServo"), hardwareMap.get(Servo.class, "modeArmServo"));
         servoRotationTime = 1000;
         distanceWallTooPlate = 13;
+        int open = 0;
         double distanceToLine = 27;
+        int closed = 1;
         Wheels = new Wheels(Moters, telemetry);
+        Moters.setAutoMode();
         waitForStart();
         Moters.setWheelPower(.8);
-        rightServo.setPosition(0);
-        leftServo.setPosition(1);
+        Servos.setPlateServoPos(open);
         Moters.setWheelPowerCrabwalk(.8);
         Moters.setTargetPositionWheelsCrabwalk((int) (org.firstinspires.ftc.teamcode.Robot_Parts.Wheels.encodersPerInch * 16));
         telemetry.addData("Task", "Crabwalking");
         telemetry.update();
-        sleep(1000);
+        sleep(2000);
 
         Moters.setWheelPower(.3);
         Moters.setTargetPositionWheels((int) (2 * org.firstinspires.ftc.teamcode.Robot_Parts.Wheels.encodersPerInch * -distanceWallTooPlate));
@@ -57,8 +58,7 @@ public class blueClampPlateRawEncoders extends LinearOpMode {
         sleep(1500);
 
         Moters.setWheelPower(1);
-        rightServo.setPosition(1);
-        leftServo.setPosition(0);
+        Servos.setPlateServoPos(closed);
         telemetry.addData("Task", "Closing Servos");
         telemetry.update();
         sleep(servoRotationTime);
@@ -69,8 +69,7 @@ public class blueClampPlateRawEncoders extends LinearOpMode {
         telemetry.update();
         sleep(4000);
 
-        rightServo.setPosition(0);
-        leftServo.setPosition(1);
+        Servos.setPlateServoPos(open);
         telemetry.addData("Task", "Opening Servos");
         telemetry.update();
         sleep(servoRotationTime);

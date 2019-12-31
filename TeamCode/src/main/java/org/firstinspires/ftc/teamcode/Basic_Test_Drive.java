@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.Robot_Parts.*;
 
@@ -16,11 +17,13 @@ public class Basic_Test_Drive extends OpMode {
     public Moters Moters;
     public Wheels Wheels;
     public Servos Servos;
-    Arm Arm;
+    public Intake Intake;
+    int slowEffect;
 
+    Arm Arm;
     //  Servo rightPlateServo;
     //  Servo leftPlateServo;
-    //  Webcam Camera;
+    // Webcam Camera;
     public void init() {
         Moters = new Moters(hardwareMap.get(DcMotor.class, "frontLeftDrive"),
                 hardwareMap.get(DcMotor.class, "frontRightDrive"), hardwareMap.get(DcMotor.class,
@@ -36,22 +39,37 @@ public class Basic_Test_Drive extends OpMode {
         Arm = new Arm(Moters, telemetry, Servos);
 
         Wheels = new Wheels(Moters, telemetry);
-
-        Gamepad = new Controllers(Gamepad, gamepad1, Wheels, Servos, gamepad2, Arm, telemetry, Moters);
-
+        Intake = new Intake(Moters, telemetry);
+        Gamepad = new Controllers(Gamepad, gamepad1, Wheels, Servos, gamepad2, Arm, telemetry, Moters, Intake);
+        /*Camera = new Webcam(hardwareMap.get(WebcamName.class, "Webcam 1"), telemetry,
+                (hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId",
+                        "id", hardwareMap.appContext.getPackageName()))); */
         Moters.setTeleMode();
+
     }
 
     @Override
     public void loop() {
-
+       // telemetry.addData("Location", Camera.findSkystone());
         //   telemetry.addData("Skystone", Camera.findSkystone());
         double polarAngle = Gamepad.polarAngle();
         double polarMagnitude = Gamepad.polarMagnitude();
         telemetry.addData("Direction in Radians", "Angle: " + polarAngle);
         telemetry.addData("Speed in Percentage", polarMagnitude);
         Gamepad.UpdateMovement();
-        Wheels.Drive(polarAngle, gamepad1.right_stick_x, (float) polarMagnitude);
+        if(gamepad1.a){
+            Servos.setPlateServoPos(1);
+        }
+        else if(gamepad1.b){
+            Servos.setPlateServoPos(0);
+        }
+        if (gamepad1.left_bumper || gamepad1.right_bumper){
+            slowEffect = 4;
+        }
+        else{
+            slowEffect = 1;
+        }
+        Wheels.Drive(polarAngle, gamepad1.right_stick_x/slowEffect, (float) polarMagnitude/slowEffect);
     }
 
     /*

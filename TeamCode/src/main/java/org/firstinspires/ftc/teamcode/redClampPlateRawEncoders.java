@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.Robot_Parts.Moters;
 import org.firstinspires.ftc.teamcode.Robot_Parts.Servos;
 import org.firstinspires.ftc.teamcode.Robot_Parts.Wheels;
 
-@Autonomous(name = "Red Plate basic Encoders", group = "Linear Opmode")
+@Autonomous(name = "Blue Plate", group = "Linear Opmode")
 public class redClampPlateRawEncoders extends LinearOpMode {
     // Declare OpMode members.
     public Moters Moters;
@@ -29,9 +29,9 @@ public class redClampPlateRawEncoders extends LinearOpMode {
 
 
         Moters.setAutoMode();
-
-        Servo rightServo = hardwareMap.get(Servo.class, "rightPlateServo");
-        Servo leftServo = hardwareMap.get(Servo.class, "leftPlateServo");
+        Servos = new Servos(hardwareMap.get(Servo.class, "leftPlateServo"),
+                hardwareMap.get(Servo.class, "rightPlateServo"), hardwareMap.get(Servo.class, "grabberServo"),
+                hardwareMap.get(Servo.class, "inOutServo"), hardwareMap.get(Servo.class, "modeArmServo"));
 
         servoRotationTime = 1000;
         distanceWallTooPlate = 13;
@@ -39,27 +39,25 @@ public class redClampPlateRawEncoders extends LinearOpMode {
         Wheels = new Wheels(Moters, telemetry);
         waitForStart();
         Moters.setWheelPower(.8);
-        rightServo.setPosition(0);
-        leftServo.setPosition(1);
+        Servos.setPlateServoPos(0);
         Moters.setWheelPowerCrabwalk(.8);
         Moters.setTargetPositionWheelsCrabwalk(-(int) (org.firstinspires.ftc.teamcode.Robot_Parts.Wheels.encodersPerInch * 19));
         telemetry.addData("Task", "Crabwalking");
         telemetry.update();
-        sleep(1000);
+        sleep(1500);
 
-        Moters.setWheelPower(.3);
+        Moters.setWheelPower(.8);
         Moters.setTargetPositionWheels((int) (2 * org.firstinspires.ftc.teamcode.Robot_Parts.Wheels.encodersPerInch * -distanceWallTooPlate));
         telemetry.addData("Task", "Going to plate");
         telemetry.update();
-        sleep(3500);
+        sleep(3000);
 
         Moters.setWheelPower(.1);
         Moters.setTargetPositionWheels((int) (2 * org.firstinspires.ftc.teamcode.Robot_Parts.Wheels.encodersPerInch * -3));
         sleep(1500);
 
         Moters.setWheelPower(1);
-        rightServo.setPosition(1);
-        leftServo.setPosition(0);
+        Servos.setPlateServoPos(1);
         telemetry.addData("Task", "Closing Servos");
         telemetry.update();
         sleep(servoRotationTime);
@@ -76,8 +74,7 @@ public class redClampPlateRawEncoders extends LinearOpMode {
         telemetry.addData("Task", "Correcting for Error");
         sleep(1500);
 
-        rightServo.setPosition(0);
-        leftServo.setPosition(1);
+        Servos.setPlateServoPos(0);
         telemetry.addData("Task", "Opening Servos");
         telemetry.update();
         sleep(servoRotationTime);

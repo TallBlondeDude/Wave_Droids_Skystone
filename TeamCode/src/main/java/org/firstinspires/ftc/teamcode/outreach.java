@@ -1,29 +1,27 @@
 package org.firstinspires.ftc.teamcode;
 
-import android.graphics.drawable.GradientDrawable;
-
-import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import org.firstinspires.ftc.teamcode.Robot_Parts.*;
+import org.firstinspires.ftc.teamcode.Robot_Parts.Arm;
+import org.firstinspires.ftc.teamcode.Robot_Parts.Controllers;
+import org.firstinspires.ftc.teamcode.Robot_Parts.Intake;
+import org.firstinspires.ftc.teamcode.Robot_Parts.Moters;
+import org.firstinspires.ftc.teamcode.Robot_Parts.Servos;
+import org.firstinspires.ftc.teamcode.Robot_Parts.Wheels;
 
-@TeleOp(name = "Advanced Drive", group = "Iterative Opmode")
-public class Advanced_Drive extends OpMode {
+@TeleOp(name = "outreach", group = "Iterative Opmode")
+public class outreach extends OpMode {
     // Declare OpMode members.
     public Controllers Gamepad;
     public Moters Moters;
     public Wheels Wheels;
     public Servos Servos;
+    public Intake Intake;
     Arm Arm;
-    float lastGyroCheck;
-    Gyroscope Gyro;
-    private Intake Intake;
+
     //  Servo rightPlateServo;
     //  Servo leftPlateServo;
     //  Webcam Camera;
@@ -44,21 +42,27 @@ public class Advanced_Drive extends OpMode {
         Wheels = new Wheels(Moters, telemetry);
         Intake = new Intake(Moters, telemetry);
         Gamepad = new Controllers(Gamepad, gamepad1, Wheels, Servos, gamepad2, Arm, telemetry, Moters, Intake);
-        Moters.setTargetPositionWheels(10000);
+
+
         Moters.setTeleMode();
     }
 
     @Override
     public void loop() {
-       // Moters.setWheelPower(1);
-        Moters.backRightDrive.setPower(1);
-        Moters.frontRightDrive.setPower(1);
-        Moters.frontLeftDrive.setPower(1);
-        Moters.backLeftDrive.setPower(1);
-        telemetry.addData("Front Left Encoder", Moters.frontLeftDrive.getCurrentPosition());
-        telemetry.addData("Back Left Encoder", Moters.backLeftDrive.getCurrentPosition());
-        telemetry.addData("Front Right Encoder", Moters.frontRightDrive.getCurrentPosition());
-        telemetry.addData("Back Right Encoder", Moters.backRightDrive.getCurrentPosition());
+
+        //   telemetry.addData("Skystone", Camera.findSkystone());
+        double polarAngle = Gamepad.polarAngle();
+        double polarMagnitude = Gamepad.polarMagnitude();
+        telemetry.addData("Direction in Radians", "Angle: " + polarAngle);
+        telemetry.addData("Speed in Percentage", polarMagnitude);
+        Gamepad.UpdateMovement();
+        if(gamepad1.a){
+            Servos.setPlateServoPos(1);
+        }
+        else if(gamepad1.b){
+            Servos.setPlateServoPos(0);
+        }
+        Wheels.Drive(polarAngle, gamepad1.right_stick_x, (float) (polarMagnitude * .4));
     }
 
     /*
@@ -68,7 +72,7 @@ public class Advanced_Drive extends OpMode {
     public void stop() {
         telemetry.addData("Task", "Halting");
         Moters.Halt();
-        //    Servos.Halt();
+        Servos.Halt();
     }
 
 }

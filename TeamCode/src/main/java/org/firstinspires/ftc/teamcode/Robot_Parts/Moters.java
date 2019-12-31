@@ -45,6 +45,16 @@ public class Moters {
         backLeftTarget = (target) + backLeftDrive.getCurrentPosition();
         frontRightTarget = (target) + frontRightDrive.getCurrentPosition();
         frontLeftTarget = (target) + frontLeftDrive.getCurrentPosition();
+        backRightTarget = (target) + backLeftDrive.getCurrentPosition();//equal to
+        backLeftDrive.setTargetPosition(backLeftTarget);
+        frontLeftDrive.setTargetPosition(frontLeftTarget);
+        backRightDrive.setTargetPosition(backRightTarget);
+        frontRightDrive.setTargetPosition(frontRightTarget);
+    }
+    public void setTargetPositionWheelst(int target) {
+        backLeftTarget = (target) + backLeftDrive.getCurrentPosition();
+        frontRightTarget = (target) + frontRightDrive.getCurrentPosition();
+        frontLeftTarget = (target) + frontLeftDrive.getCurrentPosition();
         backRightTarget = (target) + backLeftDrive.getCurrentPosition();
         backLeftDrive.setTargetPosition(backLeftTarget);
         frontLeftDrive.setTargetPosition(frontLeftTarget);
@@ -80,12 +90,21 @@ public class Moters {
             }
         }
     }
-
-    public void setTargetPositionWheelsCrabwalk(int target) {
-        backLeftTarget = -(target) - backLeftDrive.getCurrentPosition();
+    public void setTargetPositionWheelsCrabwalk(int target){
+        backLeftTarget = (target) + backLeftDrive.getCurrentPosition();
+        frontRightTarget = (target) + frontRightDrive.getCurrentPosition();
+        frontLeftTarget = -(target) + frontLeftDrive.getCurrentPosition();
+        backRightTarget = -(target) + (backRightDrive.getCurrentPosition());//50 we want it to go to 150
+        backLeftDrive.setTargetPosition(backLeftTarget);
+        frontLeftDrive.setTargetPosition(frontLeftTarget);
+        backRightDrive.setTargetPosition(backRightTarget);
+        frontRightDrive.setTargetPosition(frontRightTarget);
+    }
+    public void setTargetPositionWheelsCrabwalktt(int target) {
+        backLeftTarget = -(target) + backLeftDrive.getCurrentPosition();
         frontRightTarget = (target) + frontRightDrive.getCurrentPosition();
         frontLeftTarget = (target) + frontLeftDrive.getCurrentPosition();
-        backRightTarget = -(target) - backLeftDrive.getCurrentPosition();
+        backRightTarget = -(target) + backLeftDrive.getCurrentPosition();
         backLeftDrive.setTargetPosition(backLeftTarget);
         frontLeftDrive.setTargetPosition(frontLeftTarget);
         backRightDrive.setTargetPosition(backRightTarget);
@@ -127,9 +146,9 @@ public class Moters {
         weakFrontLeftPower = .8 * (power);
         weakFrontRightPower = .8 * (power);
         strongBackLeftPower = power;
-        strongBackRightPower = power * 9;
+        strongBackRightPower = power;
         strongFrontLeftPower = power;
-        strongFrontRightPower = power * .9;
+        strongFrontRightPower = power;
         backLeftDrive.setPower(strongBackLeftPower);
         frontRightDrive.setPower(strongFrontRightPower);
         frontLeftDrive.setPower(strongFrontLeftPower);
@@ -141,10 +160,10 @@ public class Moters {
         weakBackRightPower = 1 * (power);
         weakFrontLeftPower = 1 * (power);
         weakFrontRightPower = 1 * (power);
-        strongBackLeftPower = power;
-        strongBackRightPower = power * 9;
-        strongFrontLeftPower = power;
-        strongFrontRightPower = power * .9;
+        strongBackLeftPower = power * 1;
+        strongBackRightPower = power * 1;
+        strongFrontLeftPower = power * 1;
+        strongFrontRightPower = power * 1;
         backLeftDrive.setPower(strongBackLeftPower);
         frontRightDrive.setPower(strongFrontRightPower);
         frontLeftDrive.setPower(strongFrontLeftPower);
@@ -167,16 +186,16 @@ public class Moters {
         lowerArmMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRightDrive.setDirection(DcMotor.Direction.FORWARD);
         frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
-        backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
         frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
+        backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
         frontRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        backLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        frontLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        frontRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        backRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        frontLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        frontRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        backRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     public void setAutoMode() {
@@ -190,8 +209,8 @@ public class Moters {
         frontLeftDrive.setTargetPosition(frontLeftDrive.getCurrentPosition());
         backRightDrive.setDirection(DcMotor.Direction.FORWARD);
         frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
-        backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
         frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
+        backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
         frontRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

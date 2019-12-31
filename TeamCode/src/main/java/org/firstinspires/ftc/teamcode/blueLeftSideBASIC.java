@@ -39,11 +39,11 @@ public class blueLeftSideBASIC extends LinearOpMode {
         Moters.Halt();
         sleep(750);
         Wheels.Turn(-.6);
-        sleep(300);
+        sleep(520);
         Moters.Halt();
         sleep(2000);
-        Wheels.Drive(3.1415, 0, 100);
-        sleep(600);
+        Wheels.Drive(.5 * 3.1415, 0, -70);
+        sleep(400);
 
         Moters.Halt();
 

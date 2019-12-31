@@ -18,8 +18,15 @@ public class Servos {
     }
 
     public void setPlateServoPos(double position) {
-        rightPlateServo.setPosition(position);
-        leftPlateServo.setPosition(position);
+
+        if (position == 1) {
+            rightPlateServo.setPosition(1);
+            leftPlateServo.setPosition(0);
+        }
+        else{
+                rightPlateServo.setPosition(0);
+                leftPlateServo.setPosition(1);
+        }
     }
 
     public void setGrabberServo(double power) {

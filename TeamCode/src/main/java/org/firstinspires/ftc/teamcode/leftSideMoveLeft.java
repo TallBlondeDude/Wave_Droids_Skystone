@@ -23,15 +23,7 @@ public class leftSideMoveLeft extends LinearOpMode {
                 hardwareMap.get(DcMotor.class, "leftIntake"),
                 hardwareMap.get(DcMotor.class, "rightIntake"));
 
-        Moters.backRightDrive.setDirection(DcMotor.Direction.FORWARD);
-        Moters.frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
-        Moters.backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
-        Moters.frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
-        Moters.frontRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        Moters.backLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        Moters.backRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        Moters.frontLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
+        Moters.setAutoMode();
         Wheels = new Wheels(Moters, telemetry);
         waitForStart();
         Wheels.Drive(0 / 2, 0, 60);

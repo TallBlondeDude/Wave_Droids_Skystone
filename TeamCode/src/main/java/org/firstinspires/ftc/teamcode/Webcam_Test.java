@@ -17,7 +17,6 @@ import static java.lang.Math.E;
 import static java.lang.Math.round;
 
 @TeleOp(name = "Doge Test", group = "Linear Opmode")
-@Disabled
 
 public class Webcam_Test extends LinearOpMode {
 
@@ -37,7 +36,8 @@ public class Webcam_Test extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        Camera = new Webcam(hardwareMap.get(WebcamName.class, "Webcam 1"), telemetry, hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName()));
+        Camera = new Webcam(hardwareMap.get(WebcamName.class, "Webcam 1"), telemetry, hardwareMap.appContext.getResources().getIdentifier
+                ("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName()));
         sleep(5000);
         for (int x = 0; x < iterations; x++) {
             cameraCheck();
