@@ -42,9 +42,19 @@ public class Moters {
         autoCorrectNumber = 25;
     }
     public void setTargetPositionWheels(int target) {
-        backLeftTarget = (target) + backLeftDrive.getCurrentPosition();
+        backLeftTarget = (int) (.85 * target) + backLeftDrive.getCurrentPosition();
         frontRightTarget = (target) + frontRightDrive.getCurrentPosition();
-        frontLeftTarget = (target) + frontLeftDrive.getCurrentPosition();
+        frontLeftTarget = (int) (.85 * target) + frontLeftDrive.getCurrentPosition();
+        backRightTarget = (target) + backLeftDrive.getCurrentPosition();//equal to
+        backLeftDrive.setTargetPosition(backLeftTarget);
+        frontLeftDrive.setTargetPosition(frontLeftTarget);
+        backRightDrive.setTargetPosition(backRightTarget);
+        frontRightDrive.setTargetPosition(frontRightTarget);
+    }
+    public void setTargetPositionWheelsS(int target) {
+        backLeftTarget = (int) (.94 * target) + backLeftDrive.getCurrentPosition();
+        frontRightTarget = (target) + frontRightDrive.getCurrentPosition();
+        frontLeftTarget = (int) (.94 * target) + frontLeftDrive.getCurrentPosition();
         backRightTarget = (target) + backLeftDrive.getCurrentPosition();//equal to
         backLeftDrive.setTargetPosition(backLeftTarget);
         frontLeftDrive.setTargetPosition(frontLeftTarget);
@@ -145,9 +155,9 @@ public class Moters {
         weakBackRightPower = .8 * (power);
         weakFrontLeftPower = .8 * (power);
         weakFrontRightPower = .8 * (power);
-        strongBackLeftPower = power;
+        strongBackLeftPower = .9 * power;
         strongBackRightPower = power;
-        strongFrontLeftPower = power;
+        strongFrontLeftPower = .9 * power;
         strongFrontRightPower = power;
         backLeftDrive.setPower(strongBackLeftPower);
         frontRightDrive.setPower(strongFrontRightPower);
@@ -229,6 +239,16 @@ public class Moters {
         backLeftDrive.setPower(0);
     }
 
+    public void turn(int direction){
+        frontLeftDrive.setPower(1);
+        frontRightDrive.setPower(1);
+        backRightDrive.setPower(1);
+        backLeftDrive.setPower(1);
 
+        backLeftDrive.setTargetPosition(backLeftDrive.getCurrentPosition() + (-direction * 50));
+        frontLeftDrive.setTargetPosition(frontLeftDrive.getCurrentPosition() + (-direction * 50));
+        backRightDrive.setTargetPosition(backRightDrive.getCurrentPosition() + (direction * 50));
+        frontRightDrive.setTargetPosition(frontRightDrive.getCurrentPosition() + (direction * 50));
+    }
 
 }

@@ -457,18 +457,16 @@ public class Webcam {
                     translation.get(0) / mmPerInch, translation.get(1) / mmPerInch, translation.get(2) / mmPerInch);
 
 
-            double xPosition = translation.get(0);
+            double yPosition = translation.get(1)/mmPerInch;
 
-            if (xPosition < -16) {
+            if (yPosition < .5) {
 
                 positionSkystone = "left";
 
-            } else if (xPosition >= 16) {
+            } else if (yPosition >= .5) {
 
                 positionSkystone = "center";
 
-            } else {
-                positionSkystone = "right";
             }
 
 
@@ -480,8 +478,8 @@ public class Webcam {
 
         } else {
 
-            positionSkystone = "Not Found";
             telemetry.addData("Visible Target", "none");
+            positionSkystone = "right";
 
         }
 
@@ -494,12 +492,9 @@ public class Webcam {
             return -1;
         } else if (positionSkystone == "center") {
             return 0;
-        } else if (positionSkystone == "right") {
-            return 1;
         } else {
-            return 5;
+            return 1;
         }
-
     }
 
     public void vuforiaOff() {
