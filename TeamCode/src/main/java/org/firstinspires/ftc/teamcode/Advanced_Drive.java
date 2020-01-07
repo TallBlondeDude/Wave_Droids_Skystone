@@ -28,6 +28,7 @@ public class Advanced_Drive extends OpMode {
     //  Servo leftPlateServo;
     //  Webcam Camera;
     public void init() {
+        // Initalize the motors, servos, arm, wheels, intake, and controller
         Moters = new Moters(hardwareMap.get(DcMotor.class, "frontLeftDrive"),
                 hardwareMap.get(DcMotor.class, "frontRightDrive"), hardwareMap.get(DcMotor.class,
                 "backLeftDrive"), hardwareMap.get(DcMotor.class, "backRightDrive"),
@@ -44,17 +45,20 @@ public class Advanced_Drive extends OpMode {
         Wheels = new Wheels(Moters, telemetry);
         Intake = new Intake(Moters, telemetry);
         Gamepad = new Controllers(Gamepad, gamepad1, Wheels, Servos, gamepad2, Arm, telemetry, Moters, Intake);
+        // set the wheels to go to the position 10,000
         Moters.setTargetPositionWheels(10000);
+        // Set the motors into teleop mode for encoders and direction
         Moters.setTeleMode();
     }
 
     @Override
     public void loop() {
-       // Moters.setWheelPower(1);
+       // Set the power of the motors to 1
         Moters.backRightDrive.setPower(1);
         Moters.frontRightDrive.setPower(1);
         Moters.frontLeftDrive.setPower(1);
         Moters.backLeftDrive.setPower(1);
+        // telemetry to get the encoder values
         telemetry.addData("Front Left Encoder", Moters.frontLeftDrive.getCurrentPosition());
         telemetry.addData("Back Left Encoder", Moters.backLeftDrive.getCurrentPosition());
         telemetry.addData("Front Right Encoder", Moters.frontRightDrive.getCurrentPosition());
@@ -66,6 +70,7 @@ public class Advanced_Drive extends OpMode {
      */
     @Override
     public void stop() {
+        // stop the motors and show the telemetry
         telemetry.addData("Task", "Halting");
         Moters.Halt();
         //    Servos.Halt();

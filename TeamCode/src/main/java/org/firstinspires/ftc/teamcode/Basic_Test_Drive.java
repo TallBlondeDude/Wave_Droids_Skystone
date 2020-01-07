@@ -25,6 +25,7 @@ public class Basic_Test_Drive extends OpMode {
     //  Servo leftPlateServo;
     // Webcam Camera;
     public void init() {
+        // Initalize the motors, servos, arm, wheels, intake, and controller
         Moters = new Moters(hardwareMap.get(DcMotor.class, "frontLeftDrive"),
                 hardwareMap.get(DcMotor.class, "frontRightDrive"), hardwareMap.get(DcMotor.class,
                 "backLeftDrive"), hardwareMap.get(DcMotor.class, "backRightDrive"),
@@ -44,6 +45,7 @@ public class Basic_Test_Drive extends OpMode {
         /*Camera = new Webcam(hardwareMap.get(WebcamName.class, "Webcam 1"), telemetry,
                 (hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId",
                         "id", hardwareMap.appContext.getPackageName()))); */
+        // Set the motors in teleop mode for encoders and direction
         Moters.setTeleMode();
 
     }
@@ -52,23 +54,30 @@ public class Basic_Test_Drive extends OpMode {
     public void loop() {
        // telemetry.addData("Location", Camera.findSkystone());
         //   telemetry.addData("Skystone", Camera.findSkystone());
+        // variables being assigned to the gamepad
         double polarAngle = Gamepad.polarAngle();
         double polarMagnitude = Gamepad.polarMagnitude();
+        // telemetry showing direction, angle, speed, and polar magnitude
         telemetry.addData("Direction in Radians", "Angle: " + polarAngle);
         telemetry.addData("Speed in Percentage", polarMagnitude);
+        // function with the gamepad's controls that update
         Gamepad.UpdateMovement();
+        // if a button is pressed, move the plate servos downward, grabbing the plate
         if(gamepad1.a){
             Servos.setPlateServoPos(1);
         }
+        // if gamepad b is pressed, move the plate servos upward, releasing the plate
         else if(gamepad1.b){
             Servos.setPlateServoPos(0);
         }
+        // if left or right bumper is pressed, increase the slow effect of slowing down the motors, otherwise have a small slow effect
         if (gamepad1.left_bumper || gamepad1.right_bumper){
             slowEffect = 4;
         }
         else{
             slowEffect = 1;
         }
+        // setting the slow effect to the wheels
         Wheels.Drive(polarAngle, gamepad1.right_stick_x/slowEffect, (float) polarMagnitude/slowEffect);
     }
 
@@ -77,6 +86,7 @@ public class Basic_Test_Drive extends OpMode {
      */
     @Override
     public void stop() {
+        // stop the motors and servos and show the telemetry
         telemetry.addData("Task", "Halting");
         Moters.Halt();
         Servos.Halt();
