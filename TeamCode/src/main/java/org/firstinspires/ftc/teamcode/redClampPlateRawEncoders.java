@@ -20,6 +20,7 @@ public class redClampPlateRawEncoders extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+        // Initalize the motors, the servos, and the wheels
         Moters = new Moters(hardwareMap.get(DcMotor.class, "frontLeftDrive"),
                 hardwareMap.get(DcMotor.class, "frontRightDrive"), hardwareMap.get(DcMotor.class,
                 "backLeftDrive"), hardwareMap.get(DcMotor.class, "backRightDrive"),
@@ -28,70 +29,82 @@ public class redClampPlateRawEncoders extends LinearOpMode {
                 hardwareMap.get(DcMotor.class, "rightIntake"));
 
 
+        // sets the motors in autonomous mode for encoders and direction
         Moters.setAutoMode();
         Servos = new Servos(hardwareMap.get(Servo.class, "leftPlateServo"),
                 hardwareMap.get(Servo.class, "rightPlateServo"), hardwareMap.get(Servo.class, "grabberServo"),
                 hardwareMap.get(Servo.class, "inOutServo"), hardwareMap.get(Servo.class, "modeArmServo"));
 
+        // variables for servos and distances
         servoRotationTime = 1000;
         distanceWallTooPlate = 13;
         double distanceToLine = 27;
         Wheels = new Wheels(Moters, telemetry);
         waitForStart();
+        // initalizes the servos, the motors wheel power, and the crab walking power
         Moters.setWheelPower(.8);
         Servos.setPlateServoPos(0);
         Moters.setWheelPowerCrabwalk(.8);
+        // robot crab walks
         Moters.setTargetPositionWheelsCrabwalk(-(int) (org.firstinspires.ftc.teamcode.Robot_Parts.Wheels.encodersPerInch * 19));
         telemetry.addData("Task", "Crabwalking");
         telemetry.update();
         sleep(1500);
 
+        // robot goes to the plate
         Moters.setWheelPower(.8);
         Moters.setTargetPositionWheels((int) (2 * org.firstinspires.ftc.teamcode.Robot_Parts.Wheels.encodersPerInch * -distanceWallTooPlate));
         telemetry.addData("Task", "Going to plate");
         telemetry.update();
         sleep(3000);
 
+        // robot goes forward a tiny bit
         Moters.setWheelPower(.1);
         Moters.setTargetPositionWheels((int) (2 * org.firstinspires.ftc.teamcode.Robot_Parts.Wheels.encodersPerInch * -3));
         sleep(1500);
 
+        // robot goes forward while the plate servos grab the plate
         Moters.setWheelPower(1);
         Servos.setPlateServoPos(1);
         telemetry.addData("Task", "Closing Servos");
         telemetry.update();
         sleep(servoRotationTime);
 
+        // robot moves back to the wall
         Moters.setWheelPower(.6);
         Moters.setTargetPositionWheels((int) (3.5 * distanceWallTooPlate * org.firstinspires.ftc.teamcode.Robot_Parts.Wheels.encodersPerInch));
         telemetry.addData("Task", "Back to wall");
         telemetry.update();
         sleep(4000);
 
+        // robot corrects for any errors
         Moters.setWheelPower(.4);
         // start according to line pattern
         Moters.setTargetPositionWheels((int) (2 * org.firstinspires.ftc.teamcode.Robot_Parts.Wheels.encodersPerInch));
         telemetry.addData("Task", "Correcting for Error");
         sleep(1500);
 
+        // servos opens up and lets go of the plate
         Servos.setPlateServoPos(0);
         telemetry.addData("Task", "Opening Servos");
         telemetry.update();
         sleep(servoRotationTime);
 
+        // robot corrects for any errors again
         Moters.setWheelPower(1);
         // start according to line pattern
         Moters.setTargetPositionWheels((int) (2 * org.firstinspires.ftc.teamcode.Robot_Parts.Wheels.encodersPerInch));
         telemetry.addData("Task", "Correcting for Error");
         sleep(1500);
 
+        // robot crabwalks to the line
         Moters.setWheelPowerCrabwalk(.5);
         Moters.setTargetPositionWheelsCrabwalk((int) (59 * org.firstinspires.ftc.teamcode.Robot_Parts.Wheels.encodersPerInch));
         telemetry.addData("Task", "moving to line");
         telemetry.update();
         sleep(3000);
 
-        //pray that we end up over the line
+        // robot stops over the line (hopefully)
         telemetry.addData("Task", "Stopping");
         telemetry.update();
         Moters.Halt();

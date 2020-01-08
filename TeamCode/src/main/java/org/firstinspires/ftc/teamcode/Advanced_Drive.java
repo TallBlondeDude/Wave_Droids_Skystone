@@ -53,7 +53,7 @@ public class Advanced_Drive extends OpMode {
 
     @Override
     public void loop() {
-       // Set the power of the motors to 1
+        // Set the power of the motors to 1
         Moters.backRightDrive.setPower(1);
         Moters.frontRightDrive.setPower(1);
         Moters.frontLeftDrive.setPower(1);
@@ -77,4 +77,3 @@ public class Advanced_Drive extends OpMode {
     }
 
 }
-

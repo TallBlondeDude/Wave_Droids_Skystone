@@ -52,7 +52,7 @@ public class Basic_Test_Drive extends OpMode {
 
     @Override
     public void loop() {
-       // telemetry.addData("Location", Camera.findSkystone());
+        // telemetry.addData("Location", Camera.findSkystone());
         //   telemetry.addData("Skystone", Camera.findSkystone());
         // variables being assigned to the gamepad
         double polarAngle = Gamepad.polarAngle();
@@ -93,4 +93,3 @@ public class Basic_Test_Drive extends OpMode {
     }
 
 }
-

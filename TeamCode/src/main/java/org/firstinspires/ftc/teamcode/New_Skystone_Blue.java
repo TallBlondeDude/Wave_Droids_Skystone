@@ -13,12 +13,14 @@ import static java.lang.Math.round;
 @Autonomous(name = "Skystone Blue", group = "Linear Opmode")
 
 public class New_Skystone_Blue extends LinearOpMode {
+    // Declare OpMode members.
     Moters Moters;
     Servos Servos;
     Webcam Camera;
     Intake Intake;
     @Override
     public void internalPreInit() {
+        // a pre init where the camera is initalized to give it the most time to initzalize
         super.internalPreInit();
         Camera = new Webcam(hardwareMap.get(WebcamName.class, "Webcam 1"), telemetry,
                 (hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId",
@@ -26,6 +28,7 @@ public class New_Skystone_Blue extends LinearOpMode {
     }
     @Override
     public void runOpMode() throws InterruptedException {
+        // Initalize the servos, motors, and intake
         Servo stoneServo = hardwareMap.get(Servo.class, "stoneServo");
 
         Moters = new Moters(hardwareMap.get(DcMotor.class, "frontLeftDrive"),
@@ -35,6 +38,7 @@ public class New_Skystone_Blue extends LinearOpMode {
                 hardwareMap.get(DcMotor.class, "leftIntake"),
                 hardwareMap.get(DcMotor.class, "rightIntake"));
 
+        // set motors to autonomous mode for encoders and direction
         Moters.setAutoMode();
         Servos = new Servos(hardwareMap.get(Servo.class, "leftPlateServo"),
                 hardwareMap.get(Servo.class, "rightPlateServo"), hardwareMap.get(Servo.class, "grabberServo"),
@@ -42,10 +46,11 @@ public class New_Skystone_Blue extends LinearOpMode {
         Intake = new Intake(Moters, telemetry);
         Moters.setAutoMode();
         waitForStart();
+        // robot goes to the stones
         Moters.setWheelPower(.6);
-        Moters.setTargetPositionWheelsS(-890);
+        Moters.setTargetPositionWheels(-890);
         sleep(1250);
-        //var decleration block
+        //variable declaration block
         double encodersPerInch = (2.1 * 69) / 1.65;
         int distanceToStones = (int) (6.8 * encodersPerInch);
         int crabwalkDistanceIntoStones = (int)( 2 * 9 * encodersPerInch);
@@ -68,7 +73,7 @@ public class New_Skystone_Blue extends LinearOpMode {
         int locationOfSkystone = Math.round(sumOfLocations / iterations);
         telemetry.addData("Stone", locationOfSkystone);
         telemetry.update();
-        //crabwalk over to position we found :)
+        //crabwalk over to position we found
         int crabwalkDistance;
 
         if (locationOfSkystone == -1){
@@ -87,15 +92,18 @@ public class New_Skystone_Blue extends LinearOpMode {
             distanceAcrossLineFirst = distanceAcrossLineFirst + ((int) (9.5 * encodersPerInch));
             distanceAcrossLineSecond = distanceAcrossLineSecond + ((int) (9.5 * encodersPerInch));
         }
+        // robot crab walks to the block
         Moters.setTargetPositionWheelsCrabwalk(crabwalkDistance);
         telemetry.addData("Step", "Crabwalking to Block");
         telemetry.update();
         sleep(1500);
-        Moters.setTargetPositionWheelsS(-distanceToStones);
+        // robot drives the rest of the way to the stones
+        Moters.setTargetPositionWheels(-distanceToStones);
         Moters.setWheelPower(.25);
         telemetry.addData("Step", "Driving to Block");
         telemetry.update();
         sleep(700);
+        // robot stops and the stone arm drops and gets the skystone
         Moters.setWheelPower(0);
         stoneServo.setPosition(1);
         telemetry.addData("Step", "Grabbing stone");
@@ -104,19 +112,21 @@ public class New_Skystone_Blue extends LinearOpMode {
         sleep(250);
         telemetry.addData("Step", "backtracking");
         telemetry.update();
-        Moters.setTargetPositionWheelsS((int) (-4 * encodersPerInch));
-
+        // robot backtracks
+        Moters.setTargetPositionWheels((int) (-4 * encodersPerInch));
         sleep(750);
+        // robot turns to the line
         Moters.setWheelPower(.8);
         telemetry.addData("Step", "Turning to Line");
         telemetry.update();
-        Moters.turn(1);
+        Moters.Turn(1);
         sleep(750);
         telemetry.addData("Step", "Going Across Line");
         telemetry.update();
-        Moters.setTargetPositionWheelsS(distanceAcrossLineFirst);
+        Moters.setTargetPositionWheels(distanceAcrossLineFirst);
 
 
+        // motors and servos stop
         Moters.Halt();
         Servos.Halt();
 

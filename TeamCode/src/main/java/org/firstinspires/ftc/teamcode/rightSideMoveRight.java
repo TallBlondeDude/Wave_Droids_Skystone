@@ -18,6 +18,7 @@ public class rightSideMoveRight extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+        // Initalizes motors and wheels
         Moters = new Moters(hardwareMap.get(DcMotor.class, "frontLeftDrive"),
                 hardwareMap.get(DcMotor.class, "frontRightDrive"), hardwareMap.get(DcMotor.class,
                 "backLeftDrive"), hardwareMap.get(DcMotor.class, "backRightDrive"),
@@ -36,9 +37,11 @@ public class rightSideMoveRight extends LinearOpMode {
 
         Wheels = new Wheels(Moters, telemetry);
         waitForStart();
+        // robot crab walks to the line
         Moters.setWheelPower(.5);
         Moters.setTargetPositionWheelsCrabwalk((int) (-8 * org.firstinspires.ftc.teamcode.Robot_Parts.Wheels.encodersPerInch));
         sleep(2000);
+        // robot stops
         Moters.Halt();
 
 

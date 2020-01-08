@@ -26,6 +26,7 @@ public class outreach extends OpMode {
     //  Servo leftPlateServo;
     //  Webcam Camera;
     public void init() {
+        // Initalize the motors, servos, arm, wheels, intake, and comtroller
         Moters = new Moters(hardwareMap.get(DcMotor.class, "frontLeftDrive"),
                 hardwareMap.get(DcMotor.class, "frontRightDrive"), hardwareMap.get(DcMotor.class,
                 "backLeftDrive"), hardwareMap.get(DcMotor.class, "backRightDrive"),
@@ -44,6 +45,7 @@ public class outreach extends OpMode {
         Gamepad = new Controllers(Gamepad, gamepad1, Wheels, Servos, gamepad2, Arm, telemetry, Moters, Intake);
 
 
+        // set motors to telop mode for direction and encoders
         Moters.setTeleMode();
     }
 
@@ -51,17 +53,21 @@ public class outreach extends OpMode {
     public void loop() {
 
         //   telemetry.addData("Skystone", Camera.findSkystone());
+        // variables for the controller
         double polarAngle = Gamepad.polarAngle();
         double polarMagnitude = Gamepad.polarMagnitude();
         telemetry.addData("Direction in Radians", "Angle: " + polarAngle);
         telemetry.addData("Speed in Percentage", polarMagnitude);
+        // allows the controller to update
         Gamepad.UpdateMovement();
+        // gamepad button a closes the plate servos, button b opens the plate servos
         if(gamepad1.a){
             Servos.setPlateServoPos(1);
         }
         else if(gamepad1.b){
             Servos.setPlateServoPos(0);
         }
+        // sets the wheels to move by the right stick on the gamepad
         Wheels.Drive(polarAngle, gamepad1.right_stick_x, (float) (polarMagnitude * .4));
     }
 
@@ -70,6 +76,7 @@ public class outreach extends OpMode {
      */
     @Override
     public void stop() {
+        // motors and servos stop when the program is stoppped
         telemetry.addData("Task", "Halting");
         Moters.Halt();
         Servos.Halt();
