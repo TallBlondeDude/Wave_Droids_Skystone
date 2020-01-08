@@ -14,11 +14,14 @@ public class Intake {
         Motors = m;
     }
 
+    // sets the power of the intake motors
     public void IntakeGo(){
         Motors.leftIntake.setPower(1);
         Motors.rightIntake.setPower(-1);
         telemetry.addData("intake", "On");
     }
+
+    // stops the intake motors
     public void IntakeStop(){
         Motors.leftIntake.setPower(0);
         Motors.rightIntake.setPower(0);

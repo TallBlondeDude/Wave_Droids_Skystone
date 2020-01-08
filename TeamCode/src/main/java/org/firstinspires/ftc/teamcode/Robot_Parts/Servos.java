@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Robot_Parts;
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class Servos {
+    // servo variables
     private Servo rightPlateServo;
     private Servo leftPlateServo;
     private Servo grabberServo;
@@ -17,6 +18,7 @@ public class Servos {
         this.modeArmServo = modeArmServo;
     }
 
+    // sets the position of the plate servos
     public void setPlateServoPos(double position) {
 
         if (position == 1) {
@@ -29,6 +31,7 @@ public class Servos {
         }
     }
 
+    // sets the position and direction of the grabber servo
     public void setGrabberServo(double power) {
         if (Math.abs(power) != power) {
             grabberServo.setDirection(Servo.Direction.REVERSE);
@@ -38,13 +41,17 @@ public class Servos {
         grabberServo.setPosition(Math.abs(power));
     }
 
+    // sets the position of the inOut mode servo
     public void setInOutServo(double position) {
         inOutServo.setPosition(position);
     }
 
+    // sets the position of the modeArm servo
     public void setModeArmServo(double position) {
         modeArmServo.setPosition(position);
     }
+
+    // sets the plate servos at their starting positions
     public void Halt() {
         rightPlateServo.setPosition(.5);
         leftPlateServo.setPosition(.5);

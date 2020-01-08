@@ -255,7 +255,6 @@ public class dogeCVtest extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-
         /*
 
          * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.

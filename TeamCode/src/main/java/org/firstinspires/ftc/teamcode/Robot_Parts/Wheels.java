@@ -5,6 +5,7 @@ import java.lang.Math;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class Wheels{
+    // wheel variables
     private Moters Moters;
     private Telemetry telemetry;
     private final double orignalMaxSpeed;

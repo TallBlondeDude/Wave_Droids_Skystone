@@ -12,14 +12,12 @@ public class Controllers{
     private Wheels wheels;
     private Servos Servos;
     private Gamepad gamepad2;
-    private Intake Intake;
-    private int slowEffect;
     Moters Moters;
+    Intake Intake;
     private Arm Arm;
     Telemetry telemetry;
 
-    public Controllers(Controllers a, Gamepad b, Wheels c, Servos d, Gamepad f, Arm g,
-                       Telemetry telemetry, Moters Moters, Intake i) {
+    public Controllers(Controllers a, Gamepad b, Wheels c, Servos d, Gamepad f, Arm g, Telemetry telemetry, Moters Moters) {
         armRaiseSpeed = 5;
         controller = a;
         gamepad1 = b;
@@ -27,7 +25,6 @@ public class Controllers{
         wheels = c;
         Arm = g;
         Servos = d;
-        Intake = i;
         this.telemetry = telemetry;
         this.Moters = Moters;
     }
@@ -54,8 +51,7 @@ public class Controllers{
         }
         if (gamepad2.x) {
             Servos.setModeArmServo(1);
-        }
-        else if (gamepad2.y) {
+        } else if (gamepad2.y) {
             Servos.setModeArmServo(0);
         }
     }
@@ -69,16 +65,12 @@ public class Controllers{
         double squareX = xcord * xcord;
         double squareY = ycord * ycord;
         //Find the sqrt
-
         double magnitude = Math.sqrt(squareY + squareX);
-        return (magnitude);
+        return magnitude / 1.1;
     }
 
     public void armSpeedDetector() {
-       //Arm.changeVerticalArmPos(-gamepad2.left_stick_y);
-        Arm.changeVerticalArmPosL(-gamepad2.left_stick_y);
-        Arm.changeVerticalArmPosU(-gamepad2.right_stick_y);
-
+        Arm.changeVerticalArmPos(gamepad2.left_stick_x);
     }
 
     //finds angle with true right being 0 degrees
@@ -107,10 +99,9 @@ public class Controllers{
     }
 
     public void BButtonGamepad1() {
-        Servos.setPlateServoPos(0);
+        Servos.setPlateServoPos(1);
         telemetry.addData("B Button Pressed", "true");
     }
-
     public void XButtonGamepad1(){
         Intake.IntakeGo();
         telemetry.addData("X Button Pressed", "true");
@@ -120,6 +111,4 @@ public class Controllers{
         telemetry.addData("Y Button Pressed", "true");
 
     }
-
-
 }

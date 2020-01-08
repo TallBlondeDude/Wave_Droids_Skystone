@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 
 public class Moters {
+    // motor variables
     public DcMotor frontLeftDrive;
     public DcMotor frontRightDrive;
     public DcMotor backLeftDrive;
@@ -41,27 +42,8 @@ public class Moters {
         this.rightIntake = rightIntake;
         autoCorrectNumber = 25;
     }
+    // sets the motors motors to go straight and makes sure that the motors don't go faster than the others
     public void setTargetPositionWheels(int target) {
-        backLeftTarget = (int) (.85 * target) + backLeftDrive.getCurrentPosition();
-        frontRightTarget = (target) + frontRightDrive.getCurrentPosition();
-        frontLeftTarget = (int) (.85 * target) + frontLeftDrive.getCurrentPosition();
-        backRightTarget = (target) + backLeftDrive.getCurrentPosition();//equal to
-        backLeftDrive.setTargetPosition(backLeftTarget);
-        frontLeftDrive.setTargetPosition(frontLeftTarget);
-        backRightDrive.setTargetPosition(backRightTarget);
-        frontRightDrive.setTargetPosition(frontRightTarget);
-    }
-    public void setTargetPositionWheelsS(int target) {
-        backLeftTarget = (int) (.94 * target) + backLeftDrive.getCurrentPosition();
-        frontRightTarget = (target) + frontRightDrive.getCurrentPosition();
-        frontLeftTarget = (int) (.94 * target) + frontLeftDrive.getCurrentPosition();
-        backRightTarget = (target) + backLeftDrive.getCurrentPosition();//equal to
-        backLeftDrive.setTargetPosition(backLeftTarget);
-        frontLeftDrive.setTargetPosition(frontLeftTarget);
-        backRightDrive.setTargetPosition(backRightTarget);
-        frontRightDrive.setTargetPosition(frontRightTarget);
-    }
-    public void setTargetPositionWheelst(int target) {
         backLeftTarget = (target) + backLeftDrive.getCurrentPosition();
         frontRightTarget = (target) + frontRightDrive.getCurrentPosition();
         frontLeftTarget = (target) + frontLeftDrive.getCurrentPosition();
@@ -100,21 +82,13 @@ public class Moters {
             }
         }
     }
-    public void setTargetPositionWheelsCrabwalk(int target){
-        backLeftTarget = (target) + backLeftDrive.getCurrentPosition();
-        frontRightTarget = (target) + frontRightDrive.getCurrentPosition();
-        frontLeftTarget = -(target) + frontLeftDrive.getCurrentPosition();
-        backRightTarget = -(target) + (backRightDrive.getCurrentPosition());//50 we want it to go to 150
-        backLeftDrive.setTargetPosition(backLeftTarget);
-        frontLeftDrive.setTargetPosition(frontLeftTarget);
-        backRightDrive.setTargetPosition(backRightTarget);
-        frontRightDrive.setTargetPosition(frontRightTarget);
-    }
-    public void setTargetPositionWheelsCrabwalktt(int target) {
-        backLeftTarget = -(target) + backLeftDrive.getCurrentPosition();
+
+    // sets the crabwalking movement and makes sure that the motors don't go faster than the others
+    public void setTargetPositionWheelsCrabwalk(int target) {
+        backLeftTarget = -(target) - backLeftDrive.getCurrentPosition();
         frontRightTarget = (target) + frontRightDrive.getCurrentPosition();
         frontLeftTarget = (target) + frontLeftDrive.getCurrentPosition();
-        backRightTarget = -(target) + backLeftDrive.getCurrentPosition();
+        backRightTarget = -(target) - backLeftDrive.getCurrentPosition();
         backLeftDrive.setTargetPosition(backLeftTarget);
         frontLeftDrive.setTargetPosition(frontLeftTarget);
         backRightDrive.setTargetPosition(backRightTarget);
@@ -150,36 +124,39 @@ public class Moters {
         }
     }
 
+    // sets the motor's power
     public void setWheelPower(double power) {
         weakBackLeftPower = .8 * (power);
         weakBackRightPower = .8 * (power);
         weakFrontLeftPower = .8 * (power);
         weakFrontRightPower = .8 * (power);
-        strongBackLeftPower = .9 * power;
-        strongBackRightPower = power;
-        strongFrontLeftPower = .9 * power;
-        strongFrontRightPower = power;
+        strongBackLeftPower = power;
+        strongBackRightPower = power * 9;
+        strongFrontLeftPower = power;
+        strongFrontRightPower = power * .9;
         backLeftDrive.setPower(strongBackLeftPower);
         frontRightDrive.setPower(strongFrontRightPower);
         frontLeftDrive.setPower(strongFrontLeftPower);
         backRightDrive.setPower(strongBackRightPower);
     }
 
+    // sets the motor's powers when they crabwalk
     public void setWheelPowerCrabwalk(double power) {
         weakBackLeftPower = 1 * (power);
         weakBackRightPower = 1 * (power);
         weakFrontLeftPower = 1 * (power);
         weakFrontRightPower = 1 * (power);
-        strongBackLeftPower = power * 1;
-        strongBackRightPower = power * 1;
-        strongFrontLeftPower = power * 1;
-        strongFrontRightPower = power * 1;
+        strongBackLeftPower = power;
+        strongBackRightPower = power * 9;
+        strongFrontLeftPower = power;
+        strongFrontRightPower = power * .9;
         backLeftDrive.setPower(strongBackLeftPower);
         frontRightDrive.setPower(strongFrontRightPower);
         frontLeftDrive.setPower(strongFrontLeftPower);
         backRightDrive.setPower(strongBackRightPower);
     }
 
+    // stops and resets the encoders
     public void stopAndResetEncoders() {
         backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -189,6 +166,8 @@ public class Moters {
 
     public void setTargetPositionArm(int position) {
     }
+
+    // gets the motors ready for teleop
     public void setTeleMode() {
         upperArmMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         upperArmMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -196,18 +175,19 @@ public class Moters {
         lowerArmMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRightDrive.setDirection(DcMotor.Direction.FORWARD);
         frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
-        frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
         backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
+        frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
         frontRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        backLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        frontLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        frontRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        backRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        backLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
+    // gets the motors ready for autonomous
     public void setAutoMode() {
         upperArmMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         upperArmMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -219,8 +199,8 @@ public class Moters {
         frontLeftDrive.setTargetPosition(frontLeftDrive.getCurrentPosition());
         backRightDrive.setDirection(DcMotor.Direction.FORWARD);
         frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
-        frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
         backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
+        frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
         frontRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -232,6 +212,7 @@ public class Moters {
         backRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
+    // tells the motors to stop
     public void Halt() {
         frontLeftDrive.setPower(0);
         frontRightDrive.setPower(0);
@@ -239,16 +220,6 @@ public class Moters {
         backLeftDrive.setPower(0);
     }
 
-    public void turn(int direction){
-        frontLeftDrive.setPower(1);
-        frontRightDrive.setPower(1);
-        backRightDrive.setPower(1);
-        backLeftDrive.setPower(1);
 
-        backLeftDrive.setTargetPosition(backLeftDrive.getCurrentPosition() + (-direction * 50));
-        frontLeftDrive.setTargetPosition(frontLeftDrive.getCurrentPosition() + (-direction * 50));
-        backRightDrive.setTargetPosition(backRightDrive.getCurrentPosition() + (direction * 50));
-        frontRightDrive.setTargetPosition(frontRightDrive.getCurrentPosition() + (direction * 50));
-    }
 
 }
